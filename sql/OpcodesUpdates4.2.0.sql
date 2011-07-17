@@ -33,7 +33,7 @@ UPDATE emuopcodes SET number = 0 WHERE name = "MSG_MOVE_SET_WALK_MODE" and versi
 UPDATE emuopcodes SET number = 10346 WHERE name = "MSG_MOVE_STOP" and version = @ver;
 UPDATE emuopcodes SET number = 2147 WHERE name = "MSG_MOVE_START_BACKWARD" and version = @ver;
 UPDATE emuopcodes SET number = 2122 WHERE name = "MSG_MOVE_START_TURN_LEFT" and version = @ver;
-UPDATE emuopcodes SET number = 14434 WHERE name = "MSG_MOVE_START_STRAFE_LEFT" and version = @ver;
+UPDATE emuopcodes SET number = 35010 WHERE name = "MSG_MOVE_START_STRAFE_LEFT" and version = @ver;
 UPDATE emuopcodes SET number = 35040 WHERE name = "MSG_MOVE_START_TURN_RIGHT" and version = @ver;
 UPDATE emuopcodes SET number = 14442 WHERE name = "MSG_MOVE_JUMP" and version = @ver;
 UPDATE emuopcodes SET number = 35041 WHERE name = "MSG_MOVE_FALL_LAND" and version = @ver;
@@ -259,5 +259,13 @@ UPDATE emuopcodes SET number = 10467 WHERE name = "MSG_MOVE_HEARTBEAT" and versi
 UPDATE emuopcodes SET number = 0 WHERE name = "MSG_MOVE_TIME_SKIPPED" and version = @ver;
 UPDATE emuopcodes SET number = 47171 WHERE name = "MSG_MOVE_START_STRAFE_RIGHT" and version = @ver;
 UPDATE emuopcodes SET number = 43232 WHERE name = "MSG_MOVE_STOP_STRAFE" and version = @ver;
+UPDATE emuopcodes SET number = 47201 WHERE name = "MSG_MOVE_SET_PITCH" and version = @ver;
+UPDATE emuopcodes SET number = 2121 WHERE name = "MSG_MOVE_START_DESCEND" and version = @ver;
+UPDATE emuopcodes SET number = 2283 WHERE name = "MSG_MOVE_ROOT" and version = @ver;
+UPDATE emuopcodes SET number = 6249 WHERE name = "MSG_MOVE_STOP_ASCEND" and version = @ver;
+UPDATE emuopcodes SET number = 6378 WHERE name = "MSG_MOVE_START_ASCEND" and version = @ver;
+UPDATE emuopcodes SET number = 47169 WHERE name = "MSG_MOVE_START_SWIM" and version = @ver;
+UPDATE emuopcodes SET number = 46698 WHERE name = "SMSG_HEALTH_UPDATE" and version = @ver;
+
 -- New 4.2.0 opcode that is sent by the server for movements of other players
 replace into `emuopcodes`(`version`,`name`,`number`,`type`) values ( '14333','SMSG_PLAYER_MOVE','21313','smsg');
