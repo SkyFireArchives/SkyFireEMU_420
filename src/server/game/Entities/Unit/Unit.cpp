@@ -472,7 +472,7 @@ void Unit::SendMonsterMoveTransport(Unit *vehicleOwner)
     data << uint32(100);                    // should be an increasing constant that indicates movement packet count
     data << uint8(SPLINETYPE_FACING_ANGLE); 
     data << GetTransOffsetO();              // facing angle?
-    data << uint32(SPLINEFLAG_TRANSPORT);
+    data << uint32(SPLINEFLAG_SMOOTH_PATHING);  // used to be SPLINEFLAG_TRANSPORT
     data << uint32(0);                      // move time
     data << uint32(1);
     data << uint32(GetTransOffsetX());
@@ -2547,8 +2547,9 @@ SpellMissInfo Unit::MagicSpellHitResult(Unit *pVictim, SpellEntry const *spell)
     HitChance += int32(m_modSpellHitChance * 100.0f);
 
     // Decrease hit chance from victim rating bonus
-    if (pVictim->GetTypeId() == TYPEID_PLAYER)
-        HitChance -= int32(pVictim->ToPlayer()->GetRatingBonusValue(CR_HIT_TAKEN_SPELL) * 100.0f);
+    // looks like it was removed as of 4.2.0. The rating scaling is set to 0 in DBC
+    //if (pVictim->GetTypeId() == TYPEID_PLAYER)
+    //    HitChance -= int32(pVictim->ToPlayer()->GetRatingBonusValue(CR_HIT_TAKEN_SPELL) * 100.0f);
 
     if (HitChance < 100)
         HitChance = 100;

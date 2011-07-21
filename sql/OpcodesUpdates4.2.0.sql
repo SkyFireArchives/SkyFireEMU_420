@@ -266,6 +266,14 @@ UPDATE emuopcodes SET number = 6249 WHERE name = "MSG_MOVE_STOP_ASCEND" and vers
 UPDATE emuopcodes SET number = 6378 WHERE name = "MSG_MOVE_START_ASCEND" and version = @ver;
 UPDATE emuopcodes SET number = 47169 WHERE name = "MSG_MOVE_START_SWIM" and version = @ver;
 UPDATE emuopcodes SET number = 46698 WHERE name = "SMSG_HEALTH_UPDATE" and version = @ver;
+UPDATE emuopcodes SET number = 60030 WHERE name = "SMSG_CLEAR_COOLDOWN" and version = @ver;
+UPDATE emuopcodes SET number = 61994 WHERE name = "CMSG_LEARN_PREVIEW_TALENTS" and version = @ver;
+UPDATE emuopcodes SET number = 14010 WHERE name = "SMSG_UPDATE_ITEM_ENCHANTMENTS" and version = @ver;
+UPDATE emuopcodes SET number = 13866 WHERE name = "SMSG_ITEM_ENCHANT_TIME_UPDATE" and version = @ver;
+UPDATE emuopcodes SET number = 30270 WHERE name = "SMSG_ITEM_TIME_UPDATE" and version = @ver;
+UPDATE emuopcodes SET number = 13870 WHERE name = "CMSG_DUEL_CANCELLED" and version = @ver;
+UPDATE emuopcodes SET number = 13995 WHERE name = "SMSG_HIGHEST_THREAT_UPDATE" and version = @ver;
+UPDATE emuopcodes SET number = 11879 WHERE name = "SMSG_THREAT_UPDATE" and version = @ver;
 
 -- New 4.2.0 opcode that is sent by the server for movements of other players
 replace into `emuopcodes`(`version`,`name`,`number`,`type`) values ( '14333','SMSG_PLAYER_MOVE','21313','smsg');

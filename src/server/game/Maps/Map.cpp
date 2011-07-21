@@ -1873,7 +1873,7 @@ void Map::UpdateObjectsVisibilityFor(Player* player, Cell cell, CellPair cellpai
 
 void Map::SendInitSelf(Player * player)
 {
-    sLog->outString("Creating player data for himself %u", player->GetGUIDLow());
+    sLog->outDebug("Creating player data for himself %u", player->GetGUIDLow());
 
     UpdateData data;
     data.m_map = GetEntry()->MapID;
