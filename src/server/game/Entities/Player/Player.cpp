@@ -78,10 +78,7 @@
 #include "CharacterDatabaseCleaner.h"
 #include "InstanceScript.h"
 #include <cmath>
-#include "DB2Store.h"
-#include "DB2Structure.h"
 #include "DB2Stores.h"
-#include "DB2Structure.h"
 
 #define ZONE_UPDATE_INTERVAL (1*IN_MILLISECONDS)
 
@@ -19884,10 +19881,7 @@ void Player::AddSpellMod(SpellModifier* mod, bool apply)
             }
             val += apply ? mod->value : -(mod->value);
             data << uint8(eff);
-            if(isFlat)
-                data << int32(val);
-            else
-                data << float(val);
+            data << float(val);
             count2++;
         }
     }
