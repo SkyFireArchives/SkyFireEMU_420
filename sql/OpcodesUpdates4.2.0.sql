@@ -274,6 +274,10 @@ UPDATE emuopcodes SET number = 30270 WHERE name = "SMSG_ITEM_TIME_UPDATE" and ve
 UPDATE emuopcodes SET number = 13870 WHERE name = "CMSG_DUEL_CANCELLED" and version = @ver;
 UPDATE emuopcodes SET number = 13995 WHERE name = "SMSG_HIGHEST_THREAT_UPDATE" and version = @ver;
 UPDATE emuopcodes SET number = 11879 WHERE name = "SMSG_THREAT_UPDATE" and version = @ver;
+UPDATE emuopcodes SET number = 16400 WHERE name = "CMSG_SEND_MAIL" and version = @ver;
 
 -- New 4.2.0 opcode that is sent by the server for movements of other players
 replace into `emuopcodes`(`version`,`name`,`number`,`type`) values ( '14333','SMSG_PLAYER_MOVE','21313','smsg');
+-- New 4.2.0 opcodes for COMPACT_UNIT_FRAME_PROFILES
+replace into `emuopcodes`(`version`,`name`,`number`,`type`) values ( '14333','SMSG_CUF_PROFILES_LOAD','53027','smsg');
+replace into `emuopcodes`(`version`,`name`,`number`,`type`) values ( '14333','CMSG_CUF_PROFILES_SAVE','6242','cmsg');
