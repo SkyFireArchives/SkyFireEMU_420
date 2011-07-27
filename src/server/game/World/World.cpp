@@ -107,6 +107,7 @@ World::World()
     m_MaxPlayerCount = 0;
     m_NextDailyQuestReset = 0;
     m_NextWeeklyQuestReset = 0;
+    m_NextCurrencyReset = 0;
     m_scheduledScripts = 0;
 
     debugOpcode = 0;
@@ -498,6 +499,12 @@ void World::LoadConfigSettings(bool reload)
     rate_values[RATE_AUCTION_DEPOSIT] = sConfig->GetFloatDefault("Rate.Auction.Deposit", 1.0f);
     rate_values[RATE_AUCTION_CUT] = sConfig->GetFloatDefault("Rate.Auction.Cut", 1.0f);
     rate_values[RATE_HONOR] = sConfig->GetFloatDefault("Rate.Honor",1.0f);
+    rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] = sConfig->GetFloatDefault("Rate.ConquestPointsWeekLimit",1.0f);
+    if (rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] <= 0 || rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] > 100)
+    {
+        sLog->outError("Rate.ConquestPointsWeekLimit (%f) must be between 0 and 100. Using 1 instead.",rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT]);
+        rate_values[RATE_CONQUEST_POINTS_WEEK_LIMIT] = 1.0f;
+    }
     rate_values[RATE_MINING_AMOUNT] = sConfig->GetFloatDefault("Rate.Mining.Amount",1.0f);
     rate_values[RATE_MINING_NEXT]   = sConfig->GetFloatDefault("Rate.Mining.Next",1.0f);
     rate_values[RATE_INSTANCE_RESET_TIME] = sConfig->GetFloatDefault("Rate.InstanceResetTime",1.0f);
@@ -784,7 +791,7 @@ void World::LoadConfigSettings(bool reload)
         m_int_configs[CONFIG_START_PLAYER_MONEY] = MAX_MONEY_AMOUNT;
     }
 
-    m_int_configs[CONFIG_MAX_CONQUEST_POINTS] = sConfig->GetIntDefault("MaxConquestPoints", 400000);
+    m_int_configs[CONFIG_MAX_CONQUEST_POINTS] = sConfig->GetIntDefault("MaxConquestPoints", 4000);
     if (int32(m_int_configs[CONFIG_MAX_CONQUEST_POINTS]) < 0)
     {
         sLog->outError("MaxConquestPoints (%i) can't be negative. Set to 0.",m_int_configs[CONFIG_MAX_CONQUEST_POINTS]);
@@ -805,7 +812,7 @@ void World::LoadConfigSettings(bool reload)
         m_int_configs[CONFIG_START_CONQUEST_POINTS] = m_int_configs[CONFIG_MAX_CONQUEST_POINTS];
     }
 
-    m_int_configs[CONFIG_MAX_HONOR_POINTS] = sConfig->GetIntDefault("MaxHonorPoints", 400000);
+    m_int_configs[CONFIG_MAX_HONOR_POINTS] = sConfig->GetIntDefault("MaxHonorPoints", 4000);
     if (int32(m_int_configs[CONFIG_MAX_HONOR_POINTS]) < 0)
     {
         sLog->outError("MaxHonorPoints (%i) can't be negative. Set to 0.",m_int_configs[CONFIG_MAX_HONOR_POINTS]);
@@ -826,7 +833,7 @@ void World::LoadConfigSettings(bool reload)
         m_int_configs[CONFIG_START_HONOR_POINTS] = m_int_configs[CONFIG_MAX_HONOR_POINTS];
     }
 
-    m_int_configs[CONFIG_MAX_JUSTICE_POINTS] = sConfig->GetIntDefault("MaxJusticePoints", 400000);
+    m_int_configs[CONFIG_MAX_JUSTICE_POINTS] = sConfig->GetIntDefault("MaxJusticePoints", 4000);
     if (int32(m_int_configs[CONFIG_MAX_JUSTICE_POINTS]) < 0)
     {
         sLog->outError("MaxJusticePoints (%i) can't be negative. Set to 0.",m_int_configs[CONFIG_MAX_JUSTICE_POINTS]);
@@ -1064,6 +1071,7 @@ void World::LoadConfigSettings(bool reload)
     m_int_configs[CONFIG_ARENA_START_RATING]                         = sConfig->GetIntDefault ("Arena.ArenaStartRating", 0);
     m_int_configs[CONFIG_ARENA_START_PERSONAL_RATING]                = sConfig->GetIntDefault ("Arena.ArenaStartPersonalRating", 1000);
     m_int_configs[CONFIG_ARENA_START_MATCHMAKER_RATING]              = sConfig->GetIntDefault ("Arena.ArenaStartMatchmakerRating", 1500);
+    m_int_configs[CONFIG_ARENA_CONQUEST_POINTS_REWARD]               = sConfig->GetIntDefault ("Arena.ConquestPointsReward", 180);
     m_bool_configs[CONFIG_ARENA_SEASON_IN_PROGRESS]                  = sConfig->GetBoolDefault("Arena.ArenaSeason.InProgress", true);
     m_bool_configs[CONFIG_ARENA_LOG_EXTENDED_INFO]                   = sConfig->GetBoolDefault("ArenaLog.ExtendedInfo", false);
 
@@ -1751,6 +1759,9 @@ void World::SetInitialWorldSettings()
     sLog->outString("Calculate random battleground reset time..." );
     InitRandomBGResetTime();
 
+    sLog->outString("Calculate currency week cap reset time..." );
+    InitCurrencyResetTime();
+
     // possibly enable db logging; avoid massive startup spam by doing it here.
     if (sLog->GetLogDBLater())
     {
@@ -1914,6 +1925,9 @@ void World::Update(uint32 diff)
 
     if (m_gameTime > m_NextRandomBGReset)
         ResetRandomBG();
+
+    if (m_gameTime > m_NextCurrencyReset)
+        ResetCurrencyWeekCap();
 
     /// <ul><li> Handle auctions when the timer has passed
     if (m_timers[WUPDATE_AUCTIONS].Passed())
@@ -2699,6 +2713,13 @@ void World::InitRandomBGResetTime()
         sWorld->setWorldState(WS_BG_DAILY_RESET_TIME, uint64(m_NextRandomBGReset));
 }
 
+void World::InitCurrencyResetTime()
+{
+    time_t wsTime = getWorldState(WS_CURRENCY_RESET_TIME);
+    time_t curTime = time(NULL);
+    m_NextCurrencyReset = wsTime < curTime ? curTime : wsTime;
+}
+
 void World::ResetDailyQuests()
 {
     sLog->outDetail("Daily quests reset for all characters.");
@@ -2730,7 +2751,6 @@ void World::SetPlayerSecurityLimit(AccountTypes _sec)
 void World::ResetWeeklyQuests()
 {
     CharacterDatabase.Execute("DELETE FROM character_queststatus_weekly");
-    CharacterDatabase.Execute("UPDATE character_currency SET thisweek = 0");
     for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
         if (itr->second->GetPlayer())
             itr->second->GetPlayer()->ResetWeeklyQuestStatus();
@@ -2752,6 +2772,18 @@ void World::ResetRandomBG()
 
     m_NextRandomBGReset = time_t(m_NextRandomBGReset + DAY);
     sWorld->setWorldState(WS_BG_DAILY_RESET_TIME, uint64(m_NextRandomBGReset));
+}
+
+void World::ResetCurrencyWeekCap()
+{
+    sLog->outDetail("Currencies week caps reset for all characters.");
+    CharacterDatabase.Execute("UPDATE character_currency SET thisweek = 0");
+    for (SessionMap::const_iterator itr = m_sessions.begin(); itr != m_sessions.end(); ++itr)
+        if (itr->second->GetPlayer())
+            itr->second->GetPlayer()->ResetCurrencyWeekCap();
+
+    m_NextCurrencyReset = time_t(m_NextCurrencyReset + WEEK);
+    sWorld->setWorldState(WS_CURRENCY_RESET_TIME, uint64(m_NextCurrencyReset));
 }
 
 void World::UpdateMaxSessionCounters()

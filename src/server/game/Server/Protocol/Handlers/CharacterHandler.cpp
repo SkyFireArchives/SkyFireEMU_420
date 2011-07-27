@@ -176,6 +176,10 @@ bool LoginQueryHolder::Initialize()
     stmt->setUInt32(0, lowGuid);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_CURRENCY, stmt);
 
+    stmt = CharacterDatabase.GetPreparedStatement(CHAR_LOAD_PLAYER_CP_WEEK_CAP);
+    stmt->setUInt32(0, lowGuid);
+    res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOAD_CP_WEEK_CAP, stmt);
+
     stmt = CharacterDatabase.GetPreparedStatement(CHAR_LOAD_PLAYER_TALENTS);
     stmt->setUInt32(0, lowGuid);
     res &= SetPreparedQuery(PLAYER_LOGIN_QUERY_LOADTALENTS, stmt);
@@ -634,7 +638,7 @@ void WorldSession::HandleCharCreateOpcode(WorldPacket & recv_data)
     {
         uint8 unk;
         recv_data >> unk;
-        sLog->outDebug("Character creation %s (account %u) has unhandled tail data: [%u]", name.c_str(), GetAccountId(), unk);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Character creation %s (account %u) has unhandled tail data: [%u]", name.c_str(), GetAccountId(), unk);
     }
 
     Player* pNewChar = NULL;
@@ -837,7 +841,7 @@ void WorldSession::HandleCharDeleteOpcode(WorldPacket & recv_data)
 
 void WorldSession::HandleWorldLoginOpcode(WorldPacket& recv_data)
 {
-    sLog->outDebug("WORLD: Recvd World Login Message");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Recvd World Login Message");
     uint32 unk;
     uint8 unk1;
     recv_data >> unk >> unk1;
@@ -887,7 +891,7 @@ void WorldSession::HandlePlayerLoginOpcode(WorldPacket & recv_data)
         playerGuid |= uint64(byte << 24);
     }
 
-    sLog->outDebug("GUID Marker: %u GUID: %u", guidMark, playerGuid);
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "GUID Marker: %u GUID: %u", guidMark, playerGuid);
 
     if (!CharCanLogin(playerGuid))
     {
@@ -1068,7 +1072,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
     }
 
     sObjectAccessor->AddObject(pCurrChar);
-    //sLog->outDebug("Player %s added to Map.",pCurrChar->GetName());
+    //sLog->outDebug(LOG_FILTER_NETWORKIO, "Player %s added to Map.",pCurrChar->GetName());
 
     pCurrChar->SendInitialPacketsAfterAddToMap();
 
@@ -1221,7 +1225,7 @@ void WorldSession::HandleTutorialFlag(WorldPacket & recv_data)
     tutflag |= (1 << rInt);
     SetTutorialInt(wInt, tutflag);
 
-    //sLog->outDebug("Received Tutorial Flag Set {%u}.", iFlag);
+    //sLog->outDebug(LOG_FILTER_NETWORKIO, "Received Tutorial Flag Set {%u}.", iFlag);
 }
 
 void WorldSession::HandleTutorialClear(WorldPacket & /*recv_data*/)
@@ -1302,7 +1306,7 @@ void WorldSession::HandleCharRenameOpcode(WorldPacket& recv_data)
     }
 
     std::string escaped_newname = newname;
-    CharacterDatabase.escape_string(escaped_newname);
+    CharacterDatabase.EscapeString(escaped_newname);
 
     // make sure that the character belongs to the current account, that rename at login is enabled
     // and that there is no character with the desired new name
@@ -1414,7 +1418,7 @@ void WorldSession::HandleSetPlayerDeclinedNames(WorldPacket& recv_data)
     }
 
     for (int i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
-        CharacterDatabase.escape_string(declinedname.name[i]);
+        CharacterDatabase.EscapeString(declinedname.name[i]);
 
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     trans->PAppend("DELETE FROM character_declinedname WHERE guid = '%u'", GUID_LOPART(guid));
@@ -1430,7 +1434,7 @@ void WorldSession::HandleSetPlayerDeclinedNames(WorldPacket& recv_data)
 
 void WorldSession::HandleAlterAppearance(WorldPacket & recv_data)
 {
-    sLog->outDebug("CMSG_ALTER_APPEARANCE");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_ALTER_APPEARANCE");
 
     uint32 Hair, Color, FacialHair, SkinColor;
     recv_data >> Hair >> Color >> FacialHair >> SkinColor;
@@ -1490,7 +1494,7 @@ void WorldSession::HandleRemoveGlyph(WorldPacket & recv_data)
 
     if (slot >= MAX_GLYPH_SLOT_INDEX)
     {
-        sLog->outDebug("Client sent wrong glyph slot number in opcode CMSG_REMOVE_GLYPH %u", slot);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Client sent wrong glyph slot number in opcode CMSG_REMOVE_GLYPH %u", slot);
         return;
     }
 
@@ -1575,7 +1579,7 @@ void WorldSession::HandleCharCustomize(WorldPacket& recv_data)
         }
     }
 
-    CharacterDatabase.escape_string(newname);
+    CharacterDatabase.EscapeString(newname);
     if (QueryResult result = CharacterDatabase.PQuery("SELECT name FROM characters WHERE guid ='%u'", GUID_LOPART(guid)))
     {
         std::string oldname = result->Fetch()[0].GetString();
@@ -1601,7 +1605,7 @@ void WorldSession::HandleCharCustomize(WorldPacket& recv_data)
 
 void WorldSession::HandleEquipmentSetSave(WorldPacket &recv_data)
 {
-    sLog->outDebug("CMSG_EQUIPMENT_SET_SAVE");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_EQUIPMENT_SET_SAVE");
 
     uint64 setGuid;
     recv_data.readPackGUID(setGuid);
@@ -1645,7 +1649,7 @@ void WorldSession::HandleEquipmentSetSave(WorldPacket &recv_data)
 
 void WorldSession::HandleEquipmentSetDelete(WorldPacket &recv_data)
 {
-    sLog->outDebug("CMSG_EQUIPMENT_SET_DELETE");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_EQUIPMENT_SET_DELETE");
 
     uint64 setGuid;
     recv_data.readPackGUID(setGuid);
@@ -1655,7 +1659,7 @@ void WorldSession::HandleEquipmentSetDelete(WorldPacket &recv_data)
 
 void WorldSession::HandleEquipmentSetUse(WorldPacket &recv_data)
 {
-    sLog->outDebug("CMSG_EQUIPMENT_SET_USE");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_EQUIPMENT_SET_USE");
     recv_data.hexlike();
 
     for (uint32 i = 0; i < EQUIPMENT_SLOT_END; ++i)
@@ -1666,7 +1670,7 @@ void WorldSession::HandleEquipmentSetUse(WorldPacket &recv_data)
         uint8 srcbag, srcslot;
         recv_data >> srcbag >> srcslot;
 
-        sLog->outDebug("Item " UI64FMTD ": srcbag %u, srcslot %u", itemGuid, srcbag, srcslot);
+        sLog->outDebug(LOG_FILTER_PLAYER_ITEMS, "Item " UI64FMTD ": srcbag %u, srcslot %u", itemGuid, srcbag, srcslot);
 
         Item *item = _player->GetItemByGuid(itemGuid);
 
@@ -1795,7 +1799,7 @@ void WorldSession::HandleCharFactionOrRaceChange(WorldPacket& recv_data)
         }
     }
 
-    CharacterDatabase.escape_string(newname);
+    CharacterDatabase.EscapeString(newname);
     Player::Customize(guid, gender, skin, face, hairStyle, hairColor, facialHair);
     SQLTransaction trans = CharacterDatabase.BeginTransaction();
     trans->PAppend("UPDATE `characters` SET name='%s', race='%u', at_login=at_login & ~ %u WHERE guid='%u'", newname.c_str(), race, used_loginFlag, lowGuid);
@@ -2020,7 +2024,7 @@ void WorldSession::HandleCharFactionOrRaceChange(WorldPacket& recv_data)
     CharacterDatabase.CommitTransaction(trans);
 
     std::string IP_str = GetRemoteAddress();
-    sLog->outDebug("Account: %d (IP: %s), Character guid: %u Change Race/Faction to: %s", GetAccountId(), IP_str.c_str(), lowGuid, newname.c_str());
+    sLog->outDebug(LOG_FILTER_UNITS, "Account: %d (IP: %s), Character guid: %u Change Race/Faction to: %s", GetAccountId(), IP_str.c_str(), lowGuid, newname.c_str());
 
     WorldPacket data(SMSG_CHAR_FACTION_CHANGE, 1 + 8 + (newname.size() + 1) + 1 + 1 + 1 + 1 + 1 + 1 + 1);
     data << uint8(RESPONSE_SUCCESS);

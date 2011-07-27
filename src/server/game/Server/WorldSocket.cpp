@@ -66,7 +66,7 @@ struct ServerPktHeader
         uint8 headerIndex=0;
         if (isLargePacket())
         {
-            sLog->outDebug("initializing large server to client packet. Size: %u, cmd: %u", size, cmd);
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "initializing large server to client packet. Size: %u, cmd: %u", size, cmd);
             header[headerIndex++] = 0x80 | (0xFF & (size >> 16));
         }
         header[headerIndex++] = 0xFF &(size >> 8);
@@ -190,7 +190,7 @@ int WorldSocket::SendPacket (const WorldPacket& pct)
 
     if(pct.GetOpcode() > OPCODE_NOT_FOUND)
     {
-        sLog->outDebug("Packet %s (%X) not send.\n", LookupOpcodeName (pct.GetOpcode()), pct.GetOpcode());
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Packet %s (%X) not send.\n", LookupOpcodeName (pct.GetOpcode()), pct.GetOpcode());
         return 0;
     }
     // Prevent spamming client with non-existant opcodes
@@ -788,7 +788,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
                 opcode, GetRemoteAddress().c_str(), m_Session?m_Session->GetAccountId():-1);
         if (sLog->IsOutDebug())
         {
-            sLog->outDebug("Dumping error causing packet:");
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "Dumping error causing packet:");
             new_pct->hexlike();
         }
 
@@ -856,14 +856,14 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
         return -1;
     }
 
-    sLog->outDebug ("WorldSocket::HandleAuthSession: Clientbuild %u, accountname %s, clientseed %u",
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLDSocket::HandleAuthSession: Clientbuild %u, accountname %s, clientseed %u",
                 clientBuild,
                 accountName.c_str(),
                 clientSeed);
 
     // Get the account information from the realmd database
     std::string safe_account = accountName; // Duplicate, else will screw the SHA hash verification below
-    LoginDatabase.escape_string (safe_account);
+    LoginDatabase.EscapeString (safe_account);
     // No SQL injection, username escaped.
 
     QueryResult result =
@@ -985,7 +985,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
     // Check locked state for server
     AccountTypes allowedAccountType = sWorld->GetPlayerSecurityLimit();
-    sLog->outDebug("Allowed Level: %u Player Level %u", allowedAccountType, AccountTypes(security));
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "Allowed Level: %u Player Level %u", allowedAccountType, AccountTypes(security));
     if (allowedAccountType > SEC_PLAYER && AccountTypes(security) < allowedAccountType)
     {
         WorldPacket Packet (SMSG_AUTH_RESPONSE, 1);
@@ -1029,7 +1029,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
 
     // Update the last_ip in the database
     // No SQL injection, username escaped.
-    LoginDatabase.escape_string (address);
+    LoginDatabase.EscapeString (address);
 
     LoginDatabase.PExecute ("UPDATE account "
                             "SET last_ip = '%s' "
@@ -1086,9 +1086,12 @@ int WorldSocket::HandlePing (WorldPacket& recvPacket)
 
                 if (m_Session && m_Session->GetSecurity() == SEC_PLAYER)
                 {
-                    sLog->outError  ("WorldSocket::HandlePing: Player kicked for "
-                                    "over-speed pings address = %s",
-                                    GetRemoteAddress().c_str());
+                    Player* _player = m_Session->GetPlayer();
+                    sLog->outError("WorldSocket::HandlePing: Player (account: %u, GUID: %u, name: %s) kicked for over-speed pings (address: %s)",
+                        m_Session->GetAccountId(),
+                        _player ? _player->GetGUIDLow() : 0,
+                        _player ? _player->GetName() : "<none>",
+                        GetRemoteAddress().c_str());
 
                     return -1;
                 }
