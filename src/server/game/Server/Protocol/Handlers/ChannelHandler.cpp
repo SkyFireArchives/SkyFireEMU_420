@@ -26,11 +26,13 @@
 
 void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
 {
-    sLog->outDebug(LOG_FILTER_NETWORKIO, "Opcode %u", recvPacket.GetOpcode());
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "Opcode %u", recvPacket.GetOpcodeEnum());
 
     uint32 channel_id;
-    uint8 unknown1, unknown2;
-    std::string channelname, pass;
+    std::string pass, channelname;
+
+    recvPacket.read_skip<uint8>();
+    recvPacket.read_skip<uint8>();
 
     recvPacket >> channel_id;
 
@@ -48,9 +50,8 @@ void WorldSession::HandleJoinChannel(WorldPacket& recvPacket)
             return;
     }
 
-    recvPacket >> unknown1 >> unknown2;
-    recvPacket >> pass;
     recvPacket >> channelname;    
+	recvPacket >> pass;
 
     if (channelname.empty())
         return;
