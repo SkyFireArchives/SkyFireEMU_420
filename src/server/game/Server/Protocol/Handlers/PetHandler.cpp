@@ -41,13 +41,13 @@ void WorldSession::HandleDismissCritter(WorldPacket &recv_data)
     uint64 guid;
     recv_data >> guid;
 
-    sLog->outDebug("WORLD: Received CMSG_DISMISS_CRITTER for GUID " UI64FMTD, guid);
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Received CMSG_DISMISS_CRITTER for GUID " UI64FMTD, guid);
 
     Unit* pet = ObjectAccessor::GetCreatureOrPetOrVehicle(*_player, guid);
 
     if (!pet)
     {
-        sLog->outDebug("Vanitypet (guid: %u) does not exist - player '%s' (guid: %u / account: %u) attempted to dismiss it (possibly lagged out)",
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "Vanitypet (guid: %u) does not exist - player '%s' (guid: %u / account: %u) attempted to dismiss it (possibly lagged out)",
             uint32(GUID_LOPART(guid)), GetPlayer()->GetName(), GetPlayer()->GetGUIDLow(), GetAccountId());
         return;
     }
@@ -128,7 +128,7 @@ void WorldSession::HandlePetStopAttack(WorldPacket &recv_data)
     uint64 guid;
     recv_data >> guid;
 
-    sLog->outDebug("WORLD: Received CMSG_PET_STOP_ATTACK for GUID " UI64FMTD "", guid);
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: Received CMSG_PET_STOP_ATTACK for GUID " UI64FMTD "", guid);
 
     Unit* pet = ObjectAccessor::GetCreatureOrPetOrVehicle(*_player, guid);
 
@@ -652,13 +652,13 @@ void WorldSession::HandlePetRename(WorldPacket & recv_data)
     if (isdeclined)
     {
         for (uint8 i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
-            CharacterDatabase.escape_string(declinedname.name[i]);
+            CharacterDatabase.EscapeString(declinedname.name[i]);
         trans->PAppend("DELETE FROM character_pet_declinedname WHERE owner = '%u' AND id = '%u'", _player->GetGUIDLow(), pet->GetCharmInfo()->GetPetNumber());
         trans->PAppend("INSERT INTO character_pet_declinedname (id, owner, genitive, dative, accusative, instrumental, prepositional) VALUES ('%u','%u','%s','%s','%s','%s','%s')",
             pet->GetCharmInfo()->GetPetNumber(), _player->GetGUIDLow(), declinedname.name[0].c_str(), declinedname.name[1].c_str(), declinedname.name[2].c_str(), declinedname.name[3].c_str(), declinedname.name[4].c_str());
     }
 
-    CharacterDatabase.escape_string(name);
+    CharacterDatabase.EscapeString(name);
     trans->PAppend("UPDATE character_pet SET name = '%s', renamed = '1' WHERE owner = '%u' AND id = '%u'", name.c_str(), _player->GetGUIDLow(), pet->GetCharmInfo()->GetPetNumber());
     CharacterDatabase.CommitTransaction(trans);
 
@@ -745,7 +745,7 @@ void WorldSession::HandlePetCastSpellOpcode(WorldPacket& recvPacket)
 
     recvPacket >> guid >> castCount >> spellId >> castFlags;
 
-    sLog->outDebug("WORLD: CMSG_PET_CAST_SPELL, guid: " UI64FMTD ", castCount: %u, spellId %u, castFlags %u", guid, castCount, spellId, castFlags);
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: CMSG_PET_CAST_SPELL, guid: " UI64FMTD ", castCount: %u, spellId %u, castFlags %u", guid, castCount, spellId, castFlags);
 
     // This opcode is also sent from charmed and possessed units (players and creatures)
     if (!_player->GetGuardianPet() && !_player->GetCharm())
@@ -850,7 +850,7 @@ void WorldSession::SendPetNameInvalid(uint32 error, const std::string& name, Dec
 
 void WorldSession::HandlePetLearnTalent(WorldPacket & recv_data)
 {
-    sLog->outDebug("WORLD: CMSG_PET_LEARN_TALENT");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: CMSG_PET_LEARN_TALENT");
 
     uint64 guid;
     uint32 talent_id, requested_rank;
@@ -862,7 +862,7 @@ void WorldSession::HandlePetLearnTalent(WorldPacket & recv_data)
 
 void WorldSession::HandleLearnPreviewTalentsPet(WorldPacket & recv_data)
 {
-    sLog->outDebug("CMSG_LEARN_PREVIEW_TALENTS_PET");
+    sLog->outDebug(LOG_FILTER_NETWORKIO, "CMSG_LEARN_PREVIEW_TALENTS_PET");
 
     uint64 guid;
     recv_data >> guid;

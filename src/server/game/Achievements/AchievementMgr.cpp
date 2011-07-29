@@ -430,8 +430,7 @@ void AchievementMgr::Reset()
 
 void AchievementMgr::ResetAchievementCriteria(AchievementCriteriaTypes type, uint64 miscvalue1, uint64 miscvalue2, bool evenIfCriteriaComplete)
 {
-    if ((sLog->GetLogFilter() & LOG_FILTER_ACHIEVEMENT_UPDATES) == 0)
-        sLog->outDetail("AchievementMgr::ResetAchievementCriteria(%u, %u, %u)", type, miscvalue1, miscvalue2);
+    sLog->outDebug(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::ResetAchievementCriteria(%u, %u, %u)", type, miscvalue1, miscvalue2);
 
     if (m_player->GetSession()->GetSecurity() > AccountTypes(sWorld->getIntConfig(CONFIG_GM_LEVEL_ALLOW_ACHIEVEMENTS)))
         return;
@@ -648,8 +647,7 @@ void AchievementMgr::SendAchievementEarned(AchievementEntry const* achievement)
         return;
 
     #ifdef TRINITY_DEBUG
-    if ((sLog->GetLogFilter() & LOG_FILTER_ACHIEVEMENT_UPDATES) == 0)
-        sLog->outDebug("AchievementMgr::SendAchievementEarned(%u)", achievement->ID);
+        sLog->outDebug(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::SendAchievementEarned(%u)", achievement->ID);
     #endif
 
     if (Guild* guild = sObjectMgr->GetGuildById(GetPlayer()->GetGuildId()))
@@ -741,8 +739,7 @@ static const uint32 achievIdForDungeon[][4] =
  */
 void AchievementMgr::UpdateAchievementCriteria(AchievementCriteriaTypes type, uint64 miscvalue1, uint64 miscvalue2, Unit *unit, uint32 time)
 {
-    if ((sLog->GetLogFilter() & LOG_FILTER_ACHIEVEMENT_UPDATES) == 0)
-        sLog->outDetail("AchievementMgr::UpdateAchievementCriteria(%u, %u, %u, %u)", type, miscvalue1, miscvalue2, time);
+    sLog->outDebug(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::UpdateAchievementCriteria(%u, %u, %u)", type, miscvalue1, miscvalue2);
 
     if (m_player->GetSession()->GetSecurity() > AccountTypes(sWorld->getIntConfig(CONFIG_GM_LEVEL_ALLOW_ACHIEVEMENTS)))
         return;
@@ -1832,8 +1829,7 @@ void AchievementMgr::SetCriteriaProgress(AchievementCriteriaEntry const* entry, 
     if (entry->timeLimit && timedIter == m_timedAchievements.end())
         return;
 
-    if ((sLog->GetLogFilter() & LOG_FILTER_ACHIEVEMENT_UPDATES) == 0)
-        sLog->outDetail("AchievementMgr::SetCriteriaProgress(%u, %u) for (GUID:%u)", entry->ID, changeValue, m_player->GetGUIDLow());
+    sLog->outDebug(LOG_FILTER_ACHIEVEMENTSYS, "AchievementMgr::SetCriteriaProgress(%u, %u) for (GUID:%u)", entry->ID, changeValue, m_player->GetGUIDLow());
 
     CriteriaProgress* progress = GetCriteriaProgress(entry);
     if (!progress)

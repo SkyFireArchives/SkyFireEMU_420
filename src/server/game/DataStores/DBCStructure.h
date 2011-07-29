@@ -36,11 +36,11 @@
 
 // Structures using to access raw DBC data and required packing to portability
 
-// GCC have alternative #pragma pack(N) syntax and old gcc version not support pack(push,N), also any gcc version not support it at some platform
+// GCC have alternative #pragma pack(N) syntax and old gcc version not support pack(push, N), also any gcc version not support it at some platform
 #if defined(__GNUC__)
 #pragma pack(1)
 #else
-#pragma pack(push,1)
+#pragma pack(push, 1)
 #endif
 
 typedef char const* DBCString;
@@ -583,6 +583,13 @@ struct AreaTriggerEntry
     float   box_y;                                          // 10       m_box_width
     float   box_z;                                          // 11       m_box_heigh
     float   box_orientation;                                // 12       m_box_yaw
+};
+
+struct PhaseEntry
+{
+    uint32    ID;                                           // 0
+    DBCString Name;                                         // 1
+    uint32    phaseShift;                                   // 2
 };
 
 struct ArmorLocationEntry

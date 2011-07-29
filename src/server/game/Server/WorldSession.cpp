@@ -237,7 +237,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         packet->GetOpcode());
         #endif*/
 
-        sLog->outDebug("SESSION: Received opcode 0x%.4X (%s)", packet->GetOpcode(), packet->GetOpcode()>OPCODE_NOT_FOUND?"nf":LookupOpcodeName(packet->GetOpcode()));
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "SESSION: Received opcode 0x%.4X (%s)", packet->GetOpcode(), packet->GetOpcode()>OPCODE_NOT_FOUND?"nf":LookupOpcodeName(packet->GetOpcode()));
         if(packet->GetOpcodeEnum() == MSG_OPCODE_UNKNOWN)
         {
             time_t t = time(NULL);
@@ -323,14 +323,14 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         break;
                     case STATUS_NEVER:
                         if (strcmp(LookupOpcodeName(packet->GetOpcode()), "UNKNOWN") == 0)
-                            sLog->outDebug("received not found opcode 0x%.4X", packet->GetOpcode());
+                            sLog->outDebug(LOG_FILTER_NETWORKIO, "received not found opcode 0x%.4X", packet->GetOpcode());
                         else
                             sLog->outError("SESSION (account: %u, guidlow: %u, char: %s): received not allowed opcode %s (0x%.4X)",
                                 GetAccountId(), m_GUIDLow, _player ? _player->GetName() : "<none>",
                                 LookupOpcodeName(packet->GetOpcode()), packet->GetOpcode());
                         break;
                     case STATUS_UNHANDLED:    
-                        sLog->outDebug("SESSION (account: %u, guidlow: %u, char: %s): received not handled opcode %s (0x%.4X)",
+                        sLog->outDebug(LOG_FILTER_NETWORKIO, "SESSION (account: %u, guidlow: %u, char: %s): received not handled opcode %s (0x%.4X)",
                             GetAccountId(), m_GUIDLow, _player ? _player->GetName() : "<none>",
                             LookupOpcodeName(packet->GetOpcode()), packet->GetOpcode());  
                         break;
@@ -342,7 +342,7 @@ bool WorldSession::Update(uint32 diff, PacketFilter& updater)
                         packet->GetOpcode(), GetRemoteAddress().c_str(), GetAccountId());
                 if (sLog->IsOutDebug())
                 {
-                    sLog->outDebug("Dumping error causing packet:");
+                    sLog->outDebug(LOG_FILTER_NETWORKIO, "Dumping error causing packet:");
                     packet->hexlike();
                 }
             }
@@ -538,7 +538,7 @@ void WorldSession::LogoutPlayer(bool Save)
         //No SQL injection as AccountId is uint32
         CharacterDatabase.PExecute("UPDATE characters SET online = 0 WHERE account = '%u'",
             GetAccountId());
-        sLog->outDebug("SESSION: Sent SMSG_LOGOUT_COMPLETE Message");
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "SESSION: Sent SMSG_LOGOUT_COMPLETE Message");
     }
 
     m_playerLogout = false;
@@ -696,7 +696,7 @@ void WorldSession::SetAccountData(AccountDataType type, time_t time_, std::strin
 
         SQLTransaction trans = CharacterDatabase.BeginTransaction();
         trans->PAppend("DELETE FROM account_data WHERE account='%u' AND type='%u'", acc, type);
-        CharacterDatabase.escape_string(data);
+        CharacterDatabase.EscapeString(data);
         trans->PAppend("INSERT INTO account_data VALUES ('%u','%u','%u','%s')", acc, type, (uint32)time_, data.c_str());
         CharacterDatabase.CommitTransaction(trans);
     }
@@ -708,7 +708,7 @@ void WorldSession::SetAccountData(AccountDataType type, time_t time_, std::strin
 
         SQLTransaction trans = CharacterDatabase.BeginTransaction();
         trans->PAppend("DELETE FROM character_account_data WHERE guid='%u' AND type='%u'", m_GUIDLow, type);
-        CharacterDatabase.escape_string(data);
+        CharacterDatabase.EscapeString(data);
         trans->PAppend("INSERT INTO character_account_data VALUES ('%u','%u','%u','%s')", m_GUIDLow, type, (uint32)time_, data.c_str());
         CharacterDatabase.CommitTransaction(trans);
     }
@@ -839,10 +839,10 @@ void WorldSession::ReadAddonsInfo(WorldPacket &data)
 
         uint32 currentTime;
         addonInfo >> currentTime;
-        sLog->outDebug("ADDON: CurrentTime: %u", currentTime);
+        sLog->outDebug(LOG_FILTER_NETWORKIO, "ADDON: CurrentTime: %u", currentTime);
 
         if (addonInfo.rpos() != addonInfo.size())
-            sLog->outDebug("packet under-read!");
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "packet under-read!");
     }
     else
         sLog->outError("Addon packet uncompress error!");

@@ -480,10 +480,10 @@ class ByteBuffer
             if(!sLog->IsOutDebug())                          // optimize disabled debug output
                 return;
 
-            sLog->outDebug("STORAGE_SIZE: %lu", (unsigned long)size() );
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "STORAGE_SIZE: %lu", (unsigned long)size() );
             for (uint32 i = 0; i < size(); ++i)
                 sLog->outDebugInLine("%u - ", read<uint8>(i) );
-            sLog->outDebug(" ");
+            sLog->outDebug(LOG_FILTER_NETWORKIO, " ");
         }
 
         void textlike() const
@@ -491,10 +491,10 @@ class ByteBuffer
             if(!sLog->IsOutDebug())                          // optimize disabled debug output
                 return;
 
-            sLog->outDebug("STORAGE_SIZE: %lu", (unsigned long)size() );
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "STORAGE_SIZE: %lu", (unsigned long)size() );
             for (uint32 i = 0; i < size(); ++i)
                 sLog->outDebugInLine("%c", read<uint8>(i) );
-            sLog->outDebug(" ");
+            sLog->outDebug(LOG_FILTER_NETWORKIO, " ");
         }
 
         void hexlike() const
@@ -503,7 +503,7 @@ class ByteBuffer
                 return;
 
             uint32 j = 1, k = 1;
-            sLog->outDebug("STORAGE_SIZE: %lu", (unsigned long)size() );
+            sLog->outDebug(LOG_FILTER_NETWORKIO, "STORAGE_SIZE: %lu", (unsigned long)size() );
 
             for (uint32 i = 0; i < size(); ++i)
             {
