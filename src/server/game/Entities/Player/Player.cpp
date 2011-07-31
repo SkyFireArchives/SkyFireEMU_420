@@ -78,6 +78,7 @@
 #include "CharacterDatabaseCleaner.h"
 #include "InstanceScript.h"
 #include <cmath>
+#include "DB2Structure.h"
 #include "DB2Stores.h"
 
 #define ZONE_UPDATE_INTERVAL (1*IN_MILLISECONDS)
@@ -1706,7 +1707,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket * p_data)
 
     if (uint8(guid >> 8) != 0)	
         *p_data << uint8(guid >> 8);
-	
+    
     *p_data << uint8(pRace);                                // Race
 
     if (uint8(guid >> 24) != 0)
@@ -1758,7 +1759,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket * p_data)
             uint32 enchantId = 0x0000FFFF & (enchants >> enchantSlot*16);
             if (!enchantId)
                 continue;
-	
+    
             enchant = sSpellItemEnchantmentStore.LookupEntry(enchantId);
             if (enchant)
                 break;
@@ -1790,7 +1791,7 @@ void Player::BuildEnumData(QueryResult result, WorldPacket * p_data)
 
     if (uint8(guid) != 0)
         *p_data << uint8(guid); // + 296	
-	
+    
     *p_data << fields[1].GetString();                       // name
     *p_data << uint32(fields[9].GetUInt32());               // map
     *p_data << uint32(petLevel);                            // pet level
@@ -8965,7 +8966,7 @@ void Player::SendUpdateWorldState(uint32 Field, uint32 Value)
     WorldPacket data(SMSG_UPDATE_WORLD_STATE, 9);
     data << Field;
     data << Value;
-	data << uint8(0);    // 4.2.0 - always 0
+    data << uint8(0);    // 4.2.0 - always 0
     GetSession()->SendPacket(&data);
 }
 

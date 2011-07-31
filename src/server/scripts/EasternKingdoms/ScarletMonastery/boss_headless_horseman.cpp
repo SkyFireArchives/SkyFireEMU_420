@@ -643,7 +643,7 @@ public:
                                     if (plr)
                                     {
                                         plr->Say(Text[count],0);
-                                        plr->HandleEmoteCommand(ANIM_EMOTE_SHOUT);
+                                        plr->HandleEmoteCommand(ANIM_EMOTESHOUT);
                                     }
                                     wp_reached = true;
                                     IsFlying = true;

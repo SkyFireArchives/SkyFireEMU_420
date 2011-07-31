@@ -371,7 +371,7 @@ bool AchievementCriteriaData::Meets(uint32 criteria_id, Player const* source, Un
         }
         case ACHIEVEMENT_CRITERIA_DATA_TYPE_S_EQUIPED_ITEM:
         {
-            ItemPrototype const *pProto = ObjectMgr::GetItemPrototype(miscvalue1);
+            ItemPrototype const *pProto = ObjectMgr::GetItemPrototype(uint32(miscvalue1));
             if (!pProto)
                 return false;
             return pProto->ItemLevel >= equipped_item.item_level && pProto->Quality >= equipped_item.item_quality;

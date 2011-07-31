@@ -34,6 +34,7 @@
 #include <map>
 
 DB2Storage <ItemEntry>                    sItemStore(Itemfmt);
+DB2Storage <ItemCurrencyCostEntry>        sItemCurrencyCostStore(ItemCurrencyCostfmt);
 DB2Storage <ItemExtendedCostEntry>        sItemExtendedCostStore(ItemExtendedCostEntryfmt);
 
 typedef std::list<std::string> StoreProblemList1;
@@ -96,7 +97,8 @@ void LoadDB2Stores(const std::string& dataPath)
     uint32 availableDb2Locales = 0xFFFFFFFF;
 
     LoadDB2(availableDb2Locales, bad_db2_files, sItemStore, db2Path, "Item.db2");
-    LoadDB2(availableDb2Locales, bad_db2_files, sItemExtendedCostStore, db2Path, "ItemExtendedCost.db2");
+    LoadDB2(availableDb2Locales ,bad_db2_files, sItemCurrencyCostStore, db2Path, "ItemCurrencyCost.db2");
+    LoadDB2(availableDb2Locales ,bad_db2_files, sItemExtendedCostStore, db2Path, "ItemExtendedCost.db2");
     // error checks
     if (bad_db2_files.size() >= DB2FileCount)
     {
@@ -114,8 +116,8 @@ void LoadDB2Stores(const std::string& dataPath)
     }
 
     // Check loaded DBC files proper version
-    if (!sItemStore.LookupEntry(68815) ||                  // last client known item added in 4.0.6a
-        !sItemExtendedCostStore.LookupEntry(3400))         // last item extended cost added in 4.0.6a
+    if (!sItemStore.LookupEntry(68815)     ||               // last client known item added in 4.2.0
+        !sItemExtendedCostStore.LookupEntry(3652))          // last item extended cost added in 4.2.0
     {
         sLog->outString();
         sLog->outError("Please extract correct db2 files from client 4.0.6a 13623.");

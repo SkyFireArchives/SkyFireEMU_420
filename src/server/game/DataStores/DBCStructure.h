@@ -532,7 +532,8 @@ struct AreaTableEntry
     //uint32 unk21;                                         // 21 4.0.0
     //uint32 unk22;                                         // 22 4.0.0
     //uint32 unk23;                                         // 23 4.0.0
-    //uint32 unk24;                                         // 24 4.0.1, worldstateid?
+    //uint32 worldStateId;                                  // 24 - worldStateId
+    //uint32 unk24;                                         // 25 4.2.0
 
     // helpers
     bool IsSanctuary() const
@@ -867,6 +868,7 @@ struct EmotesEntry
     uint32  EmoteType;                                      // 4, Can be 0, 1 or 2 (determine how emote are shown)
     uint32  UnitStandState;                                 // 5, unconfirmed, may be enum UnitStandStateType
     //uint32  SoundId;                                      // 6, ref to soundEntries
+    //uint32 unk;                                           // 7 - 4.2.0
 };
 
 struct EmotesTextEntry
@@ -1213,7 +1215,8 @@ struct LFGDungeonEntry
     uint32  expansion;                                      // 29
     //uint32  unk4;                                         // 30
     uint32  grouptype;                                      // 31
-    //DBCString   desc;                                     // 32-47 Description
+    //DBCString   desc;                                     // 32 Description
+    //uint32 unk;                                           // 33 - 4.2.0
     // Helpers
     uint32 Entry() const { return ID + (type << 24); }
 };
@@ -1478,7 +1481,6 @@ struct SkillLineEntry
 {
     uint32    id;                                           // 0        m_ID
     int32     categoryId;                                   // 1        m_categoryID
-    //uint32    skillCostID;                                // 2        m_skillCostsID
     DBCString name;                                         // 3        m_displayName_lang
     //DBCString description;                                // 4        m_description_lang
     uint32    spellIcon;                                    // 5        m_spellIconID
@@ -1614,7 +1616,7 @@ struct SpellEffectEntry
     int32     EffectMiscValueB;                             // 13       m_effectMiscValueB
     float     EffectPointsPerComboPoint;                    // 14       m_effectPointsPerCombo
     uint32    EffectRadiusIndex;                            // 15       m_effectRadiusIndex - spellradius.dbc
-    //uint32   EffectRadiusMaxIndex;                        // 16       4.0.0
+    uint32   EffectRadiusMaxIndex;                          // 16       4.0.0
     float     EffectRealPointsPerLevel;                     // 17       m_effectRealPointsPerLevel
     flag96    EffectSpellClassMask;                         // 18       m_effectSpellClassMask, effect 0
     uint32    EffectTriggerSpell;                           // 19       m_effectTriggerSpell
@@ -1622,6 +1624,7 @@ struct SpellEffectEntry
     uint32    EffectImplicitTargetB;                        // 21       m_implicitTargetB
     uint32    EffectSpellId;                                // 22       new 4.0.0
     uint32    EffectIndex;                                  // 23       new 4.0.0
+    //uint32 unk;                                           // 24 - 4.2.0
 };
 
 // SpellEquippedItems.dbc
@@ -1703,6 +1706,7 @@ struct SpellShapeshiftEntry
 struct SpellTargetRestrictionsEntry
 {
     uint32    Id;                                           // 0        m_ID
+    float     MaxTargetRadius;                              // 1 - m_maxTargetRadius
     uint32    MaxAffectedTargets;                           // 1        m_maxTargets
     uint32    MaxTargetLevel;                               // 2        m_maxTargetLevel
     uint32    TargetCreatureType;                           // 3        m_targetCreatureType
@@ -1716,6 +1720,8 @@ struct SpellTotemsEntry
     uint32    TotemCategory[2];                             // 1-2      m_requiredTotemCategoryID
     uint32    Totem[2];                                     // 3-4      m_totem
 };
+
+#define MAX_SPELL_VISUAL 2
 
 // Spell.dbc
 struct SpellEntry_n //Structure of the true Spell.dbc 
@@ -1731,40 +1737,42 @@ struct SpellEntry_n //Structure of the true Spell.dbc
     uint32    AttributesEx7;                                // 8       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
     uint32    AttributesEx8;                                // 9        m_attributesExH
     // uint32 unk_400_1;                                    // 10       4.0.0
-    uint32    CastingTimeIndex;                             // 11       m_castingTimeIndex
-    uint32    DurationIndex;                                // 12       m_durationIndex
-    uint32    powerType;                                    // 13       m_powerType
-    uint32    rangeIndex;                                   // 14       m_rangeIndex
-    float     speed;                                        // 15       m_speed
-    uint32    SpellVisual[2];                               // 16-17    m_spellVisualID
-    uint32    SpellIconID;                                  // 18       m_spellIconID
-    uint32    activeIconID;                                 // 19       m_activeIconID
-    DBCString SpellName;                                    // 20       m_name_lang
-    uint32 SpellShapeshiftId;                               // 21       SpellShapeshift.dbc
-    //DBCString Description;                                // 22       m_description_lang not used
-    //DBCString ToolTip;                                    // 23       m_auraDescription_lang not used
-    uint32    SchoolMask;                                   // 24       m_schoolMask
-    uint32    runeCostID;                                   // 25       m_runeCostID
-    //uint32    spellMissileID;                             // 26       m_spellMissileID not used
-    //uint32  spellDescriptionVariableID;                   // 27       3.2.0
-    uint32  SpellDifficultyId;                              // 28       m_spellDifficultyID - id from SpellDifficulty.dbc
-    //float unk_f1;                                         // 29
-    uint32 SpellScalingId;                                  // 30       SpellScaling.dbc
-    uint32 SpellAuraOptionsId;                              // 31       SpellAuraOptions.dbc
-    uint32 SpellAuraRestrictionsId;                         // 32       SpellAuraRestrictions.dbc
-    uint32 SpellCastingRequirementsId;                      // 33       SpellCastingRequirements.dbc
-    uint32 SpellCategoriesId;                               // 34       SpellCategories.dbc
-    uint32 SpellClassOptionsId;                             // 35       SpellClassOptions.dbc
-    uint32 SpellCooldownsId;                                // 36       SpellCooldowns.dbc
-    //uint32 unkIndex7;                                     // 37       all zeros...
-    uint32 SpellEquippedItemsId;                            // 38       SpellEquippedItems.dbc
-    uint32 SpellInterruptsId;                               // 39       SpellInterrupts.dbc
-    uint32 SpellLevelsId;                                   // 40       SpellLevels.dbc
-    uint32 SpellPowerId;                                    // 41       SpellPower.dbc
-    uint32 SpellReagentsId;                                 // 42       SpellReagents.dbc
-    uint32 SpellTargetRestrictionsId;                       // 44       SpellTargetRestrictions.dbc
-    uint32 SpellTotemsId;                                   // 45       SpellTotems.dbc
-    //uint32 unk2;                                          // 46
+    // uint32 unk_420;                                      // 11 - 4.2.0
+    uint32    CastingTimeIndex;                             // 12 - m_castingTimeIndex
+    uint32    DurationIndex;                                // 13 - m_durationIndex
+    uint32    powerType;                                    // 14 - m_powerType
+    uint32    rangeIndex;                                   // 15 - m_rangeIndex
+    float     speed;                                        // 16 - m_speed
+    uint32    SpellVisual[MAX_SPELL_VISUAL];                // 17 - m_spellVisualID, 18 - m_spellVisualID1
+    uint32    SpellIconID;                                  // 19 - m_spellIconID
+    uint32    activeIconID;                                 // 20 - m_activeIconID
+    DBCString SpellName;                                    // 21 - m_name_lang
+    DBCString Rank;                                         // 22 - m_nameSubtext_lang
+    //DBCString Description;                                // 23 - m_description_lang not used
+    //DBCString ToolTip;                                    // 24 - m_auraDescription_lang not used
+    uint32    SchoolMask;                                   // 25 - m_schoolMask
+    uint32    runeCostID;                                   // 26 - m_runeCostID
+    //uint32  spellMissileID;                               // 27 - m_spellMissileID not used
+    //uint32  spellDescriptionVariableID;                   // 28 - m_spellDescriptionVariableID, 3.2.0
+    uint32  SpellDifficultyId;                              // 29 - m_spellDifficultyID - id from SpellDifficulty.dbc
+    //float unk_f1;                                         // 30 - 4.0.1
+    uint32 SpellScalingId;                                  // 31 - SpellScaling.dbc
+    uint32 SpellAuraOptionsId;                              // 32 - SpellAuraOptions.dbc
+    uint32 SpellAuraRestrictionsId;                         // 33 - SpellAuraRestrictions.dbc
+    uint32 SpellCastingRequirementsId;                      // 34 - SpellCastingRequirements.dbc
+    uint32 SpellCategoriesId;                               // 35 - SpellCategories.dbc
+    uint32 SpellClassOptionsId;                             // 36 - SpellClassOptions.dbc
+    uint32 SpellCooldownsId;                                // 37 - SpellCooldowns.dbc
+    //uint32 unkIndex7;                                     // 38 - all zeros...
+    uint32 SpellEquippedItemsId;                            // 39 - SpellEquippedItems.dbc
+    uint32 SpellInterruptsId;                               // 40 - SpellInterrupts.dbc
+    uint32 SpellLevelsId;                                   // 41 - SpellLevels.dbc
+    uint32 SpellPowerId;                                    // 42 - SpellPower.dbc
+    uint32 SpellReagentsId;                                 // 43 - SpellReagents.dbc
+    uint32 SpellShapeshiftId;                               // 44 - SpellShapeshift.dbc
+    uint32 SpellTargetRestrictionsId;                       // 45 - SpellTargetRestrictions.dbc
+    uint32 SpellTotemsId;                                   // 46 - SpellTotems.dbc
+    //uint32 ResearchProject;                               // 47 - ResearchProject.dbc
 };
 
 struct SpellEntry
@@ -2182,6 +2190,9 @@ struct TaxiNodesEntry
     float     z;                                            // 4        m_z
     DBCString name;                                         // 5        m_Name_lang
     uint32    MountCreatureID[2];                           // 6-7      m_MountCreatureID[2]
+    //uint32 unk;                                           // 8  - 4.2.0
+    //float unk1;                                           // 9  - 4.2.0
+    //float unk2;                                           // 10 - 4.2.0
 };
 
 struct TaxiPathEntry
