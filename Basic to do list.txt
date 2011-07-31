@@ -1,0 +1,21 @@
+Basic list of stuff that is broken.
+Feel free to add stuff you may see.
+Stuff that has been fixed should be moved to the bottom of the list.
+-----------------------
+Current Issues - Not a complete list
+-----------------------
+Party system
+Taxi system
+Unable to loot game object.
+Spell DBC structure
+Teleporting
+Graveyard resurection
+Battlegrounds/Arenas
+Some map issues. Not sure if it's DB related.
+Bank
+Auctionhouse
+Guild System
+
+-----------------------
+Fixed issues
+-----------------------
