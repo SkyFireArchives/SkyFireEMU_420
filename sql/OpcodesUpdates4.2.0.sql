@@ -390,3 +390,39 @@ UPDATE emuopcodes SET number = 3841 WHERE name = "SMSG_NEW_WORLD" and version = 
 UPDATE emuopcodes SET number = 29295 WHERE name = "SMSG_QUESTLOG_FULL" and version = @ver;
 UPDATE emuopcodes SET number = 46714 WHERE name = "SMSG_QUESTUPDATE_FAILED" and version = @ver;
 UPDATE emuopcodes SET number = 60087 WHERE name = "SMSG_QUESTUPDATE_FAILEDTIMER" and version = @ver;
+
+-- 33 opcodes by LordJZ
+UPDATE emuopcodes SET number = 2283 WHERE name = "CMSG_FORCE_MOVE_ROOT_ACK" and version = @ver;
+UPDATE emuopcodes SET number = 2115 WHERE name = "CMSG_FORCE_RUN_SPEED_CHANGE_ACK" and version = @ver;
+UPDATE emuopcodes SET number = 23473 WHERE name = "CMSG_MESSAGECHAT_BATTLEGROUND" and version = @ver;
+UPDATE emuopcodes SET number = 22801 WHERE name = "CMSG_MESSAGECHAT_OFFICER" and version = @ver;
+UPDATE emuopcodes SET number = 22833 WHERE name = "CMSG_MESSAGECHAT_PARTY" and version = @ver;
+UPDATE emuopcodes SET number = 21265 WHERE name = "CMSG_MESSAGECHAT_RAID" and version = @ver;
+UPDATE emuopcodes SET number = 4501 WHERE name = "CMSG_MESSAGECHAT_RAID_WARNING" and version = @ver;
+UPDATE emuopcodes SET number = 6346 WHERE name = "CMSG_MOVE_SPLINE_DONE" and version = @ver;
+UPDATE emuopcodes SET number = 10312 WHERE name = "CMSG_MOVE_TIME_SKIPPED" and version = @ver;
+UPDATE emuopcodes SET number = 12838 WHERE name = "CMSG_QUERY_TIME" and version = @ver;
+UPDATE emuopcodes SET number = 43639 WHERE name = "CMSG_TAXISHOWNODES" and version = @ver;
+UPDATE emuopcodes SET number = 32438 WHERE name = "CMSG_TEXT_EMOTE" and version = @ver;
+UPDATE emuopcodes SET number = 6218 WHERE name = "CMSG_TIME_SYNC_RESP" and version = @ver;
+UPDATE emuopcodes SET number = 52007 WHERE name = "MSG_MOVE_SET_PITCH_RATE" and version = @ver;
+UPDATE emuopcodes SET number = 2849 WHERE name = "MSG_MOVE_SET_RUN_SPEED" and version = @ver;
+UPDATE emuopcodes SET number = 22275 WHERE name = "MSG_MOVE_SET_TURN_RATE" and version = @ver;
+UPDATE emuopcodes SET number = 20560 WHERE name = "MSG_MOVE_WORLDPORT_ACK" and version = @ver;
+UPDATE emuopcodes SET number = 41639 WHERE name = "SMSG_AREA_SPIRIT_HEALER_TIME" and version = @ver;
+UPDATE emuopcodes SET number = 56135 WHERE name = "SMSG_FORCE_MOVE_ROOT" and version = @ver;
+UPDATE emuopcodes SET number = 5893 WHERE name = "SMSG_FORCE_MOVE_UNROOT" and version = @ver;
+UPDATE emuopcodes SET number = 53093 WHERE name = "SMSG_FORCE_RUN_BACK_SPEED_CHANGE" and version = @ver;
+UPDATE emuopcodes SET number = 4865 WHERE name = "SMSG_FORCE_RUN_SPEED_CHANGE" and version = @ver;
+UPDATE emuopcodes SET number = 36643 WHERE name = "SMSG_ITEM_QUERY_SINGLE_RESPONSE" and version = @ver;
+UPDATE emuopcodes SET number = 52035 WHERE name = "SMSG_LIST_INVENTORY" and version = @ver;
+UPDATE emuopcodes SET number = 60091 WHERE name = "SMSG_PLAY_MUSIC" and version = @ver;
+UPDATE emuopcodes SET number = 28266 WHERE name = "SMSG_PROPOSE_LEVEL_GRANT" and version = @ver;
+UPDATE emuopcodes SET number = 26338 WHERE name = "SMSG_RAID_INSTANCE_INFO" and version = @ver;
+UPDATE emuopcodes SET number = 52067 WHERE name = "SMSG_RESPOND_INSPECT_ACHIEVEMENTS" and version = @ver;
+UPDATE emuopcodes SET number = 49953 WHERE name = "SMSG_SPLINE_SET_RUN_SPEED" and version = @ver;
+UPDATE emuopcodes SET number = 15038 WHERE name = "SMSG_TALENTS_INVOLUNTARILY_RESET" and version = @ver;
+UPDATE emuopcodes SET number = 20257 WHERE name = "SMSG_TIME_SYNC_REQ" and version = @ver;
+UPDATE emuopcodes SET number = 49927 WHERE name = "SMSG_UPDATE_CURRENCY_WEEK_LIMIT" and version = @ver;
+UPDATE emuopcodes SET number = 10815 WHERE name = "SMSG_UPDATE_WORLD_STATE" and version = @ver;
+
