@@ -1616,7 +1616,7 @@ struct SpellEffectEntry
     int32     EffectMiscValueB;                             // 13       m_effectMiscValueB
     float     EffectPointsPerComboPoint;                    // 14       m_effectPointsPerCombo
     uint32    EffectRadiusIndex;                            // 15       m_effectRadiusIndex - spellradius.dbc
-    uint32   EffectRadiusMaxIndex;                          // 16       4.0.0
+    uint32    EffectRadiusMaxIndex;                         // 16       4.0.0
     float     EffectRealPointsPerLevel;                     // 17       m_effectRealPointsPerLevel
     flag96    EffectSpellClassMask;                         // 18       m_effectSpellClassMask, effect 0
     uint32    EffectTriggerSpell;                           // 19       m_effectTriggerSpell
@@ -1707,10 +1707,10 @@ struct SpellTargetRestrictionsEntry
 {
     uint32    Id;                                           // 0        m_ID
     float     MaxTargetRadius;                              // 1 - m_maxTargetRadius
-    uint32    MaxAffectedTargets;                           // 1        m_maxTargets
-    uint32    MaxTargetLevel;                               // 2        m_maxTargetLevel
-    uint32    TargetCreatureType;                           // 3        m_targetCreatureType
-    uint32    Targets;                                      // 4        m_targets
+    uint32    MaxAffectedTargets;                           // 2        m_maxTargets
+    uint32    MaxTargetLevel;                               // 3        m_maxTargetLevel
+    uint32    TargetCreatureType;                           // 4        m_targetCreatureType
+    uint32    Targets;                                      // 5        m_targets
 };
 
 // SpellTotems.dbc
