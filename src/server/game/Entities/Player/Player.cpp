@@ -21532,7 +21532,7 @@ void Player::UpdateVisibilityOf(T* target, UpdateData& data, std::set<Unit*>& vi
             m_clientGUIDs.erase(target->GetGUID());
 
             #ifdef TRINITY_DEBUG
-                sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u, Entry: %u) is out of range for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),target->GetEntry(),GetGUIDLow(),GetDistance(target));
+            sLog->outDebug(LOG_FILTER_MAPS, "Object %u (Type: %u, Entry: %u) is out of range for player %u. Distance = %f",target->GetGUIDLow(),target->GetTypeId(),target->GetEntry(),GetGUIDLow(),GetDistance(target));
             #endif
         }
     }
@@ -25456,7 +25456,7 @@ void Player::RemoveOrAddMasterySpells()
             if (!HasAura(76595))
                 AddAura(76595, this);
 
-        if (GetTalentBranchSpec(GetActiveSpec()) == BS_PALADIN_HOLY)
+        if (GetTalentBranchSpec(GetActiveSpec()) == BS_PALADIN_PROTECTION)
             if (!HasAura(76671))
                 AddAura(76671, this);
 

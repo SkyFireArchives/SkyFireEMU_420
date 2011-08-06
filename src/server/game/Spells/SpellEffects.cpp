@@ -2793,7 +2793,7 @@ void Spell::SpellDamageHeal(SpellEffIndex effIndex)
                     {
                         int32 bp0 = int32(m_caster->ToPlayer()->GetHealingDoneInPastSecs(15) * (12.0f + (1.5f * m_caster->ToPlayer()->GetMasteryPoints())) /100);
                         m_caster->CastCustomSpell(m_caster, 86273, &bp0, NULL, NULL, true);
-
+                        caster->ToPlayer()->ResetHealingDoneInPastSecs(15);
                     }
                 }
             }
@@ -2848,6 +2848,8 @@ void Spell::EffectHealthLeech(SpellEffIndex effIndex)
 {
     if (!unitTarget || !unitTarget->isAlive() || damage < 0)
         return;
+
+    damage = m_caster->SpellDamageBonus(unitTarget, m_spellInfo, effIndex, uint32(damage), SPELL_DIRECT_DAMAGE);
 
     sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "HealthLeech :%i", damage);
 
@@ -3716,6 +3718,10 @@ void Spell::EffectDispel(SpellEffIndex effIndex)
         Aura * aura = itr->second;
         AuraApplication * aurApp = aura->GetApplicationOfTarget(unitTarget->GetGUID());
         if (!aurApp)
+            continue;
+
+        // don't try to remove passive auras
+        if (aura->IsPassive())
             continue;
 
         // don't try to remove passive auras

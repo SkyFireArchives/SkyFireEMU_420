@@ -2578,6 +2578,7 @@ class Player : public Unit, public GridObject<Player>
         Spell * m_spellModTakingSpell;
 
         float GetAverageItemLevel();
+        bool isDebugAreaTriggers;
 
     protected:
         uint32 m_GuildMoneyModifier;
