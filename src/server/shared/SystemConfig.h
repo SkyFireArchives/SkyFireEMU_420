@@ -28,14 +28,16 @@
 #include "Define.h"
 #include "revision.h"
 
-#define _PACKAGENAME "SkyFireEMU "
-#define _CODENAME "COLD_DAY_IN_HELL"
+#define _PACKAGENAME "SkyFireEMU 4.2.0"
+#define _CODENAME "HELL_FROZE_OVER"
 
 #if TRINITY_ENDIAN == TRINITY_BIGENDIAN
 # define _ENDIAN_STRING "big-endian"
 #else
 # define _ENDIAN_STRING "little-endian"
 #endif
+
+#define _CLIENT_BUILD_REVISION "4.2.0 - 14333"
 
 #if PLATFORM == PLATFORM_WINDOWS
 # ifdef _WIN64

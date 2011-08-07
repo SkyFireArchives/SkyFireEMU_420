@@ -991,7 +991,7 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder * holder)
             uint32 MaxPlayersNum = sWorld->GetMaxPlayerCount();
             std::string uptime = secsToTimeString(sWorld->GetUptime());
             
-            chH.PSendSysMessage(_FULLVERSION);
+            chH.PSendSysMessage(_CLIENT_BUILD_REVISION, _FULLVERSION);
             chH.PSendSysMessage(LANG_CONNECTED_PLAYERS, PlayersNum, MaxPlayersNum);
             chH.PSendSysMessage(LANG_UPTIME, uptime.c_str());
             
