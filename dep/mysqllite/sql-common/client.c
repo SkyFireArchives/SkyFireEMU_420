@@ -1,4 +1,4 @@
-/* Copyright (C) 2000-2003 MySQL AB
+/* Copyright (c) 2003, 2011, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -1132,10 +1132,10 @@ enum option_id {
   OPT_ssl_key, OPT_ssl_cert, OPT_ssl_ca, OPT_ssl_capath,
   OPT_character_sets_dir, OPT_default_character_set, OPT_interactive_timeout,
   OPT_connect_timeout, OPT_local_infile, OPT_disable_local_infile,
-  OPT_replication_probe, OPT_enable_reads_from_master, OPT_repl_parse_query,
   OPT_ssl_cipher, OPT_max_allowed_packet, OPT_protocol, OPT_shared_memory_base_name,
   OPT_multi_results, OPT_multi_statements, OPT_multi_queries, OPT_secure_auth,
   OPT_report_data_truncation, OPT_plugin_dir, OPT_default_auth,
+  OPT_keep_this_one_last
 };
 
 static TYPELIB option_types={array_elements(default_options)-1,
@@ -1185,6 +1185,9 @@ void mysql_read_default_options(struct st_mysql_options *options,
   DBUG_ENTER("mysql_read_default_options");
   DBUG_PRINT("enter",("file: %s  group: %s",filename,group ? group :"NULL"));
 
+  compile_time_assert(OPT_keep_this_one_last ==
+                      array_elements(default_options));
+
   argc=1; argv=argv_buff; argv_buff[0]= (char*) "client";
   groups[0]= (char*) "client"; groups[1]= (char*) group; groups[2]=0;
 
@@ -1194,7 +1197,7 @@ void mysql_read_default_options(struct st_mysql_options *options,
     char **option=argv;
     while (*++option)
     {
-      if (option[0] == args_separator)          /* skip arguments separator */
+      if (my_getopt_is_args_separator(option[0]))          /* skip arguments separator */
         continue;
       /* DBUG_PRINT("info",("option: %s",option[0])); */
       if (option[0][0] == '-' && option[0][1] == '-')
@@ -1209,7 +1212,7 @@ void mysql_read_default_options(struct st_mysql_options *options,
 	/* Change all '_' in variable name to '-' */
 	for (end= *option ; *(end= strcend(end,'_')) ; )
 	  *end= '-';
-	switch (find_type(*option+2,&option_types,2)) {
+	switch (find_type(*option + 2, &option_types, FIND_TYPE_BASIC)) {
 	case OPT_port:
 	  if (opt_arg)
 	    options->port=atoi(opt_arg);
@@ -1325,8 +1328,8 @@ void mysql_read_default_options(struct st_mysql_options *options,
 	    options->max_allowed_packet= atoi(opt_arg);
 	  break;
         case OPT_protocol:
-          if ((options->protocol= find_type(opt_arg,
-					    &sql_protocol_typelib,0)) <= 0)
+          if ((options->protocol= find_type(opt_arg, &sql_protocol_typelib,
+                                            FIND_TYPE_BASIC)) <= 0)
           {
             fprintf(stderr, "Unknown option to protocol: %s\n", opt_arg);
             exit(1);
@@ -1818,6 +1821,8 @@ mysql_get_ssl_cipher(MYSQL *mysql __attribute__((unused)))
   ssl_verify_server_cert()
     vio              pointer to a SSL connected vio
     server_hostname  name of the server that we connected to
+    errptr           if we fail, we'll return (a pointer to a string
+                     describing) the reason here
 
   RETURN VALUES
    0 Success
@@ -1827,7 +1832,7 @@ mysql_get_ssl_cipher(MYSQL *mysql __attribute__((unused)))
 
 #if defined(HAVE_OPENSSL) && !defined(EMBEDDED_LIBRARY)
 
-static int ssl_verify_server_cert(Vio *vio, const char* server_hostname)
+static int ssl_verify_server_cert(Vio *vio, const char* server_hostname, const char **errptr)
 {
   SSL *ssl;
   X509 *server_cert;
@@ -1838,19 +1843,19 @@ static int ssl_verify_server_cert(Vio *vio, const char* server_hostname)
 
   if (!(ssl= (SSL*)vio->ssl_arg))
   {
-    DBUG_PRINT("error", ("No SSL pointer found"));
+    *errptr= "No SSL pointer found";
     DBUG_RETURN(1);
   }
 
   if (!server_hostname)
   {
-    DBUG_PRINT("error", ("No server hostname supplied"));
+    *errptr= "No server hostname supplied";
     DBUG_RETURN(1);
   }
 
   if (!(server_cert= SSL_get_peer_certificate(ssl)))
   {
-    DBUG_PRINT("error", ("Could not get server certificate"));
+    *errptr= "Could not get server certificate";
     DBUG_RETURN(1);
   }
 
@@ -1879,7 +1884,7 @@ static int ssl_verify_server_cert(Vio *vio, const char* server_hostname)
       DBUG_RETURN(0);
     }
   }
-  DBUG_PRINT("error", ("SSL certificate validation failure"));
+  *errptr= "SSL certificate validation failure";
   DBUG_RETURN(1);
 }
 
@@ -2233,6 +2238,7 @@ typedef struct st_mysql_client_plugin_AUTHENTICATION auth_plugin_t;
 static int client_mpvio_write_packet(struct st_plugin_vio*, const uchar*, int);
 static int native_password_auth_client(MYSQL_PLUGIN_VIO *vio, MYSQL *mysql);
 static int old_password_auth_client(MYSQL_PLUGIN_VIO *vio, MYSQL *mysql);
+static int clear_password_auth_client(MYSQL_PLUGIN_VIO *vio, MYSQL *mysql);
 
 static auth_plugin_t native_password_client_plugin=
 {
@@ -2266,10 +2272,34 @@ static auth_plugin_t old_password_client_plugin=
   old_password_auth_client
 };
 
+static auth_plugin_t clear_password_client_plugin=
+{
+  MYSQL_CLIENT_AUTHENTICATION_PLUGIN,
+  MYSQL_CLIENT_AUTHENTICATION_PLUGIN_INTERFACE_VERSION,
+  "mysql_clear_password",
+  "Georgi Kodinov",
+  "Clear password authentication plugin",
+  {0,1,0},
+  "GPL",
+  NULL,
+  NULL,
+  NULL,
+  NULL,
+  clear_password_auth_client
+};
+
+#ifdef AUTHENTICATION_WIN
+extern auth_plugin_t win_auth_client_plugin;
+#endif
+
 struct st_mysql_client_plugin *mysql_client_builtins[]=
 {
   (struct st_mysql_client_plugin *)&native_password_client_plugin,
   (struct st_mysql_client_plugin *)&old_password_client_plugin,
+  (struct st_mysql_client_plugin *)&clear_password_client_plugin,
+#ifdef AUTHENTICATION_WIN
+  (struct st_mysql_client_plugin *)&win_auth_client_plugin,
+#endif
   0
 };
 
@@ -2449,6 +2479,9 @@ static int send_client_reply_packet(MCPVIO_EXT *mpvio,
     /* Do the SSL layering. */
     struct st_mysql_options *options= &mysql->options;
     struct st_VioSSLFd *ssl_fd;
+    enum enum_ssl_init_error ssl_init_error;
+    const char *cert_error;
+    unsigned long ssl_error;
 
     /*
       Send mysql->client_flag, max_packet_size - unencrypted otherwise
@@ -2468,9 +2501,11 @@ static int send_client_reply_packet(MCPVIO_EXT *mpvio,
                                         options->ssl_cert,
                                         options->ssl_ca,
                                         options->ssl_capath,
-                                        options->ssl_cipher)))
+                                        options->ssl_cipher,
+                                        &ssl_init_error)))
     {
-      set_mysql_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate);
+      set_mysql_extended_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate,
+                               ER(CR_SSL_CONNECTION_ERROR), sslGetErrString(ssl_init_error));
       goto error;
     }
     mysql->connector_fd= (unsigned char *) ssl_fd;
@@ -2478,18 +2513,24 @@ static int send_client_reply_packet(MCPVIO_EXT *mpvio,
     /* Connect to the server */
     DBUG_PRINT("info", ("IO layer change in progress..."));
     if (sslconnect(ssl_fd, net->vio,
-                   (long) (mysql->options.connect_timeout)))
+                   (long) (mysql->options.connect_timeout), &ssl_error))
     {
-      set_mysql_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate);
+      char buf[512];
+      ERR_error_string_n(ssl_error, buf, 512);
+      buf[511]= 0;
+      set_mysql_extended_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate,
+                               ER(CR_SSL_CONNECTION_ERROR),
+                               buf);
       goto error;
     }
     DBUG_PRINT("info", ("IO layer change done!"));
 
     /* Verify server cert */
     if ((mysql->client_flag & CLIENT_SSL_VERIFY_SERVER_CERT) &&
-        ssl_verify_server_cert(net->vio, mysql->host))
+        ssl_verify_server_cert(net->vio, mysql->host, &cert_error))
     {
-      set_mysql_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate);
+      set_mysql_extended_error(mysql, CR_SSL_CONNECTION_ERROR, unknown_sqlstate,
+                               ER(CR_SSL_CONNECTION_ERROR), cert_error);
       goto error;
     }
   }
@@ -4220,4 +4261,19 @@ static int old_password_auth_client(MYSQL_PLUGIN_VIO *vio, MYSQL *mysql)
       DBUG_RETURN(CR_ERROR);
 
   DBUG_RETURN(CR_OK);
+}
+
+/**
+  The main function of the mysql_clear_password authentication plugin.
+*/
+
+static int clear_password_auth_client(MYSQL_PLUGIN_VIO *vio, MYSQL *mysql)
+{
+  int res;
+
+  /* send password in clear text */
+  res= vio->write_packet(vio, (const unsigned char *) mysql->passwd,
+						 strlen(mysql->passwd) + 1);
+
+  return res ? CR_ERROR : CR_OK;
 }

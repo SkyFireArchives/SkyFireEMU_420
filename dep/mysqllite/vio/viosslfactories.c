@@ -1,4 +1,4 @@
-/* Copyright (C) 2000 MySQL AB
+/* Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -11,7 +11,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
 
 #include "vio_priv.h"
 
@@ -162,7 +162,7 @@ static struct st_VioSSLFd *
 new_VioSSLFd(const char *key_file, const char *cert_file,
              const char *ca_file, const char *ca_path,
              const char *cipher, SSL_METHOD *method,
-             enum enum_ssl_init_error* error)
+             enum enum_ssl_init_error *error)
 {
   DH *dh;
   struct st_VioSSLFd *ssl_fd;
@@ -245,11 +245,10 @@ new_VioSSLFd(const char *key_file, const char *cert_file,
 struct st_VioSSLFd *
 new_VioSSLConnectorFd(const char *key_file, const char *cert_file,
                       const char *ca_file, const char *ca_path,
-                      const char *cipher)
+                      const char *cipher, enum enum_ssl_init_error* error)
 {
   struct st_VioSSLFd *ssl_fd;
   int verify= SSL_VERIFY_PEER;
-  enum enum_ssl_init_error dummy;
 
   /*
     Turn off verification of servers certificate if both
@@ -259,7 +258,7 @@ new_VioSSLConnectorFd(const char *key_file, const char *cert_file,
     verify= SSL_VERIFY_NONE;
 
   if (!(ssl_fd= new_VioSSLFd(key_file, cert_file, ca_file,
-                             ca_path, cipher, TLSv1_client_method(), &dummy)))
+                             ca_path, cipher, TLSv1_client_method(), error)))
   {
     return 0;
   }

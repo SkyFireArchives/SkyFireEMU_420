@@ -1,4 +1,4 @@
-/* Copyright (C) 2000 MySQL AB
+/* Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -11,7 +11,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
 
 /*
   Note that we can't have assertion on file descriptors;  The reason for
@@ -24,6 +24,8 @@
 
 #ifdef HAVE_OPENSSL
 
+#ifndef DBUG_OFF
+
 static void
 report_errors(SSL* ssl)
 {
@@ -31,9 +33,7 @@ report_errors(SSL* ssl)
   const char *file;
   const char *data;
   int line, flags;
-#ifndef DBUG_OFF
   char buf[512];
-#endif
 
   DBUG_ENTER("report_errors");
 
@@ -50,6 +50,8 @@ report_errors(SSL* ssl)
   DBUG_PRINT("info", ("socket_errno: %d", socket_errno));
   DBUG_VOID_RETURN;
 }
+
+#endif
 
 size_t vio_ssl_read(Vio *vio, uchar* buf, size_t size)
 {
@@ -139,8 +141,9 @@ void vio_ssl_delete(Vio *vio)
 }
 
 static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
-                  int (*connect_accept_func)(SSL*))
+                  int (*connect_accept_func)(SSL*), unsigned long *errptr)
 {
+  int r;
   SSL *ssl;
   my_bool unused;
   my_bool was_blocking;
@@ -155,7 +158,7 @@ static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
   if (!(ssl= SSL_new(ptr->ssl_context)))
   {
     DBUG_PRINT("error", ("SSL_new failure"));
-    report_errors(ssl);
+    *errptr= ERR_get_error();
     vio_blocking(vio, was_blocking, &unused);
     DBUG_RETURN(1);
   }
@@ -164,10 +167,10 @@ static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
   SSL_SESSION_set_timeout(SSL_get_session(ssl), timeout);
   SSL_set_fd(ssl, vio->sd);
 
-  if (connect_accept_func(ssl) < 1)
+  if ((r= connect_accept_func(ssl)) < 1)
   {
     DBUG_PRINT("error", ("SSL_connect/accept failure"));
-    report_errors(ssl);
+    *errptr= SSL_get_error(ssl, r);
     SSL_free(ssl);
     vio_blocking(vio, was_blocking, &unused);
     DBUG_RETURN(1);
@@ -214,16 +217,16 @@ static int ssl_do(struct st_VioSSLFd *ptr, Vio *vio, long timeout,
   DBUG_RETURN(0);
 }
 
-int sslaccept(struct st_VioSSLFd *ptr, Vio *vio, long timeout)
+int sslaccept(struct st_VioSSLFd *ptr, Vio *vio, long timeout, unsigned long *errptr)
 {
   DBUG_ENTER("sslaccept");
-  DBUG_RETURN(ssl_do(ptr, vio, timeout, SSL_accept));
+  DBUG_RETURN(ssl_do(ptr, vio, timeout, SSL_accept, errptr));
 }
 
-int sslconnect(struct st_VioSSLFd *ptr, Vio *vio, long timeout)
+int sslconnect(struct st_VioSSLFd *ptr, Vio *vio, long timeout, unsigned long *errptr)
 {
   DBUG_ENTER("sslconnect");
-  DBUG_RETURN(ssl_do(ptr, vio, timeout, SSL_connect));
+  DBUG_RETURN(ssl_do(ptr, vio, timeout, SSL_connect, errptr));
 }
 
 int vio_ssl_blocking(Vio *vio __attribute__((unused)),

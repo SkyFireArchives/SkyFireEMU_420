@@ -1,4 +1,4 @@
-/* Copyright (C) 2000 MySQL AB, 2008-2009 Sun Microsystems, Inc
+/* Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -11,7 +11,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
 
 #include "mysys_priv.h"
 #include "mysys_err.h"
@@ -405,6 +405,7 @@ CHARSET_INFO *default_charset_info = &my_charset_latin1;
 
 void add_compiled_collation(CHARSET_INFO *cs)
 {
+  DBUG_ASSERT(cs->number < array_elements(all_charsets));
   all_charsets[cs->number]= cs;
   cs->state|= MY_CS_AVAILABLE;
 }
@@ -507,20 +508,25 @@ uint get_charset_number(const char *charset_name, uint cs_flags)
 
 const char *get_charset_name(uint charset_number)
 {
-  CHARSET_INFO *cs;
   my_pthread_once(&charsets_initialized, init_available_charsets);
 
-  cs=all_charsets[charset_number];
-  if (cs && (cs->number == charset_number) && cs->name )
-    return (char*) cs->name;
+  if (charset_number < array_elements(all_charsets))
+  {
+    CHARSET_INFO *cs= all_charsets[charset_number];
 
-  return (char*) "?";   /* this mimics find_type() */
+    if (cs && (cs->number == charset_number) && cs->name)
+      return (char*) cs->name;
+  }
+
+  return "?";   /* this mimics find_type() */
 }
 
 static CHARSET_INFO *get_internal_charset(uint cs_number, myf flags)
 {
   char  buf[FN_REFLEN];
   CHARSET_INFO *cs;
+
+  DBUG_ASSERT(cs_number < array_elements(all_charsets));
 
   if ((cs= all_charsets[cs_number]))
   {
@@ -566,7 +572,7 @@ CHARSET_INFO *get_charset(uint cs_number, myf flags)
 
   my_pthread_once(&charsets_initialized, init_available_charsets);
 
-  if (!cs_number || cs_number > array_elements(all_charsets))
+  if (cs_number >= array_elements(all_charsets))
     return NULL;
 
   cs=get_internal_charset(cs_number, flags);

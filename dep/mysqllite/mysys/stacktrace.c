@@ -1,4 +1,4 @@
-/* Copyright (C) 2000 MySQL AB
+/* Copyright (c) 2001, 2011, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -11,7 +11,7 @@
 
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA */
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301  USA */
 
 #include <my_global.h>
 #include <my_stacktrace.h>
@@ -699,11 +699,11 @@ void my_safe_print_str(const char *val, int len)
 {
   __try
   {
-    fprintf(stderr,"=%.*s\n", len, val);
+    fprintf(stderr, "%.*s\n", len, val);
   }
   __except(EXCEPTION_EXECUTE_HANDLER)
   {
-    fprintf(stderr,"is an invalid string pointer\n");
+    fprintf(stderr, "is an invalid string pointer\n");
   }
 }
 #endif /*__WIN__*/
