@@ -770,8 +770,8 @@ void WorldSession::SendListInventory(uint64 vendorguid)
     if (!vItems)
     {
         WorldPacket data(SMSG_LIST_INVENTORY, (8+1+1+2));
-        data << uint64(vendorguid);
         data << uint8(0);                                   // count==0, next will be error code
+        data << uint32(0);
         data << uint8(0);                                   // "Vendor has no inventory"
         SendPacket(&data);
         return;
@@ -780,11 +780,13 @@ void WorldSession::SendListInventory(uint64 vendorguid)
     uint32 numitems = vItems->GetItemCount();
     uint8 count = 0;
 
-    WorldPacket data(SMSG_LIST_INVENTORY, (8+1+numitems*9*4+1*numitems+2));
-    data << uint64(vendorguid);
+    WorldPacket data(SMSG_LIST_INVENTORY, (1+4+1+numitems*9*4+1*numitems+2));
+    data << uint8(0);
 
     size_t count_pos = data.wpos();
-    data << uint8(count);
+
+    data << uint32(count);
+    data << uint8(0);  // unk 420
 
     float discountMod = _player->GetReputationPriceDiscount(pCreature);
 
@@ -816,7 +818,7 @@ void WorldSession::SendListInventory(uint64 vendorguid)
                 data << uint32(pProto->MaxDurability);
                 data << uint32(pProto->BuyCount);
                 data << uint32(crItem->ExtendedCost);
-                data << uint8(0); // unk 4.0.1
+                data << uint32(0); // unk 4.0.1
             }
         }
     }
