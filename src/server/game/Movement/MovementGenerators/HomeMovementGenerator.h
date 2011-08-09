@@ -48,7 +48,7 @@ class HomeMovementGenerator<Creature>
         void modifyTravelTime(uint32 travel_time) { i_travel_timer = travel_time; }
         MovementGeneratorType GetMovementGeneratorType() { return HOME_MOTION_TYPE; }
 
-        bool GetDestination(float& x, float& y, float& z) const { i_destinationHolder.GetDestination(x,y,z); return true; }
+        bool GetDestination(float& x, float& y, float& z) const { i_destinationHolder.GetDestination(x, y, z); return true; }
 
     private:
         void _setTargetLocation(Creature &);
@@ -58,5 +58,3 @@ class HomeMovementGenerator<Creature>
         uint32 i_travel_timer;
 };
 #endif
-
-

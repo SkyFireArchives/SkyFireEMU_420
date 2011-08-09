@@ -130,7 +130,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
     }
 
     // no language for AFK and DND messages
-    if(type == CHAT_MSG_AFK)
+    if (type == CHAT_MSG_AFK)
     {
         std::string msg;
         recv_data >> msg;
@@ -152,7 +152,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         }
         return;
     }
-    else if(type == CHAT_MSG_DND)
+    else if (type == CHAT_MSG_DND)
     {
         std::string msg;
         recv_data >> msg;
@@ -271,7 +271,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         if (!_player->CanSpeak())
         {
             std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-            SendNotification(GetSkyFireString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+            SendNotification(GetSkyFireString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
             return;
         }
 
@@ -529,7 +529,6 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
 
             if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
             {
-
                 if (Channel *chn = cMgr->GetChannel(channel, _player))
                 {
                     sScriptMgr->OnPlayerChat(_player, type, lang, msg, chn);
@@ -546,7 +545,7 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
 
 void WorldSession::HandleEmoteOpcode(WorldPacket & recv_data)
 {
-    if (!GetPlayer()->isAlive() || GetPlayer()->HasUnitState(UNIT_STAT_DIED)) 
+    if (!GetPlayer()->isAlive() || GetPlayer()->HasUnitState(UNIT_STAT_DIED))
         return;
 
     uint32 emote;
@@ -595,7 +594,7 @@ void WorldSession::HandleTextEmoteOpcode(WorldPacket & recv_data)
     if (!GetPlayer()->CanSpeak())
     {
         std::string timeStr = secsToTimeString(m_muteTime - time(NULL));
-        SendNotification(GetSkyFireString(LANG_WAIT_BEFORE_SPEAKING),timeStr.c_str());
+        SendNotification(GetSkyFireString(LANG_WAIT_BEFORE_SPEAKING), timeStr.c_str());
         return;
     }
 

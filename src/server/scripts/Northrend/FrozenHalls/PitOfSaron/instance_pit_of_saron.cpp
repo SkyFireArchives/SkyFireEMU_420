@@ -232,15 +232,12 @@ public:
                 for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                     if (uiEncounter[i] == IN_PROGRESS)
                         uiEncounter[i] = NOT_STARTED;
-
             } else OUT_LOAD_INST_DATA_FAIL;
 
             OUT_LOAD_INST_DATA_COMPLETE;
         }
     };
-
 };
-
 
 void AddSC_instance_pit_of_saron()
 {

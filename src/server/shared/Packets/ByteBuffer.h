@@ -78,7 +78,7 @@ class ByteBuffer
         }
 
         template <typename T> void append(T value)
-        {            
+        {
             flushBits();
 
             EndianConvert(value);
@@ -102,7 +102,7 @@ class ByteBuffer
                 _curbitval |= (1 << (_bitpos));
 
             if (_bitpos == 0)
-            { 
+            {
                 _bitpos = 8;
                 append((uint8 *)&_curbitval, sizeof(_curbitval));
                 _curbitval = 0;
@@ -114,7 +114,7 @@ class ByteBuffer
         {
             ++_bitpos;
             if (_bitpos > 7)
-            { 
+            {
                 _bitpos = 0;
                 _curbitval = read<uint8>();
             }
@@ -133,7 +133,7 @@ class ByteBuffer
             uint32 value = 0;
             for (int32 i = bits-1; i >= 0; --i)
             {
-                if(readBit())
+                if (readBit())
                 {
                     value |= (1 << i);
                 }
@@ -141,10 +141,10 @@ class ByteBuffer
             return value;
         }
 
-        template <typename T> void put(size_t pos,T value)
+        template <typename T> void put(size_t pos, T value)
         {
             EndianConvert(value);
-            put(pos,(uint8 *)&value,sizeof(value));
+            put(pos, (uint8 *)&value, sizeof(value));
         }
 
         ByteBuffer &operator<<(uint8 value)
@@ -334,7 +334,7 @@ class ByteBuffer
 
         void read_skip(size_t skip)
         {
-            if(_rpos + skip > size())
+            if (_rpos + skip > size())
                 throw ByteBufferException(false, _rpos, skip, size());
             _rpos += skip;
         }
@@ -348,7 +348,7 @@ class ByteBuffer
 
         template <typename T> T read(size_t pos) const
         {
-            if(pos + sizeof(T) > size())
+            if (pos + sizeof(T) > size())
                 throw ByteBufferException(false, pos, sizeof(T), size());
             T val = *((T const*)&_storage[pos]);
             EndianConvert(val);
@@ -357,7 +357,7 @@ class ByteBuffer
 
         void read(uint8 *dest, size_t len)
         {
-            if(_rpos  + len > size())
+            if (_rpos  + len > size())
                throw ByteBufferException(false, _rpos, len, size());
             memcpy(dest, &_storage[_rpos], len);
             _rpos += len;
@@ -365,7 +365,7 @@ class ByteBuffer
 
         void readPackGUID(uint64& guid)
         {
-            if(rpos() + 1 > size())
+            if (rpos() + 1 > size())
                 throw ByteBufferException(false, _rpos, 1, size());
 
             guid = 0;
@@ -375,9 +375,9 @@ class ByteBuffer
 
             for (int i = 0; i < 8; ++i)
             {
-                if(guidmark & (uint8(1) << i))
+                if (guidmark & (uint8(1) << i))
                 {
-                    if(rpos() + 1 > size())
+                    if (rpos() + 1 > size())
                         throw ByteBufferException(false, _rpos, 1, size());
 
                     uint8 bit;
@@ -435,7 +435,7 @@ class ByteBuffer
 
         void append(const ByteBuffer& buffer)
         {
-            if(buffer.wpos())
+            if (buffer.wpos())
                 append(buffer.contents(), buffer.wpos());
         }
 
@@ -456,7 +456,7 @@ class ByteBuffer
             size_t size = 1;
             for(uint8 i = 0;guid != 0;++i)
             {
-                if(guid & 0xFF)
+                if (guid & 0xFF)
                 {
                     packGUID[0] |= uint8(1 << i);
                     packGUID[size] =  uint8(guid & 0xFF);
@@ -470,14 +470,14 @@ class ByteBuffer
 
         void put(size_t pos, const uint8 *src, size_t cnt)
         {
-            if(pos + cnt > size())
+            if (pos + cnt > size())
                throw ByteBufferException(true, pos, cnt, size());
             memcpy(&_storage[pos], src, cnt);
         }
 
         void print_storage() const
         {
-            if(!sLog->IsOutDebug())                          // optimize disabled debug output
+            if (!sLog->IsOutDebug())                          // optimize disabled debug output
                 return;
 
             sLog->outDebug(LOG_FILTER_NETWORKIO, "STORAGE_SIZE: %lu", (unsigned long)size() );
@@ -488,7 +488,7 @@ class ByteBuffer
 
         void textlike() const
         {
-            if(!sLog->IsOutDebug())                          // optimize disabled debug output
+            if (!sLog->IsOutDebug())                          // optimize disabled debug output
                 return;
 
             sLog->outDebug(LOG_FILTER_NETWORKIO, "STORAGE_SIZE: %lu", (unsigned long)size() );
@@ -499,7 +499,7 @@ class ByteBuffer
 
         void hexlike() const
         {
-            if(!sLog->IsOutDebug())                          // optimize disabled debug output
+            if (!sLog->IsOutDebug())                          // optimize disabled debug output
                 return;
 
             uint32 j = 1, k = 1;
@@ -664,4 +664,3 @@ inline void ByteBuffer::read_skip<std::string>()
     read_skip<char*>();
 }
 #endif
-

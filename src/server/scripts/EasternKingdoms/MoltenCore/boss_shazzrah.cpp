@@ -85,7 +85,7 @@ public:
             if (ShazzrahCurse_Timer <= diff)
             {
                 Unit *pTarget = NULL;
-                pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget) DoCast(pTarget, SPELL_SHAZZRAHCURSE);
 
                 ShazzrahCurse_Timer = 25000 + rand()%5000;
@@ -110,7 +110,7 @@ public:
             {
                 // Teleporting him to a random gamer and casting Arcane Explosion after that.
                 // Blink is not working cause of LoS System we need to do this hardcoded.
-                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM,0, 100, true))
+                if (Unit *pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0, 100, true))
                 {
                     DoTeleportTo(pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ());
                     DoCast(pTarget, SPELL_ARCANEEXPLOSION);
@@ -123,7 +123,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_shazzrah()

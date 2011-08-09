@@ -86,7 +86,7 @@ class boss_the_maker : public CreatureScript
 
             void EnterCombat(Unit * /*who*/)
             {
-                DoScriptText(RAND(SAY_AGGRO_1,SAY_AGGRO_2,SAY_AGGRO_3), me);
+                DoScriptText(RAND(SAY_AGGRO_1, SAY_AGGRO_2, SAY_AGGRO_3), me);
 
                 if (!pInstance)
                     return;
@@ -97,7 +97,7 @@ class boss_the_maker : public CreatureScript
 
             void KilledUnit(Unit* /*victim*/)
             {
-                DoScriptText(RAND(SAY_KILL_1,SAY_KILL_2), me);
+                DoScriptText(RAND(SAY_KILL_1, SAY_KILL_2), me);
             }
 
             void JustDied(Unit* /*Killer*/)
@@ -110,7 +110,6 @@ class boss_the_maker : public CreatureScript
                 pInstance->SetData(TYPE_THE_MAKER_EVENT, DONE);
                 pInstance->HandleGameObject(pInstance->GetData64(DATA_DOOR2), true);
                 pInstance->HandleGameObject(pInstance->GetData64(DATA_DOOR3), true);
-
              }
 
             void UpdateAI(const uint32 diff)
@@ -128,7 +127,7 @@ class boss_the_maker : public CreatureScript
 
                 if (ExplodingBreaker_Timer <= diff)
                 {
-                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         DoCast(pTarget, SPELL_EXPLODING_BREAKER);
                     ExplodingBreaker_Timer = 4000+rand()%8000;
                 }
@@ -139,7 +138,7 @@ class boss_the_maker : public CreatureScript
                 if (domination_timer_timer <= diff)
                 {
                 Unit *pTarget;
-                pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
 
                 DoCast(pTarget, SPELL_DOMINATION);
 
@@ -169,4 +168,3 @@ void AddSC_boss_the_maker()
 {
     new boss_the_maker();
 }
-

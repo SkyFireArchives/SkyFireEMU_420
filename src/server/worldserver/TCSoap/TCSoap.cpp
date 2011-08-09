@@ -37,7 +37,6 @@ void TCSoapRunnable::run()
     bool soapBound = false;
     for (uint16 iteration = 1; iteration <= 30 && !soapBound; ++iteration)
     {
-
     soap_init(&soap);
     soap_set_imode(&soap, SOAP_C_UTFSTRING);
     soap_set_omode(&soap, SOAP_C_UTFSTRING);
@@ -56,7 +55,6 @@ void TCSoapRunnable::run()
     {
         soapBound = true;
     }
-
     }
 
     if (!soapBound)

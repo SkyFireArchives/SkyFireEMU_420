@@ -67,8 +67,8 @@ public:
         if (_Quest->GetQuestId() == 9180)
         {
             CAST_AI(npc_lady_sylvanas_windrunner::npc_lady_sylvanas_windrunnerAI, pCreature->AI())->LamentEvent = true;
-            CAST_AI(npc_lady_sylvanas_windrunner::npc_lady_sylvanas_windrunnerAI, pCreature->AI())->DoPlaySoundToSet(pCreature,SOUND_CREDIT);
-            pCreature->CastSpell(pCreature,SPELL_SYLVANAS_CAST,false);
+            CAST_AI(npc_lady_sylvanas_windrunner::npc_lady_sylvanas_windrunnerAI, pCreature->AI())->DoPlaySoundToSet(pCreature, SOUND_CREDIT);
+            pCreature->CastSpell(pCreature, SPELL_SYLVANAS_CAST, false);
 
             for (uint8 i = 0; i < 4; ++i)
                 pCreature->SummonCreature(ENTRY_HIGHBORNE_LAMENTER, HighborneLoc[i][0], HighborneLoc[i][1], HIGHBORNE_LOC_Y, HighborneLoc[i][2], TEMPSUMMON_TIMED_DESPAWN, 160000);
@@ -103,9 +103,9 @@ public:
         {
             if (summoned->GetEntry() == ENTRY_HIGHBORNE_BUNNY)
             {
-                if (Unit *pTarget = Unit::GetUnit(*summoned,targetGUID))
+                if (Unit *pTarget = Unit::GetUnit(*summoned, targetGUID))
                 {
-                    pTarget->SendMonsterMove(pTarget->GetPositionX(), pTarget->GetPositionY(), me->GetPositionZ()+15.0f,0);
+                    pTarget->SendMonsterMove(pTarget->GetPositionX(), pTarget->GetPositionY(), me->GetPositionZ()+15.0f, 0);
                     pTarget->GetMap()->CreatureRelocation(me, pTarget->GetPositionX(), pTarget->GetPositionY(), me->GetPositionZ()+15.0f, 0.0f);
                     summoned->CastSpell(pTarget, SPELL_RIBBON_OF_SOULS, false);
                 }
@@ -139,9 +139,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*######
 ## npc_highborne_lamenter
@@ -183,8 +181,8 @@ public:
                 if (EventMove_Timer <= diff)
                 {
                     me->AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
-                    me->SendMonsterMoveWithSpeed(me->GetPositionX(),me->GetPositionY(),HIGHBORNE_LOC_Y_NEW,5000);
-                    me->GetMap()->CreatureRelocation(me,me->GetPositionX(),me->GetPositionY(),HIGHBORNE_LOC_Y_NEW,me->GetOrientation());
+                    me->SendMonsterMoveWithSpeed(me->GetPositionX(), me->GetPositionY(), HIGHBORNE_LOC_Y_NEW, 5000);
+                    me->GetMap()->CreatureRelocation(me, me->GetPositionX(), me->GetPositionY(), HIGHBORNE_LOC_Y_NEW, me->GetOrientation());
                     EventMove = false;
                 } else EventMove_Timer -= diff;
             }
@@ -198,7 +196,6 @@ public:
             }
         }
     };
-
 };
 
 /*######
@@ -222,7 +219,7 @@ public:
         if (uiAction == GOSSIP_ACTION_INFO_DEF+1)
         {
             pPlayer->CLOSE_GOSSIP_MENU();
-            pCreature->CastSpell(pPlayer,SPELL_MARK_OF_SHAME,false);
+            pCreature->CastSpell(pPlayer, SPELL_MARK_OF_SHAME, false);
         }
         if (uiAction == GOSSIP_ACTION_INFO_DEF+2)
         {
@@ -249,9 +246,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## AddSC

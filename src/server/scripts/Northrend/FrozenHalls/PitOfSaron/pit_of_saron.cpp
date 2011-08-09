@@ -20,41 +20,41 @@
 
 /***************************************SPELLS*************************************/
 // Ymirjar Wrathbringer
-#define SPELL_BLIGHT                      DUNGEON_MODE(69603,70285)
+#define SPELL_BLIGHT                      DUNGEON_MODE(69603, 70285)
 
 //Ymirjar Skycaller
 #define SPELL_FROSTBLADE                  70291
 #define SPELL_GLACIAL_STRIKE              70292
 
 //Ymirjar Flamebearer
-#define SPELL_FIREBALL                    DUNGEON_MODE(69583,70282)
-#define SPELL_HELLFIRE                    DUNGEON_MODE(69586,70283)
+#define SPELL_FIREBALL                    DUNGEON_MODE(69583, 70282)
+#define SPELL_HELLFIRE                    DUNGEON_MODE(69586, 70283)
 #define SPELL_TACTICAL_BLINK              69584
 
 //Ymirjar Deathbringer
-#define SPELL_EMPOWERED_SHADOW_BOLT       DUNGEON_MODE(69528,70281)
+#define SPELL_EMPOWERED_SHADOW_BOLT       DUNGEON_MODE(69528, 70281)
 #define SPELL_SUMMON_UNDEAD               69516
 
 //Wrathbone Laborer
 #define SPELL_BLINDING_DIRT               70302
-#define SPELL_PUNCTURE_WOUND              DUNGEON_MODE(70278,70279)
-#define SPELL_SHOVELLED                   DUNGEON_MODE(69572,70280)
+#define SPELL_PUNCTURE_WOUND              DUNGEON_MODE(70278, 70279)
+#define SPELL_SHOVELLED                   DUNGEON_MODE(69572, 70280)
 
 //Wrathbone Coldwraith
-#define SPELL_FREEZING_CIRCLE             DUNGEON_MODE(69574,70276)
-#define SPELL_FROSTBOLT                   DUNGEON_MODE(69573,70277)
+#define SPELL_FREEZING_CIRCLE             DUNGEON_MODE(69574, 70276)
+#define SPELL_FROSTBOLT                   DUNGEON_MODE(69573, 70277)
 
 //Stonespine Gargoyle
-#define SPELL_GARGOYLE_STRIKE             DUNGEON_MODE(69520,70275)
+#define SPELL_GARGOYLE_STRIKE             DUNGEON_MODE(69520, 70275)
 #define SPELL_STONEFORM                   69575
 
 // Plagueborn Horror
 #define SPELL_BLIGHT_BOMB                 69582
-#define SPELL_PUSTULANT_FLESH             DUNGEON_MODE(69581,70273)
+#define SPELL_PUSTULANT_FLESH             DUNGEON_MODE(69581, 70273)
 #define SPELL_TOXIC_WASTE                 70274
 
 //Iceborn Proto-Drake
-#define SPELL_FROST_BREATH                DUNGEON_MODE(69527,70272)
+#define SPELL_FROST_BREATH                DUNGEON_MODE(69527, 70272)
 
 //Hungering Ghoul
 #define SPELL_DEVOUR_FLESH                70393
@@ -69,17 +69,17 @@
 #define SPELL_CURSE_OF_AGONY              70391
 
 //Deathwhisper Shadowcaster
-#define SPELL_SHADOW_BOLT                 DUNGEON_MODE(70386,70387)
+#define SPELL_SHADOW_BOLT                 DUNGEON_MODE(70386, 70387)
 
 //Deathwhisper Necrolyte
-#define SPELL_CONVERSION_BEAM             DUNGEON_MODE(69578,70269)
-#define SPELL_SHADOW_BOLT_2               DUNGEON_MODE(69577,70270)
+#define SPELL_CONVERSION_BEAM             DUNGEON_MODE(69578, 70269)
+#define SPELL_SHADOW_BOLT_2               DUNGEON_MODE(69577, 70270)
 
 //Wrathbone Sorcerer
-#define SPELL_SHADOW_BOLT_3               DUNGEON_MODE(70386,70387)
+#define SPELL_SHADOW_BOLT_3               DUNGEON_MODE(70386, 70387)
 
 //Geist Ambusher
-#define SPELL_LEAPING_FACE_MAUL           DUNGEON_MODE(69504,70271)
+#define SPELL_LEAPING_FACE_MAUL           DUNGEON_MODE(69504, 70271)
 
 /****************************************EVENTS************************************/
 enum eEvents
@@ -204,7 +204,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_ymirjar_skycaller : public CreatureScript
@@ -265,7 +264,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_ymirjar_flamebearer : public CreatureScript
@@ -334,7 +332,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_ymirjar_deathbringer : public CreatureScript
@@ -391,7 +388,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_wrathbone_laborer : public CreatureScript
@@ -459,7 +455,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_wrathbone_coldwraith : public CreatureScript
@@ -522,7 +517,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_stonespine_gargoyle : public CreatureScript
@@ -583,7 +577,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_plagueborn_horror : public CreatureScript
@@ -650,7 +643,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_iceborn_protodrake : public CreatureScript
@@ -706,7 +698,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_hungering_ghoul : public CreatureScript
@@ -762,7 +753,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_fallen_warrior : public CreatureScript
@@ -828,7 +818,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_deathwhisper_torturer : public CreatureScript
@@ -891,7 +880,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_deathwhisper_shadowcaster : public CreatureScript
@@ -948,7 +936,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_deathwhisper_necrolyte : public CreatureScript
@@ -1011,7 +998,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_wrathbone_sorcerer : public CreatureScript
@@ -1068,7 +1054,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_geist_ambusher : public CreatureScript
@@ -1127,7 +1112,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_pit_of_saron()

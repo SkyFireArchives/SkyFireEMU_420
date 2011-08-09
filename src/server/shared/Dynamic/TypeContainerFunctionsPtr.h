@@ -54,7 +54,7 @@ namespace Trinity
     //
     //    template<class SPECIFIC_TYPE, class T> size_t Count(const ContainerMapList<TypeList<SPECIFIC_TYPE, T> >&elements, SPECIFIC_TYPE* fake)
     //    {
-    //        return Count(elements._elements,fake);
+    //        return Count(elements._elements, fake);
     //    }
     //
     //    template<class SPECIFIC_TYPE, class H, class T> size_t Count(const ContainerMapList<TypeList<H, T> >&elements, SPECIFIC_TYPE* fake)
@@ -81,8 +81,8 @@ namespace Trinity
 
     template<class SPECIFIC_TYPE, class H, class T> CountedPtr<SPECIFIC_TYPE>& Find(ContainerMapList<TypeList<H, T> >&elements, OBJECT_HANDLE hdl, CountedPtr<SPECIFIC_TYPE>* fake)
     {
-        CountedPtr<SPECIFIC_TYPE> &t = Find(elements._elements, hdl,fake);
-        return (!t ? Find(elements._TailElements, hdl,fake) : t);
+        CountedPtr<SPECIFIC_TYPE> &t = Find(elements._elements, hdl, fake);
+        return (!t ? Find(elements._TailElements, hdl, fake) : t);
     }
 
     // const find functions
@@ -104,9 +104,9 @@ namespace Trinity
 
     template<class SPECIFIC_TYPE, class H, class T> CountedPtr<SPECIFIC_TYPE>& Find(const ContainerMapList<TypeList<H, T> >&elements, OBJECT_HANDLE hdl, CountedPtr<SPECIFIC_TYPE>* fake)
     {
-        CountedPtr<SPECIFIC_TYPE> &t = Find(elements._elements, hdl,fake);
-        if(!t)
-            t = Find(elements._TailElement, hdl,fake);
+        CountedPtr<SPECIFIC_TYPE> &t = Find(elements._elements, hdl, fake);
+        if (!t)
+            t = Find(elements._TailElement, hdl, fake);
 
         return t;
     }
@@ -140,7 +140,7 @@ namespace Trinity
     template<class SPECIFIC_TYPE> bool Remove(ContainerMapList<SPECIFIC_TYPE> &elements, CountedPtr<SPECIFIC_TYPE> &obj, OBJECT_HANDLE hdl)
     {
         typename std::map<OBJECT_HANDLE, CountedPtr<SPECIFIC_TYPE> >::iterator iter = elements._element.find(hdl);
-        if( iter != elements._element.end() )
+        if ( iter != elements._element.end() )
         {
             elements._element.erase(iter);
             return true;
@@ -166,7 +166,5 @@ namespace Trinity
         bool t = Remove(elements._elements, obj, hdl);
         return ( !t ? Remove(elements._TailElements, obj, hdl) : t );
     }
-
 }
 #endif
-

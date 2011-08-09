@@ -84,7 +84,7 @@ bool WinServiceInstall()
             if (service)
             {
                 advapi32 = GetModuleHandle("ADVAPI32.DLL");
-                if(!advapi32)
+                if (!advapi32)
                 {
                     CloseServiceHandle(service);
                     CloseServiceHandle(serviceControlManager);
@@ -120,7 +120,6 @@ bool WinServiceInstall()
                     &sfa);                                  // new data
 
                 CloseServiceHandle(service);
-
             }
         }
         CloseServiceHandle(serviceControlManager);
@@ -267,4 +266,3 @@ bool WinServiceRun()
     return true;
 }
 #endif
-

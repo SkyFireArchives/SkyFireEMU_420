@@ -25,7 +25,6 @@
 #ifndef DEF_TOC_H
 #define DEF_TOC_H
 
-
 enum eData
 {
     BOSS_GRAND_CHAMPIONS,
@@ -47,7 +46,7 @@ enum Data64
 {
     DATA_ANNOUNCER,
     DATA_MAIN_GATE,
-    DATA_MAIN_GATE1,                
+    DATA_MAIN_GATE1,
 
     DATA_GRAND_CHAMPION_VEHICLE_1,
     DATA_GRAND_CHAMPION_VEHICLE_2,
@@ -85,16 +84,16 @@ enum eNpcs
 
     // Black Knight
     NPC_BLACK_KNIGHT            = 35451,
-    
+
     // Black Knight's add
     NPC_RISEN_JAEREN            = 35545,
     NPC_RISEN_ARELAS            = 35564,
-    
-    // Announcer    
+
+    // Announcer
     NPC_JAEREN_AN               = 35591,
     NPC_ARELAS_AN               = 35592,
 
-    // Memory    
+    // Memory
     MEMORY_ALGALON              = 35052,
     MEMORY_ARCHIMONDE           = 35041,
     MEMORY_CHROMAGGUS           = 35033,
@@ -170,7 +169,7 @@ enum eVehicles
 
     VEHICLE_ARGENT_WARHORSE                         = 35644,
     VEHICLE_ARGENT_BATTLEWORG                       = 36558,
-    VEHICLE_GR                                      = 35492, 
+    VEHICLE_GR                                      = 35492,
 
     VEHICLE_BLACK_KNIGHT                            = 35491
 };

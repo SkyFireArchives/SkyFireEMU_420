@@ -111,13 +111,13 @@ public:
                 DoScriptText(SAY_FINALY, me, pPlayer);
                 break;
             case 43:
-                me->SummonCreature(ENTRY_BOAR, 1956.43f, 1596.97f, 81.75f, 1.54f,TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 25000);
+                me->SummonCreature(ENTRY_BOAR, 1956.43f, 1596.97f, 81.75f, 1.54f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 25000);
                 break;
             case 45:
                 DoScriptText(SAY_WIN, me, pPlayer);
                 me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_QUESTGIVER);
                 if (pPlayer && pPlayer->GetTypeId() == TYPEID_PLAYER)
-                    CAST_PLR(pPlayer)->GroupEventHappens(QUEST_WILLIX_THE_IMPORTER,me);
+                    CAST_PLR(pPlayer)->GroupEventHappens(QUEST_WILLIX_THE_IMPORTER, me);
                 break;
             case 46:
                 DoScriptText(SAY_END, me, pPlayer);
@@ -143,9 +143,7 @@ public:
                 CAST_PLR(pPlayer)->FailQuest(QUEST_WILLIX_THE_IMPORTER);
         }
     };
-
 };
-
 
 class npc_deaths_head_ward_keeper : public CreatureScript
 {
@@ -187,13 +185,9 @@ public:
                 DoCast(me, SPELL_QUILLBOAR_CHANNELING);
                 QuillboarChanneling_Timer = 1100;
             } else QuillboarChanneling_Timer -= diff;
-
         }
     };
-
 };
-
-
 
 void AddSC_razorfen_kraul()
 {

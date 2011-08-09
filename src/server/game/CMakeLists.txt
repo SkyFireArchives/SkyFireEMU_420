@@ -98,11 +98,11 @@ source_group(World FILES ${sources_World})
 
 # Create game-libary
 
-if( USE_COREPCH AND MSVC )
+if ( USE_COREPCH AND MSVC )
   set(game_STAT_SRCS
     PrecompiledHeaders/gamePCH.cpp
   )
-endif()
+endif ()
 
 set(game_STAT_SRCS
   ${game_STAT_SRCS}
@@ -248,8 +248,8 @@ add_library(game STATIC ${game_STAT_SRCS})
 add_dependencies(game revision.h)
 
 # Generate precompiled header
-if( USE_COREPCH )
-  if(CMAKE_COMPILER_IS_GNUCXX)
+if ( USE_COREPCH )
+  if (CMAKE_COMPILER_IS_GNUCXX)
     add_precompiled_header(game ${CMAKE_CURRENT_SOURCE_DIR}/PrecompiledHeaders/gamePCH.h)
   elseif(MSVC)
     add_native_precompiled_header(game ${CMAKE_CURRENT_SOURCE_DIR}/PrecompiledHeaders/gamePCH 0)

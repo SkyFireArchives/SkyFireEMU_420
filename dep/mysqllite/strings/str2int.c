@@ -190,7 +190,6 @@ int atoi(const char *src)
   return (int) val;
 }
 
-
 long atol(const char *src)
 {
   long val;

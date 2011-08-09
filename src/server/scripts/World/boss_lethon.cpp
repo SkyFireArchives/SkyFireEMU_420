@@ -30,4 +30,3 @@ SDCategory: Bosses
 EndScriptData */
 
 #include "ScriptPCH.h"
-

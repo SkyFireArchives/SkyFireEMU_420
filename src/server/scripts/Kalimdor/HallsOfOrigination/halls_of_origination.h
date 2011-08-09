@@ -23,7 +23,7 @@ enum Data
     DATA_TEMPLE_GUARDIAN_ANHUUR_EVENT,
     DATA_EARTHRAGER_PTAH_EVENT,
     DATA_ANRAPHET_EVENT,
-    DATA_ISISET_EVENT,                    
+    DATA_ISISET_EVENT,
     DATA_AMMUNAE_EVENT,
     DATA_SETESH_EVENT,
     DATA_RAJH_EVENT,
@@ -58,7 +58,7 @@ enum CreatureIds
     BOSS_AMMUNAE                = 39731,
     BOSS_SETESH                 = 39732,
     BOSS_RAJH                   = 39378,
-    
+
     // Trash Mobs
 
     NPC_BLISTERING_SCARAB       = 40310,
@@ -78,11 +78,10 @@ enum CreatureIds
     NPC_VENOMOUS_SKITTERER      = 39440,
     NPC_WATER_WARDEN            = 39802,
     NPC_AIR_WARDEN              = 39803,
-    
+
     // Various NPCs
 
     NPC_BRANN_BRONZEBEARD       = 49941,
-
 };
 
 #endif

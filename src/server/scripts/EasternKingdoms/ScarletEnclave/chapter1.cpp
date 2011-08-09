@@ -50,17 +50,17 @@ enum eDeathKnightSpells
 #define EVENT_BLOOD_STRIKE              3
 #define EVENT_DEATH_COIL                4
 
-//used by 29519,29520,29565,29566,29567 but signed for 29519
+//used by 29519, 29520, 29565, 29566, 29567 but signed for 29519
 int32 say_event_start[8] =
 {
-    -1609000,-1609001,-1609002,-1609003,
-    -1609004,-1609005,-1609006,-1609007
+    -1609000, -1609001, -1609002, -1609003,
+    -1609004, -1609005, -1609006, -1609007
 };
 
 int32 say_event_attack[9] =
 {
-    -1609008,-1609009,-1609010,-1609011,-1609012,
-    -1609013,-1609014,-1609015,-1609016
+    -1609008, -1609009, -1609010, -1609011, -1609012,
+    -1609013, -1609014, -1609015, -1609016
 };
 
 uint32 acherus_soul_prison[12] =
@@ -199,7 +199,7 @@ public:
 
                     for (uint8 i = 0; i < 12; ++i)
                     {
-                        if (GameObject* temp_prison = me->FindNearestGameObject(acherus_soul_prison[i],30))
+                        if (GameObject* temp_prison = me->FindNearestGameObject(acherus_soul_prison[i], 30))
                         {
                             if (me->IsWithinDist(temp_prison, dist, false))
                             {
@@ -288,7 +288,6 @@ public:
     };
 };
 
-
 class npc_unworthy_initiate_anchor : public CreatureScript
 {
 public:
@@ -313,11 +312,7 @@ public:
 
         uint64 GetGUID(int32 /*id*/) { return prisonerGUID; }
     };
-
 };
-
-
-
 
 class go_acherus_soul_prison : public GameObjectScript
 {
@@ -333,7 +328,6 @@ public:
 
         return false;
     }
-
 };
 
 /*######
@@ -388,7 +382,7 @@ public:
 
 		void Reset()
         {
-            if(Unit* pController = me->GetCharmer())
+            if (Unit* pController = me->GetCharmer())
             me->SetLevel(pController->getLevel());
 
             me->CastSpell(me, 51890, true);
@@ -425,7 +419,7 @@ public:
 
                     // workaround for faster flight speed
                     me->CastSpell(me, 51923, true);
-                    me->SetSpeed(MOVE_FLIGHT , 3.4f,true);
+                    me->SetSpeed(MOVE_FLIGHT , 3.4f, true);
 
                     me->GetMotionMaster()->MovePoint(0, 1711.0f, -5820.0f, 147.0f);
                     return;    // was "me = true;" causing errors
@@ -530,7 +524,7 @@ public:
                 return true;
 
             pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ACCEPT_DUEL, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
-            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature),pCreature->GetGUID());
+            pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
         }
         return true;
     }
@@ -638,11 +632,7 @@ public:
             CombatAI::UpdateAI(uiDiff);
         }
     };
-
 };
-
-
-
 
 /*######
 ## npc_dark_rider_of_acherus
@@ -710,7 +700,6 @@ public:
                         break;
                 }
             } else PhaseTimer -= diff;
-
         }
 
         void InitDespawnHorse(Unit *who)
@@ -725,11 +714,8 @@ public:
             me->SetUInt64Value(UNIT_FIELD_TARGET, TargetGUID);
             Intro = true;
         }
-
     };
-
 };
-
 
 /*######
 ## npc_salanar_the_horseman
@@ -803,9 +789,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*######
 ## npc_ros_dark_rider
@@ -853,9 +837,7 @@ public:
             }
         }
     };
-
 };
-
 
 // correct way: 52312 52314 52555 ...
 enum SG
@@ -902,9 +884,7 @@ public:
             }
         }
     };
-
 };
-
 
 class npc_scarlet_ghoul : public CreatureScript
 {
@@ -923,14 +903,14 @@ public:
             // Ghouls should display their Birth Animation
             // Crawling out of the ground
             //DoCast(me, 35177, true);
-            //me->MonsterSay("Mommy?",LANG_UNIVERSAL,0);
+            //me->MonsterSay("Mommy?", LANG_UNIVERSAL, 0);
             me->SetReactState(REACT_DEFENSIVE);
         }
 
         void FindMinions(Unit *owner)
         {
             std::list<Unit*> MinionList;
-            owner->GetAllMinionsByEntry(MinionList,GHOULS);
+            owner->GetAllMinionsByEntry(MinionList, GHOULS);
 
             if (!MinionList.empty())
             {
@@ -986,9 +966,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*####
 ## npc_scarlet_miner_cart
@@ -1043,9 +1021,7 @@ public:
                     miner->DisappearAndDie();
         }
     };
-
 };
-
 
 /*####
 ## npc_scarlet_miner
@@ -1097,7 +1073,7 @@ public:
             AddWaypoint(11, 2202.595947f, -6061.325684f, 5.882018f);
             AddWaypoint(12, 2188.974609f, -6080.866699f, 3.370027f);
 
-            if (urand(0,1))
+            if (urand(0, 1))
             {
                 AddWaypoint(13, 2176.483887f, -6110.407227f, 1.855181f);
                 AddWaypoint(14, 2172.516602f, -6146.752441f, 1.074235f);
@@ -1133,7 +1109,7 @@ public:
                         me->SetInFront(car);
                         me->SendMovementFlagUpdate();
                     }
-                    me->MonsterSay(SAY_SCARLET_MINER1,LANG_UNIVERSAL,NULL);
+                    me->MonsterSay(SAY_SCARLET_MINER1, LANG_UNIVERSAL, NULL);
                     SetRun(true);
                     IntroTimer = 4000;
                     IntroPhase = 1;
@@ -1147,7 +1123,7 @@ public:
                         car->SendMonsterStop();
                         car->RemoveAura(SPELL_CART_DRAG);
                     }
-                    me->MonsterSay(SAY_SCARLET_MINER2,LANG_UNIVERSAL,NULL);
+                    me->MonsterSay(SAY_SCARLET_MINER2, LANG_UNIVERSAL, NULL);
                     break;
                 default:
                     break;
@@ -1178,9 +1154,7 @@ public:
             npc_escortAI::UpdateAI(diff);
         }
     };
-
 };
-
 
 /*######
 ## go_inconspicuous_mine_car
@@ -1198,7 +1172,7 @@ public:
         if (pPlayer->GetQuestStatus(12701) == QUEST_STATUS_INCOMPLETE)
         {
             // Hack Why Trinity Dont Support Custom Summon Location
-            if (Creature *miner = pPlayer->SummonCreature(28841, 2383.869629f, -5900.312500f, 107.996086f, pPlayer->GetOrientation(),TEMPSUMMON_DEAD_DESPAWN, 1))
+            if (Creature *miner = pPlayer->SummonCreature(28841, 2383.869629f, -5900.312500f, 107.996086f, pPlayer->GetOrientation(), TEMPSUMMON_DEAD_DESPAWN, 1))
             {
                 pPlayer->CastSpell(pPlayer, SPELL_CART_SUMM, true);
                 if (Creature *car = pPlayer->GetVehicleCreatureBase())
@@ -1213,7 +1187,6 @@ public:
         }
         return true;
     }
-
 };
 
 // npc 28912 quest 17217 boss 29001 mob 29007 go 191092

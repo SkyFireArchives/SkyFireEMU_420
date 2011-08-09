@@ -111,11 +111,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
-
 
 /*######
 # npc_salsalabim
@@ -170,7 +166,7 @@ public:
             if (done_by->GetTypeId() == TYPEID_PLAYER)
                 if (me->HealthBelowPctDamaged(20, damage))
             {
-                CAST_PLR(done_by)->GroupEventHappens(QUEST_10004,me);
+                CAST_PLR(done_by)->GroupEventHappens(QUEST_10004, me);
                 damage = 0;
                 EnterEvadeMode();
             }
@@ -190,9 +186,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*
 ##################################################
@@ -251,9 +245,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 # npc_zephyr
@@ -270,7 +262,7 @@ public:
     {
         pPlayer->PlayerTalkClass->ClearMenus();
         if (uiAction == GOSSIP_ACTION_INFO_DEF+1)
-            pPlayer->CastSpell(pPlayer,37778,false);
+            pPlayer->CastSpell(pPlayer, 37778, false);
 
         return true;
     }
@@ -284,9 +276,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 # npc_kservant
@@ -361,7 +351,7 @@ public:
                 case 55: DoScriptText(WHISP20, me, pPlayer); break;
                 case 56: DoScriptText(WHISP21, me, pPlayer);
                     if (pPlayer)
-                        pPlayer->GroupEventHappens(10211,me);
+                        pPlayer->GroupEventHappens(10211, me);
                     break;
             }
         }
@@ -578,10 +568,7 @@ public:
     {
         return new npc_dirty_larryAI (pCreature);
     }
-
 };
-
-
 
 /*######
 # npc_ishanah
@@ -618,9 +605,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 # npc_khadgar
@@ -687,9 +672,7 @@ public:
 
         return true;
     }
-
 };
-
 
 void AddSC_shattrath_city()
 {

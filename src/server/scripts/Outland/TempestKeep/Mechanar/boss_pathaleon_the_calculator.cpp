@@ -106,7 +106,7 @@ class boss_pathaleon_the_calculator : public CreatureScript
 
             void KilledUnit(Unit* /*victim*/)
             {
-                DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2), me);
+                DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2), me);
             }
 
             void JustDied(Unit* /*Killer*/)
@@ -135,8 +135,8 @@ class boss_pathaleon_the_calculator : public CreatureScript
                 {
                     for (uint8 i = 0; i < 3; ++i)
                     {
-                        Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
-                        Creature* Wraith = me->SummonCreature(21062,me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(),0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 25000);
+                        Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
+                        Creature* Wraith = me->SummonCreature(21062, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 25000);
                         if (pTarget && Wraith)
                             Wraith->AI()->AttackStart(pTarget);
                     }
@@ -164,9 +164,9 @@ class boss_pathaleon_the_calculator : public CreatureScript
 
                 if (Domination_Timer <= diff)
                 {
-                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,1))
+                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 1))
                     {
-                        DoScriptText(RAND(SAY_DOMINATION_1,SAY_DOMINATION_2), me);
+                        DoScriptText(RAND(SAY_DOMINATION_1, SAY_DOMINATION_2), me);
                         DoCast(pTarget, SPELL_DOMINATION);
                     }
                     Domination_Timer = 25000 + rand()%5000;
@@ -191,7 +191,6 @@ class boss_pathaleon_the_calculator : public CreatureScript
                     DoCast(me, SPELL_FRENZY);
                     DoScriptText(SAY_ENRAGE, me);
                     Enraged = true;
-
                 }
 
                 DoMeleeAttackIfReady();
@@ -239,7 +238,7 @@ class mob_nether_wraith : public CreatureScript
 
                 if (ArcaneMissiles_Timer <= diff)
                 {
-                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,1))
+                    if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 1))
                         DoCast(pTarget, SPELL_ARCANE_MISSILES);
                     else
                         DoCast(me->getVictim(), SPELL_ARCANE_MISSILES);
@@ -284,4 +283,3 @@ void AddSC_boss_pathaleon_the_calculator()
     new boss_pathaleon_the_calculator();
     new mob_nether_wraith();
 }
-

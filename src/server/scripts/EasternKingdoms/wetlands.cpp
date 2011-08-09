@@ -132,9 +132,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*######
 ## npc_mikhail
@@ -162,7 +160,6 @@ public:
         }
         return false;
     }
-
 };
 
 /*######

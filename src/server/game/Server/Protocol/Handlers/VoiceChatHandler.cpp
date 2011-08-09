@@ -50,4 +50,3 @@ void WorldSession::HandleSetActiveVoiceChannel(WorldPacket & recv_data)
     recv_data.read_skip<char*>();
     recv_data.hexlike();
 }
-

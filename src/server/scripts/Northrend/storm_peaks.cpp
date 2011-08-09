@@ -95,7 +95,6 @@ public:
 
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
-
         if (pPlayer->GetQuestStatus(QUEST_MISSING_SCOUTS) == QUEST_STATUS_INCOMPLETE)
         {
             pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
@@ -213,13 +212,12 @@ public:
         {
             me->SetReactState(REACT_PASSIVE);
 
-            if (GameObject* pGO = me->FindNearestGameObject(GO_RUSTY_CAGE,5.0f))
+            if (GameObject* pGO = me->FindNearestGameObject(GO_RUSTY_CAGE, 5.0f))
             {
                 if (pGO->GetGoState() == GO_STATE_ACTIVE)
                     pGO->SetGoState(GO_STATE_READY);
             }
         }
-
     };
 
     CreatureAI *GetAI(Creature *creature) const
@@ -288,7 +286,6 @@ public:
         {
             me->RestoreFaction();
         }
-
     };
 
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
@@ -506,12 +503,12 @@ public:
             pPlayer->PrepareQuestMenu(pCreature->GetGUID());
 
         //Trainer Menu
-        if( pCreature->isTrainer() )
+        if ( pCreature->isTrainer() )
             pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_TRAINER, GOSSIP_TEXT_TRAIN, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_TRAIN);
 
         //Vendor Menu
-        if( pCreature->isVendor() )
-            if(pPlayer->HasSpell(SPELL_MECHANO_HOG) || pPlayer->HasSpell(SPELL_MEKGINEERS_CHOPPER))
+        if ( pCreature->isVendor() )
+            if (pPlayer->HasSpell(SPELL_MECHANO_HOG) || pPlayer->HasSpell(SPELL_MEKGINEERS_CHOPPER))
                 pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_VENDOR, GOSSIP_TEXT_BROWSE_GOODS, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_TRADE);
 
         pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());

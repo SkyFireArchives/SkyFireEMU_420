@@ -34,4 +34,3 @@
 #define DATA_THERAVENIAN_DEATH              7
 #define TYPE_KIRTONOS                       8
 #endif
-

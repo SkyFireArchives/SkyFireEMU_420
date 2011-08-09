@@ -39,10 +39,10 @@ enum Data
 enum CreatureIds
 {
     /* Dungeons Bosses */
-    
+
     BOSS_LADY_NAZJAR            = 40586,
     BOSS_COMMANDER_ULTHOK       = 40765,
-    BOSS_ERUNAK_STONESPEAKER    = 40825, 
+    BOSS_ERUNAK_STONESPEAKER    = 40825,
     BOSS_MINDBENDER_GHURSHA     = 40788,
     BOSS_OZUMAT = 42172,
 
@@ -53,7 +53,6 @@ enum CreatureIds
     NPC_NEPTULON                = 40792,
     NPC_THRONE_TELEPORTER_1     = 51395,
     NPC_THRONE_TELEPORTER_2     = 51391,
-
 };
 
 enum GameObjectIds

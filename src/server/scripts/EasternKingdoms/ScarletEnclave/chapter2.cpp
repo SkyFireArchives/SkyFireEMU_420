@@ -26,7 +26,7 @@
 #include "ScriptedEscortAI.h"
 
 //How to win friends and influence enemies
-// texts signed for creature 28939 but used for 28939,28940,28610
+// texts signed for creature 28939 but used for 28939, 28940, 28610
 enum win_friends
 {
     SAY_PERSUADE1                     = -1609501,
@@ -93,12 +93,12 @@ public:
                     me->SetReactState(REACT_PASSIVE);
                     DoCastAOE(58111, true);
 
-                    DoScriptText(RAND(SAY_PERSUADE1,SAY_PERSUADE2,SAY_PERSUADE3,
-                                      SAY_PERSUADE4,SAY_PERSUADE5,SAY_PERSUADE6,
+                    DoScriptText(RAND(SAY_PERSUADE1, SAY_PERSUADE2, SAY_PERSUADE3,
+                                      SAY_PERSUADE4, SAY_PERSUADE5, SAY_PERSUADE6,
                                       SAY_PERSUADE7), caster);
 
-                    DoScriptText(RAND(SAY_CRUSADER1,SAY_CRUSADER2,SAY_CRUSADER3,
-                                      SAY_CRUSADER4,SAY_CRUSADER5,SAY_CRUSADER6), me);
+                    DoScriptText(RAND(SAY_CRUSADER1, SAY_CRUSADER2, SAY_CRUSADER3,
+                                      SAY_CRUSADER4, SAY_CRUSADER5, SAY_CRUSADER6), me);
                 }
             }
         }
@@ -145,9 +145,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*######
 ## npc_koltira_deathweaver
@@ -191,7 +189,7 @@ public:
         {
             pCreature->SetStandState(UNIT_STAND_STATE_STAND);
 
-            if (npc_escortAI* pEscortAI = CAST_AI(npc_koltira_deathweaver::npc_koltira_deathweaverAI,pCreature->AI()))
+            if (npc_escortAI* pEscortAI = CAST_AI(npc_koltira_deathweaver::npc_koltira_deathweaverAI, pCreature->AI()))
                 pEscortAI->Start(false, false, pPlayer->GetGUID());
         }
         return true;
@@ -346,10 +344,7 @@ public:
             }
         }
     };
-
 };
-
-
 
 //Scarlet courier
 enum ScarletCourierEnum
@@ -436,9 +431,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 //Koltira & Valroth- Breakout
 
@@ -516,7 +509,7 @@ public:
         void Shout()
         {
             if (rand()%100 < 15)
-                DoScriptText(RAND(SAY_VALROTH3,SAY_VALROTH4,SAY_VALROTH5), me);
+                DoScriptText(RAND(SAY_VALROTH3, SAY_VALROTH4, SAY_VALROTH5), me);
         }
 
         void JustDied(Unit* killer)
@@ -525,21 +518,19 @@ public:
             killer->CastSpell(me, SPELL_SUMMON_VALROTH_REMAINS, true);
         }
     };
-
 };
-
 
 /*######
 ## npc_a_special_surprise
 ######*/
-//used by 29032,29061,29065,29067,29068,29070,29074,29072,29073,29071 but signed for 29032
+//used by 29032, 29061, 29065, 29067, 29068, 29070, 29074, 29072, 29073, 29071 but signed for 29032
 //Worgen and Goblin implemented by Saiifii@live.de
 enum SpecialSurprise
 {
     SAY_EXEC_START_1            = -1609025,                 // speech for all
     SAY_EXEC_START_2            = -1609026,
     SAY_EXEC_START_3            = -1609027,
-	SAY_EXEC_START_4			= -1609079,					// Cataclysm: Goblin
+	SAY_EXEC_START_4			= -1609079, 					// Cataclysm: Goblin
     SAY_EXEC_PROG_1             = -1609028,
     SAY_EXEC_PROG_2             = -1609029,
     SAY_EXEC_PROG_3             = -1609030,
@@ -547,7 +538,7 @@ enum SpecialSurprise
     SAY_EXEC_PROG_5             = -1609032,
     SAY_EXEC_PROG_6             = -1609033,
     SAY_EXEC_PROG_7             = -1609034,
-	SAY_EXEC_PROG_8				= -1609080,					// Cataclysm: Goblin
+	SAY_EXEC_PROG_8				= -1609080, 					// Cataclysm: Goblin
     SAY_EXEC_NAME_1             = -1609035,
     SAY_EXEC_NAME_2             = -1609036,
     SAY_EXEC_RECOG_1            = -1609037,
@@ -565,8 +556,8 @@ enum SpecialSurprise
     SAY_EXEC_NOREM_7            = -1609049,
     SAY_EXEC_NOREM_8            = -1609050,
     SAY_EXEC_NOREM_9            = -1609051,
-	SAY_EXEC_NOREM_10			= -1609081,					// Cataclysm: Goblin
-	SAY_EXEC_NOREM_11			= -1609085,					// Cataclysm: Worgen
+	SAY_EXEC_NOREM_10			= -1609081, 					// Cataclysm: Goblin
+	SAY_EXEC_NOREM_11			= -1609085, 					// Cataclysm: Worgen
     SAY_EXEC_THINK_1            = -1609052,
     SAY_EXEC_THINK_2            = -1609053,
     SAY_EXEC_THINK_3            = -1609054,
@@ -577,13 +568,13 @@ enum SpecialSurprise
     SAY_EXEC_THINK_8            = -1609059,
     SAY_EXEC_THINK_9            = -1609060,
     SAY_EXEC_THINK_10           = -1609061,
-	SAY_EXEC_THINK_11			= -1609082,					// Cataclysm: Goblin
-	SAY_EXEC_THINK_12			= -1609086,					// Cataclysm: Worgen
+	SAY_EXEC_THINK_11			= -1609082, 					// Cataclysm: Goblin
+	SAY_EXEC_THINK_12			= -1609086, 					// Cataclysm: Worgen
     SAY_EXEC_LISTEN_1           = -1609062,
     SAY_EXEC_LISTEN_2           = -1609063,
     SAY_EXEC_LISTEN_3           = -1609064,
     SAY_EXEC_LISTEN_4           = -1609065,
-	SAY_EXEC_LISTEN_5			= -1609083,					// Cataclysm: Goblin
+	SAY_EXEC_LISTEN_5			= -1609083, 					// Cataclysm: Goblin
     SAY_PLAGUEFIST              = -1609066,
     SAY_EXEC_TIME_1             = -1609067,
     SAY_EXEC_TIME_2             = -1609068,
@@ -595,7 +586,7 @@ enum SpecialSurprise
     SAY_EXEC_TIME_8             = -1609074,
     SAY_EXEC_TIME_9             = -1609075,
     SAY_EXEC_TIME_10            = -1609076,
-	SAY_EXEC_TIME_11			= -1609084,					// Cataclysm: Goblin
+	SAY_EXEC_TIME_11			= -1609084, 					// Cataclysm: Goblin
 	SAY_EXEC_TIME_12			= -1609087,
     SAY_EXEC_WAITING            = -1609077,
     EMOTE_DIES                  = -1609078,
@@ -1002,7 +993,7 @@ public:
                                 case 2: DoScriptText(SAY_EXEC_PROG_1, me, pPlayer); break;
                                 case 3: DoScriptText(SAY_EXEC_NAME_1, me, pPlayer); break;
                                 case 4: DoScriptText(SAY_EXEC_RECOG_1, me, pPlayer); break;
-                                case 5: DoScriptText(SAY_EXEC_NOREM_11, me, pPlayer); break;		// SQL Part Implemented in Cataclysm 
+                                case 5: DoScriptText(SAY_EXEC_NOREM_11, me, pPlayer); break;		// SQL Part Implemented in Cataclysm
                                 case 6: DoScriptText(SAY_EXEC_THINK_12, me, pPlayer); break;		// SQL Part Implemented in Cataclysm
                                 case 7: DoScriptText(SAY_EXEC_LISTEN_1, me, pPlayer); break;
                                 case 8:
@@ -1030,7 +1021,7 @@ public:
                                 case 2: DoScriptText(SAY_EXEC_PROG_8, me, pPlayer); break;			// SQL Part Implemented in Cataclysm
                                 case 3: DoScriptText(SAY_EXEC_NAME_1, me, pPlayer); break;			// SQL Part Implemented in Cataclysm
                                 case 4: DoScriptText(SAY_EXEC_RECOG_1, me, pPlayer); break;
-                                case 5: DoScriptText(SAY_EXEC_NOREM_11, me, pPlayer); break;		// SQL Part Implemented in Cataclysm 
+                                case 5: DoScriptText(SAY_EXEC_NOREM_11, me, pPlayer); break;		// SQL Part Implemented in Cataclysm
                                 case 6: DoScriptText(SAY_EXEC_THINK_11, me, pPlayer); break;		// SQL Part Implemented in Cataclysm
                                 case 7: DoScriptText(SAY_EXEC_LISTEN_5, me, pPlayer); break;		// SQL Part Implemented in Cataclysm
                                 case 8:
@@ -1064,9 +1055,7 @@ public:
             }
         }
     };
-
 };
-
 
 void AddSC_the_scarlet_enclave_c2()
 {

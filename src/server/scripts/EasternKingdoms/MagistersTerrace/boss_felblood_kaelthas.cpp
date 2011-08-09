@@ -306,15 +306,14 @@ public:
                     if (FireballTimer <= diff)
                     {
                         DoCast(me->getVictim(), SPELL_FIREBALL_NORMAL);
-                        FireballTimer = urand(2000,6000);
+                        FireballTimer = urand(2000, 6000);
                     } else FireballTimer -= diff;
 
                     if (PhoenixTimer <= diff)
                     {
+                        Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 1);
 
-                        Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,1);
-
-                        uint8 random = urand(1,2);
+                        uint8 random = urand(1, 2);
                         float x = KaelLocations[random][0];
                         float y = KaelLocations[random][1];
 
@@ -340,7 +339,7 @@ public:
                             DoCast(pTarget, SPELL_FLAMESTRIKE3, true);
                             DoScriptText(SAY_FLAMESTRIKE, me);
                         }
-                        FlameStrikeTimer = urand(15000,25000);
+                        FlameStrikeTimer = urand(15000, 25000);
                     } else FlameStrikeTimer -= diff;
 
                     // Below 50%
@@ -406,7 +405,7 @@ public:
                                 for (uint8 i = 0; i < 3; ++i)
                                 {
                                     Unit *pTarget = NULL;
-                                    pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                                    pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
 
                                     Creature* Orb = DoSpawnCreature(CREATURE_ARCANE_SPHERE, 5, 5, 0, 0, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 30000);
                                     if (Orb && pTarget)
@@ -415,7 +414,6 @@ public:
                                         Orb->AddThreat(pTarget, 1000000.0f);
                                         Orb->AI()->AttackStart(pTarget);
                                     }
-
                                 }
 
                                 DoCast(me, SPELL_GRAVITY_LAPSE_CHANNEL);
@@ -436,7 +434,6 @@ public:
             }
         }
     };
-
 };
 
 class mob_felkael_flamestrike : public CreatureScript
@@ -478,7 +475,6 @@ public:
             } else FlameStrikeTimer -= diff;
         }
     };
-
 };
 
 class mob_felkael_phoenix : public CreatureScript
@@ -527,7 +523,6 @@ public:
             {
                 damage = 0;
                 return;
-
             }
             //Don't really die in all phases of Kael'Thas
             if (pInstance && pInstance->GetData(DATA_KAELTHAS_EVENT) == 0)
@@ -545,13 +540,11 @@ public:
                 me->ModifyAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, false);
                 me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                 me->ClearAllReactives();
-                me->SetUInt64Value(UNIT_FIELD_TARGET,0);
+                me->SetUInt64Value(UNIT_FIELD_TARGET, 0);
                 me->GetMotionMaster()->Clear();
                 me->GetMotionMaster()->MoveIdle();
                 me->SetStandState(UNIT_STAND_STATE_DEAD);
-
            }
-
         }
 
         void JustDied(Unit* /*slayer*/)
@@ -561,7 +554,6 @@ public:
 
         void UpdateAI(const uint32 diff)
         {
-
             //If we are fake death, we cast revbirth and after that we kill the phoenix to spawn the egg.
             if (FakeDeath)
             {
@@ -573,7 +565,6 @@ public:
 
                 if (Rebirth)
                 {
-
                     if (Death_Timer <= diff)
                     {
                         me->SummonCreature(CREATURE_PHOENIX_EGG, 0.0f, 0.0f, 0.0f, 0.0f, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 45000);
@@ -581,7 +572,6 @@ public:
                         Rebirth = false;
                     } else Death_Timer -= diff;
                 }
-
             }
 
             if (!UpdateVictim())
@@ -590,7 +580,7 @@ public:
             if (BurnTimer <= diff)
             {
                 //spell Burn should possible do this, but it doesn't, so do this for now.
-                uint16 dmg = urand(1650,2050);
+                uint16 dmg = urand(1650, 2050);
                 me->DealDamage(me, dmg, 0, DOT, SPELL_SCHOOL_MASK_FIRE, NULL, false);
                 BurnTimer += 2000;
             } BurnTimer -= diff;
@@ -598,7 +588,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_felkael_phoenix_egg : public CreatureScript
@@ -632,10 +621,8 @@ public:
                 me->SummonCreature(CREATURE_PHOENIX, 0.0f, 0.0f, 0.0f, 0.0f, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 60000);
                 me->Kill(me);
             } else HatchTimer -= diff;
-
         }
     };
-
 };
 
 class mob_arcane_sphere : public CreatureScript
@@ -658,7 +645,7 @@ public:
         void Reset()
         {
             DespawnTimer = 30000;
-            ChangeTargetTimer = urand(6000,12000);
+            ChangeTargetTimer = urand(6000, 12000);
 
             me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             me->AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
@@ -688,17 +675,11 @@ public:
                     AttackStart(pTarget);
                 }
 
-                ChangeTargetTimer = urand(5000,15000);
+                ChangeTargetTimer = urand(5000, 15000);
             } else ChangeTargetTimer -= diff;
         }
     };
-
 };
-
-
-
-
-
 
 void AddSC_boss_felblood_kaelthas()
 {

@@ -224,7 +224,7 @@ class boss_thekal : public CreatureScript
                     {
                         if (Charge_Timer <= diff)
                         {
-                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                             {
                                 DoCast(pTarget, SPELL_CHARGE);
                                 DoResetThreat();
@@ -260,7 +260,6 @@ class boss_thekal : public CreatureScript
                     }
 
                     DoMeleeAttackIfReady();
-
             }
         };
 
@@ -348,7 +347,7 @@ class mob_zealot_lorkhan : public CreatureScript
                         if (!pThekal || !pZath)
                             return;
 
-                        switch (urand(0,1))
+                        switch (urand(0, 1))
                         {
                             case 0:
                                 if (me->IsWithinMeleeRange(pThekal))
@@ -504,7 +503,7 @@ class mob_zealot_zath : public CreatureScript
                     DoCast(me->getVictim(), SPELL_GOUGE);
 
                     if (DoGetThreat(me->getVictim()))
-                        DoModifyThreatPercent(me->getVictim(),-100);
+                        DoModifyThreatPercent(me->getVictim(), -100);
 
                     Gouge_Timer = 17000+rand()%10000;
                 } else Gouge_Timer -= diff;

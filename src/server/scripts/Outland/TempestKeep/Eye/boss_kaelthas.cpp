@@ -242,7 +242,7 @@ struct advisorbase_ai : public ScriptedAI
             me->ModifyAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, false);
             me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             me->ClearAllReactives();
-            me->SetUInt64Value(UNIT_FIELD_TARGET,0);
+            me->SetUInt64Value(UNIT_FIELD_TARGET, 0);
             me->GetMotionMaster()->Clear();
             me->GetMotionMaster()->MoveIdle();
             me->SetStandState(UNIT_STAND_STATE_DEAD);
@@ -272,7 +272,6 @@ struct advisorbase_ai : public ScriptedAI
         }
     }
 };
-
 
 class boss_kaelthas : public CreatureScript
 {
@@ -385,7 +384,6 @@ class boss_kaelthas : public CreatureScript
 
                     if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         AttackStart(pTarget);
-
                 }
                 else
                 {
@@ -438,7 +436,7 @@ class boss_kaelthas : public CreatureScript
 
             void KilledUnit()
             {
-                DoScriptText(RAND(SAY_SLAY1,SAY_SLAY2,SAY_SLAY3), me);
+                DoScriptText(RAND(SAY_SLAY1, SAY_SLAY2, SAY_SLAY3), me);
             }
 
             void JustSummoned(Creature* pSummoned)
@@ -805,7 +803,7 @@ class boss_kaelthas : public CreatureScript
                         if (Phoenix_Timer <= diff)
                         {
                             DoCast(me, SPELL_PHOENIX_ANIMATION);
-                            DoScriptText(RAND(SAY_SUMMON_PHOENIX1,SAY_SUMMON_PHOENIX2), me);
+                            DoScriptText(RAND(SAY_SUMMON_PHOENIX1, SAY_SUMMON_PHOENIX2), me);
 
                             Phoenix_Timer = 60000;
                         }
@@ -883,7 +881,6 @@ class boss_kaelthas : public CreatureScript
                         //Phase 5
                         if (Phase == 6)
                         {
-
                             //GravityLapse_Timer
                             if (GravityLapse_Timer <= diff)
                             {
@@ -916,7 +913,7 @@ class boss_kaelthas : public CreatureScript
                                         break;
 
                                     case 1:
-                                        DoScriptText(RAND(SAY_GRAVITYLAPSE1,SAY_GRAVITYLAPSE2), me);
+                                        DoScriptText(RAND(SAY_GRAVITYLAPSE1, SAY_GRAVITYLAPSE2), me);
 
                                         // 2) At that point he will put a Gravity Lapse debuff on everyone
                                         for (i = me->getThreatManager().getThreatList().begin(); i != me->getThreatManager().getThreatList().end(); ++i)
@@ -1494,7 +1491,7 @@ class mob_phoenix_tk : public CreatureScript
             {
                 //is this spell in use anylonger?
                 //DoCast(me, SPELL_EMBER_BLAST, true);
-                me->SummonCreature(NPC_PHOENIX_EGG,me->GetPositionX(),me->GetPositionY(),me->GetPositionZ(),me->GetOrientation(),TEMPSUMMON_TIMED_DESPAWN,16000);
+                me->SummonCreature(NPC_PHOENIX_EGG, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), me->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN, 16000);
             }
 
             void UpdateAI(const uint32 diff)
@@ -1505,7 +1502,7 @@ class mob_phoenix_tk : public CreatureScript
                 if (Cycle_Timer <= diff)
                 {
                     //spell Burn should possible do this, but it doesn't, so do this for now.
-                    uint32 dmg = urand(4500,5500);
+                    uint32 dmg = urand(4500, 5500);
                     if (me->GetHealth() > dmg)
                         me->ModifyHealth(-int32(dmg));
                     Cycle_Timer = 2000;
@@ -1522,7 +1519,6 @@ class mob_phoenix_tk : public CreatureScript
             return new mob_phoenix_tkAI(Creature);
         }
 };
-
 
 //Phoenix Egg AI
 class mob_phoenix_egg_tk : public CreatureScript
@@ -1561,7 +1557,7 @@ class mob_phoenix_egg_tk : public CreatureScript
             void JustSummoned(Creature* summoned)
             {
                 summoned->AddThreat(me->getVictim(), 0.0f);
-                summoned->CastSpell(summoned,SPELL_REBIRTH,false);
+                summoned->CastSpell(summoned, SPELL_REBIRTH, false);
             }
 
             void UpdateAI(const uint32 diff)
@@ -1571,7 +1567,7 @@ class mob_phoenix_egg_tk : public CreatureScript
 
                 if (Rebirth_Timer <= diff)
                 {
-                    me->SummonCreature(NPC_PHOENIX,me->GetPositionX(),me->GetPositionY(),me->GetPositionZ(),me->GetOrientation(),TEMPSUMMON_CORPSE_DESPAWN,5000);
+                    me->SummonCreature(NPC_PHOENIX, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), me->GetOrientation(), TEMPSUMMON_CORPSE_DESPAWN, 5000);
                     Rebirth_Timer = 0;
                 }
                 else
@@ -1584,7 +1580,6 @@ class mob_phoenix_egg_tk : public CreatureScript
             return new mob_phoenix_egg_tkAI(pCreature);
         }
 };
-
 
 void AddSC_boss_kaelthas()
 {

@@ -84,8 +84,8 @@ struct tm *localtime_r(const time_t *clock, struct tm *res)
 #endif
 
 #if !defined(HAVE_GMTIME_R)
-/* 
-  Reentrant version of standard gmtime() function. 
+/*
+  Reentrant version of standard gmtime() function.
   Needed on some systems which don't implement it.
 */
 
@@ -128,7 +128,6 @@ void px_handle_sig(int sig)
   sigaddset(&px_recd, sig);
 }
 
-
 void sigwait_setup(sigset_t *set)
 {
   int i;
@@ -167,7 +166,6 @@ void sigwait_setup(sigset_t *set)
   pthread_sigmask(SIG_BLOCK,(sigset_t*) set,(sigset_t*) 0);
   pthread_sigmask(SIG_UNBLOCK,&unblock_mask,(sigset_t*) 0);
 }
-
 
 int sigwait(sigset_t *setp, int *sigp)
 {
@@ -234,7 +232,6 @@ static bool inited=0;
 static pthread_cond_t  COND_sigwait;
 static pthread_mutex_t LOCK_sigwait;
 
-
 void sigwait_handle_sig(int sig)
 {
   pthread_mutex_lock(&LOCK_sigwait);
@@ -278,7 +275,6 @@ void *sigwait_thread(void *set_arg)
 #endif
   }
 }
-
 
 int sigwait(sigset_t *setp, int *sigp)
 {
@@ -330,7 +326,6 @@ int sigwait(sigset_t *setp, int *sigp)
 #endif /* DONT_USE_SIGSUSPEND */
 #endif /* HAVE_SIGWAIT */
 
-
 /****************************************************************************
  The following functions fixes that all pthread functions should work
  according to latest posix standard
@@ -381,7 +376,6 @@ int my_pthread_cond_init(pthread_cond_t *mp, const pthread_condattr_t *attr)
 
 #endif
 
-
 /*****************************************************************************
   Patches for HPUX
   We need these because the pthread_mutex.. code returns -1 on error,
@@ -418,7 +412,6 @@ void my_pthread_attr_getstacksize(pthread_attr_t *connection_attrib,
 }
 #endif
 
-
 #ifdef HAVE_POSIX1003_4a_MUTEX
 /*
   In HP-UX-10.20 and other old Posix 1003.4a Draft 4 implementations
@@ -445,7 +438,7 @@ void my_pthread_attr_getstacksize(pthread_attr_t *connection_attrib,
   0		If we are able successfully lock the mutex.
   EBUSY		Mutex was locked by another thread
   #		Other error number returned by pthread_mutex_trylock()
-		(Not likely)  
+		(Not likely)
 */
 
 int my_pthread_mutex_trylock(pthread_mutex_t *mutex)

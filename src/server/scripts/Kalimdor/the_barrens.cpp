@@ -70,9 +70,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(3557, pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 /*######
 # npc_gilthares
@@ -173,10 +171,7 @@ public:
             }
         }
     };
-
 };
-
-
 
 /*######
 ## npc_sputtervalve
@@ -211,9 +206,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 /*######
 ## npc_taskmaster_fizzule
@@ -313,9 +306,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*#####
 ## npc_twiggy_flathead
@@ -451,7 +442,7 @@ public:
 
                 if (!EventGrate && EventInProgress)
                 {
-                    float x,y,z;
+                    float x, y, z;
                     pWarrior->GetPosition(x, y, z);
 
                     if (x >= -1684 && x <= -1674 && y >= -4334 && y <= -4324) {
@@ -540,9 +531,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*#####
 ## npc_wizzlecrank_shredder
@@ -709,9 +698,7 @@ public:
     {
         return new npc_wizzlecrank_shredderAI(pCreature);
     }
-
 };
-
 
 void AddSC_the_barrens()
 {

@@ -74,7 +74,6 @@ public:
                 pInstance->SetData(DATA_BURU_EVENT, DONE);
         }
     };
-
 };
 
 void AddSC_boss_buru()

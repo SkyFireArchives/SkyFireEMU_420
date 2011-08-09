@@ -50,7 +50,6 @@ static DH *get_dh512(void)
   return(dh);
 }
 
-
 static void
 report_errors()
 {
@@ -73,7 +72,7 @@ report_errors()
 }
 
 static const char*
-ssl_error_string[] = 
+ssl_error_string[] =
 {
   "No error",
   "Unable to get certificate",
@@ -142,7 +141,6 @@ vio_set_cert_stuff(SSL_CTX *ctx, const char *cert_file, const char *key_file,
   DBUG_RETURN(0);
 }
 
-
 static void check_ssl_init()
 {
   if (!ssl_algorithms_added)
@@ -150,7 +148,6 @@ static void check_ssl_init()
     ssl_algorithms_added= TRUE;
     SSL_library_init();
     OpenSSL_add_all_algorithms();
-
   }
 
   if (!ssl_error_strings_loaded)
@@ -164,7 +161,7 @@ static void check_ssl_init()
 static struct st_VioSSLFd *
 new_VioSSLFd(const char *key_file, const char *cert_file,
              const char *ca_file, const char *ca_path,
-             const char *cipher, SSL_METHOD *method, 
+             const char *cipher, SSL_METHOD *method,
              enum enum_ssl_init_error* error)
 {
   DH *dh;
@@ -244,7 +241,6 @@ new_VioSSLFd(const char *key_file, const char *cert_file,
   DBUG_RETURN(ssl_fd);
 }
 
-
 /************************ VioSSLConnectorFd **********************************/
 struct st_VioSSLFd *
 new_VioSSLConnectorFd(const char *key_file, const char *cert_file,
@@ -274,7 +270,6 @@ new_VioSSLConnectorFd(const char *key_file, const char *cert_file,
 
   return ssl_fd;
 }
-
 
 /************************ VioSSLAcceptorFd **********************************/
 struct st_VioSSLFd *

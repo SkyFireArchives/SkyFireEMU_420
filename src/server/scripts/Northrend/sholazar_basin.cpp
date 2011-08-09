@@ -101,7 +101,7 @@ public:
                 if (Player* pPlayer = GetPlayerForEscort())
                     pPlayer->GroupEventHappens(QUEST_FORTUNATE_MISUNDERSTANDINGS, me);
               //  me->RestoreFaction();
-                DoScriptText(SAY_END_IRO,me);
+                DoScriptText(SAY_END_IRO, me);
                 SetRun(false);
                 break;
             }
@@ -307,7 +307,7 @@ public:
             if (me->isSummon())
                 if (Unit* pSummoner = CAST_SUM(me)->GetSummoner())
                     if (pSummoner)
-                        me->GetMotionMaster()->MovePoint(0,pSummoner->GetPositionX(),pSummoner->GetPositionY(),pSummoner->GetPositionZ());
+                        me->GetMotionMaster()->MovePoint(0, pSummoner->GetPositionX(), pSummoner->GetPositionY(), pSummoner->GetPositionZ());
         }
 
         void UpdateAI(const uint32 /*uiDiff*/)
@@ -511,7 +511,7 @@ public:
             case GOSSIP_ACTION_INFO_DEF + 2: spellId = SPELL_ADD_BANANAS;    break;
             case GOSSIP_ACTION_INFO_DEF + 3: spellId = SPELL_ADD_PAPAYA;     break;
         }
-        if (spellId) 
+        if (spellId)
             pPlayer->CastSpell(pPlayer, spellId, true);
         DoScriptText(SAY_DWARF_HELP, pCreature);
         pCreature->ForcedDespawn();

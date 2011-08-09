@@ -125,4 +125,3 @@ class TypeMapContainer
         ContainerMapList<OBJECT_TYPES> i_elements;
 };
 #endif
-

@@ -35,7 +35,7 @@ enum Texts
     SAY_KILL                            = 8, // Perish!
                                              // A flaw of mortality...
     SAY_BERSERK                         = 9, // Enough! I tire of these games!
-    SAY_DEATH                           = 10,// Free...at last...
+    SAY_DEATH                           = 10, // Free...at last...
 };
 
 enum Spells
@@ -1010,7 +1010,7 @@ class spell_sindragosa_unchained_magic : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(UnchainedMagicTargetSelector());
+                unitList.remove_if (UnchainedMagicTargetSelector());
                 uint32 maxSize = GetCaster()->GetMap()->GetSpawnMode() & 1 ? 5 : 2;
                 if (unitList.size() > maxSize)
                     Trinity::RandomResizeList(unitList, maxSize);
@@ -1204,7 +1204,7 @@ class spell_sindragosa_collision_filter : public SpellScriptLoader
             {
                 std::list<Creature*> tombs;
                 GetCreatureListWithEntryInGrid(tombs, GetCaster(), NPC_ICE_TOMB, 200.0f);
-                unitList.remove_if(FrostBombTargetSelector(GetCaster(), tombs));
+                unitList.remove_if (FrostBombTargetSelector(GetCaster(), tombs));
             }
 
             void Register()
@@ -1345,7 +1345,7 @@ class spell_frostwarden_handler_order_whelp : public SpellScriptLoader
                 std::list<Creature*> unitList;
                 GetCreatureListWithEntryInGrid(unitList, GetCaster(), NPC_FROSTWING_WHELP, 150.0f);
                 if (Creature* creature = GetCaster()->ToCreature())
-                    unitList.remove_if(OrderWhelpTargetSelector(creature));
+                    unitList.remove_if (OrderWhelpTargetSelector(creature));
 
                 std::list<Creature*>::iterator itr = unitList.begin();
                 std::advance(itr, urand(0, unitList.size()-1));

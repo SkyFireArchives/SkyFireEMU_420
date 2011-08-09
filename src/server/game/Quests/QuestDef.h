@@ -148,7 +148,7 @@ enum QuestFlags
     QUEST_FLAGS_AUTOCOMPLETE   = 0x00010000,                // auto complete
     QUEST_FLAGS_SPECIAL_ITEM   = 0x00020000,                // has something to do with ReqItemId and SrcItemId
     QUEST_FLAGS_OBJ_TEXT       = 0x00040000,                // use Objective text as Complete text
-    QUEST_FLAGS_AUTO_ACCEPT    = 0x00080000,                // The client recognizes this flag as auto-accept. 
+    QUEST_FLAGS_AUTO_ACCEPT    = 0x00080000,                // The client recognizes this flag as auto-accept.
 };
 
 enum QuestSpecialFlags
@@ -157,7 +157,6 @@ enum QuestSpecialFlags
     QUEST_SPECIAL_FLAG_REPEATABLE           = 0x001,  // Set by 1 in SpecialFlags from DB
     QUEST_SPECIAL_FLAG_EXPLORATION_OR_EVENT = 0x002,  // Set by 2 in SpecialFlags from DB (if reequired area explore, spell SPELL_EFFECT_QUEST_COMPLETE casting, table `*_script` command SCRIPT_COMMAND_QUEST_EXPLORED use, set from script)
     //QUEST_SPECIAL_FLAG_MONTHLY              = 0x004,  // Set by 4 in SpecialFlags. Quest reset for player at beginning of month.
- 
 
     // Trinity flags for internal use only
     QUEST_SPECIAL_FLAG_DELIVER              = 0x008,  // Internal flag computed only
@@ -199,7 +198,6 @@ class Quest
         bool HasFlag(uint32 flag) const { return (QuestFlags & flag) != 0; }
         bool HasSpecialFlag(uint32 flag) const { return (SpecialFlags & flag) != 0; }
         void SetSpecialFlag(uint32 flag) { SpecialFlags |= flag; }
-
 
         // table data accessors:
         uint32 GetQuestId() const { return QuestId; }
@@ -309,7 +307,6 @@ class Quest
         uint32 RewCurrencyCount[QUEST_CURRENCY_COUNT];
         uint32 ReqCurrencyId[QUEST_CURRENCY_COUNT];
         uint32 ReqCurrencyCount[QUEST_CURRENCY_COUNT];
-        
 
         uint32 GetReqItemsCount() const { return m_reqitemscount; }
         uint32 GetReqCreatureOrGOcount() const { return m_reqCreatureOrGOcount; }

@@ -37,7 +37,7 @@ enum eSpells
 
 #define GOSSIP_ITEM_MORRIDUNE "Please port me to Darnassus"
 
-const Position HomePosition = {-815.817f,-145.299f,-25.870f, 0};
+const Position HomePosition = {-815.817f, -145.299f, -25.870f, 0};
 
 class go_blackfathom_altar : public GameObjectScript
 {
@@ -47,10 +47,9 @@ public:
     bool OnGossipHello(Player *pPlayer, GameObject* /*pGo*/)
     {
         if (!pPlayer->HasAura(SPELL_BLESSING_OF_BLACKFATHOM))
-            pPlayer->AddAura(SPELL_BLESSING_OF_BLACKFATHOM,pPlayer);
+            pPlayer->AddAura(SPELL_BLESSING_OF_BLACKFATHOM, pPlayer);
         return true;
     }
-
 };
 
 class go_blackfathom_fire : public GameObjectScript
@@ -71,7 +70,6 @@ public:
         }
         return false;
     }
-
 };
 
 class npc_blackfathom_deeps_event : public CreatureScript
@@ -109,9 +107,9 @@ public:
         {
             bFlee = false;
 
-            uiRavageTimer           = urand(5000,8000);
-            uiFrostNovaTimer        = urand(9000,12000);
-            uiFrostBoltVolleyTimer  = urand(2000,4000);
+            uiRavageTimer           = urand(5000, 8000);
+            uiFrostNovaTimer        = urand(9000, 12000);
+            uiFrostBoltVolleyTimer  = urand(2000, 4000);
         }
 
         void AttackPlayer()
@@ -150,7 +148,7 @@ public:
                     if (uiRavageTimer <= uiDiff)
                     {
                         DoCast(me->getVictim(), SPELL_RAVAGE);
-                        uiRavageTimer = urand(9000,14000);
+                        uiRavageTimer = urand(9000, 14000);
                     } else uiRavageTimer -= uiDiff;
                     break;
                 }
@@ -168,17 +166,17 @@ public:
                 {
                     if (uiFrostBoltVolleyTimer <= uiDiff)
                     {
-                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         {
                             if (pTarget)
                                 DoCast(pTarget, SPELL_FROST_BOLT_VOLLEY);
                         }
-                        uiFrostBoltVolleyTimer = urand(5000,8000);
+                        uiFrostBoltVolleyTimer = urand(5000, 8000);
                     } else uiFrostBoltVolleyTimer -= uiDiff;
                     if (uiFrostNovaTimer <= uiDiff)
                     {
-                        DoCastAOE(SPELL_FROST_NOVA,false);
-                        uiFrostNovaTimer = urand(25000,30000);
+                        DoCastAOE(SPELL_FROST_NOVA, false);
+                        uiFrostNovaTimer = urand(25000, 30000);
                     } else uiFrostNovaTimer -= uiDiff;
                     break;
                 }
@@ -194,9 +192,7 @@ public:
                     pInstance->SetData(DATA_EVENT, pInstance->GetData(DATA_EVENT) + 1);
         }
     };
-
 };
-
 
 enum eMorridune
 {
@@ -215,7 +211,7 @@ public:
         switch(uiAction)
         {
             case GOSSIP_ACTION_INFO_DEF+1:
-                pPlayer->TeleportTo(1,9952.239f,2284.277f,1341.394f,1.595f);
+                pPlayer->TeleportTo(1, 9952.239f, 2284.277f, 1341.394f, 1.595f);
                 pPlayer->CLOSE_GOSSIP_MENU();
                 break;
         }
@@ -239,9 +235,9 @@ public:
     {
         npc_morriduneAI(Creature* pCreature) : npc_escortAI(pCreature)
         {
-            DoScriptText(SAY_MORRIDUNE_1,pCreature);
+            DoScriptText(SAY_MORRIDUNE_1, pCreature);
             me->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-            Start(false,false,NULL);
+            Start(false, false, NULL);
         }
 
         void WaypointReached(uint32 uiPoint)
@@ -253,16 +249,12 @@ public:
                     me->SetOrientation(1.775791f);
                     me->SendMovementFlagUpdate();
                     me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
-                    DoScriptText(SAY_MORRIDUNE_2,me);
+                    DoScriptText(SAY_MORRIDUNE_2, me);
                     break;
             }
         }
     };
-
 };
-
-
-
 
 void AddSC_blackfathom_deeps()
 {

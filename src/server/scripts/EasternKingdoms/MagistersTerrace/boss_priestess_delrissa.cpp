@@ -280,7 +280,7 @@ public:
             {
                 Unit *pTarget = me;
 
-                if (urand(0,1))
+                if (urand(0, 1))
                     if (Unit* pAdd = Unit::GetUnit(*me, m_auiLackeyGUID[rand()%MAX_ACTIVE_LACKEY]))
                         if (pAdd->isAlive())
                             pTarget = pAdd;
@@ -293,7 +293,7 @@ public:
             {
                 Unit *pTarget = me;
 
-                if (urand(0,1))
+                if (urand(0, 1))
                     if (Unit* pAdd = Unit::GetUnit(*me, m_auiLackeyGUID[rand()%MAX_ACTIVE_LACKEY]))
                         if (pAdd->isAlive() && !pAdd->HasAura(SPELL_SHIELD))
                             pTarget = pAdd;
@@ -306,11 +306,11 @@ public:
             {
                 Unit *pTarget = NULL;
 
-                if (urand(0,1))
+                if (urand(0, 1))
                     pTarget = SelectTarget(SELECT_TARGET_RANDOM, 0, 100, true);
                 else
                 {
-                    if (urand(0,1))
+                    if (urand(0, 1))
                         pTarget = me;
                     else
                         if (Unit* pAdd = Unit::GetUnit(*me, m_auiLackeyGUID[rand()%MAX_ACTIVE_LACKEY]))
@@ -335,9 +335,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 enum eHealingPotion
 {
@@ -369,7 +367,7 @@ struct boss_priestess_lackey_commonAI : public ScriptedAI
         // For later development, some alternative threat system should be made
         // We do not know what this system is based upon, but one theory is class (healers=high threat, dps=medium, etc)
         // We reset their threat frequently as an alternative until such a system exist
-        ResetThreatTimer = urand(5000,20000);
+        ResetThreatTimer = urand(5000, 20000);
 
         // in case she is not alive and Reset was for some reason called, respawn her (most likely party wipe after killing her)
         if (Creature* pDelrissa = Unit::GetCreature(*me, pInstance ? pInstance->GetData64(DATA_DELRISSA) : 0))
@@ -579,9 +577,7 @@ public:
                 DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 enum eWarlockSpells
 {
@@ -677,7 +673,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 enum eKickDown
@@ -734,7 +729,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 enum eMageSpells
@@ -865,7 +859,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 enum eWarriorSpells
@@ -985,7 +978,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 enum eHunterSpells
@@ -1033,7 +1025,7 @@ public:
             Wing_Clip_Timer = 4000;
             Freezing_Trap_Timer = 15000;
 
-            Unit* pPet = Unit::GetUnit(*me,m_uiPetGUID);
+            Unit* pPet = Unit::GetUnit(*me, m_uiPetGUID);
             if (!pPet)
                 me->SummonCreature(NPC_SLIVER, 0.0f, 0.0f, 0.0f, 0.0f, TEMPSUMMON_CORPSE_DESPAWN, 0);
 
@@ -1106,7 +1098,6 @@ public:
             }
         }
     };
-
 };
 
 enum Spells
@@ -1163,7 +1154,7 @@ public:
 
             if (Totem_Timer <= diff)
             {
-                DoCast(me, RAND(SPELL_WINDFURY_TOTEM,SPELL_FIRE_NOVA_TOTEM,SPELL_EARTHBIND_TOTEM));
+                DoCast(me, RAND(SPELL_WINDFURY_TOTEM, SPELL_FIRE_NOVA_TOTEM, SPELL_EARTHBIND_TOTEM));
                 ++Totem_Amount;
                 Totem_Timer = Totem_Amount*2000;
             } else Totem_Timer -= diff;
@@ -1206,7 +1197,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 enum eEngineerSpells
@@ -1301,7 +1291,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 /*

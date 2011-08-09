@@ -35,7 +35,7 @@
 
   RETURN VALUE
     0	Ok
-    1	Error 
+    1	Error
 */
 int my_chsize(File fd, my_off_t newlength, int filler, myf MyFlags)
 {

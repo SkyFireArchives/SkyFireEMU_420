@@ -55,7 +55,6 @@ struct ItemEntry
 #define MAX_EXTENDED_COST_ITEMS         5
 #define MAX_EXTENDED_COST_CURRENCIES    5
 
-
 struct ItemCurrencyCostEntry
 {
     //uint32 id;                                            // 0

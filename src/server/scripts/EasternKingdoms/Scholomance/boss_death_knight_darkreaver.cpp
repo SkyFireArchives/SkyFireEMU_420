@@ -59,7 +59,6 @@ public:
         {
         }
     };
-
 };
 
 void AddSC_boss_death_knight_darkreaver()

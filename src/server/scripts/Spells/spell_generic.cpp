@@ -196,7 +196,7 @@ public:
                             NewPet->setDeathState(ALIVE);
 
                         NewPet->SetFullHealth();
-                        NewPet->SetPower(NewPet->getPowerType(),NewPet->GetMaxPower(NewPet->getPowerType()));
+                        NewPet->SetPower(NewPet->getPowerType(), NewPet->GetMaxPower(NewPet->getPowerType()));
 
                         switch (NewPet->GetEntry())
                         {
@@ -532,7 +532,7 @@ class spell_gen_animal_blood : public SpellScriptLoader
                     return false;
                 return true;
             }
-            
+
             void OnApply(AuraEffect const* /*aurEff*/, AuraEffectHandleModes /*mode*/)
             {
                 // Remove all auras with spell id 46221, except the one currently being applied
@@ -616,7 +616,7 @@ public:
             if (Battleground *bg = caster->ToPlayer()->GetBattleground())
             {
                 if (bg->GetTypeID(true) == BATTLEGROUND_IC)
-                    bg->DoAction(1,caster->GetGUID());
+                    bg->DoAction(1, caster->GetGUID());
             }
         }
 
@@ -654,7 +654,7 @@ class spell_gen_parachute_ic : public SpellScriptLoader
                     return;
 
                 if (target->ToPlayer()->m_movementInfo.fallTime > 2000)
-                    target->CastSpell(target,SPELL_PARACHUTE_IC,true);               
+                    target->CastSpell(target, SPELL_PARACHUTE_IC, true);
             }
 
             void Register()

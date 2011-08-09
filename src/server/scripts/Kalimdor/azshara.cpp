@@ -106,7 +106,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 /*######
@@ -418,7 +417,6 @@ public:
 
                 Check_Timer = 1000;
             } else Check_Timer -= diff;
-
         }
 
         void SendText(int32 iTextEntry, Player* pPlayer)
@@ -522,9 +520,7 @@ public:
         {
         }
     };
-
 };
-
 
 void AddSC_azshara()
 {

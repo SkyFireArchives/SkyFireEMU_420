@@ -104,11 +104,8 @@ public:
                     break;
             }
         }
-
     };
-
 };
-
 
 void AddSC_instance_razorfen_kraul()
 {

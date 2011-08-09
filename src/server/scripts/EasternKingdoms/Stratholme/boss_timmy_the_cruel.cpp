@@ -62,7 +62,7 @@ public:
         {
             if (!HasYelled)
             {
-                me->MonsterYell(SAY_SPAWN,LANG_UNIVERSAL,NULL);
+                me->MonsterYell(SAY_SPAWN, LANG_UNIVERSAL, NULL);
                 HasYelled = true;
             }
         }
@@ -85,7 +85,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_timmy_the_cruel()

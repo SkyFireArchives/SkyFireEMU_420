@@ -41,9 +41,9 @@ class RandomMovementGenerator
         void Reset(T &);
         bool Update(T &, const uint32 &);
         bool GetDestination(float &x, float &y, float &z) const;
-        void UpdateMapPosition(uint32 mapid, float &x ,float &y, float &z)
+        void UpdateMapPosition(uint32 mapid, float &x , float &y, float &z)
         {
-            i_destinationHolder.GetLocationNow(mapid, x,y,z);
+            i_destinationHolder.GetLocationNow(mapid, x, y, z);
         }
         MovementGeneratorType GetMovementGeneratorType() { return RANDOM_MOTION_TYPE; }
     private:
@@ -54,5 +54,3 @@ class RandomMovementGenerator
         uint32 i_nextMove;
 };
 #endif
-
-

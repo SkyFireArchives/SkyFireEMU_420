@@ -47,7 +47,7 @@ class boss_earthrager_ptah : public CreatureScript
 {
     public:
         boss_earthrager_ptah() : CreatureScript("boss_earthrager_ptah") { }
-        
+
         CreatureAI* GetAI(Creature* pCreature) const
         {
             return new boss_earthrager_ptahAI(pCreature);
@@ -66,12 +66,12 @@ class boss_earthrager_ptah : public CreatureScript
             void Reset()
             {
                 events.Reset();
-                
-                if(pInstance && (pInstance->GetData(DATA_EARTHRAGER_PTAH_EVENT) != DONE && !check_in))
+
+                if (pInstance && (pInstance->GetData(DATA_EARTHRAGER_PTAH_EVENT) != DONE && !check_in))
                    pInstance->SetData(DATA_EARTHRAGER_PTAH_EVENT, NOT_STARTED);
                 check_in = false;
             }
-            
+
             void KilledUnit(Unit* /*Killed*/)
             {
                 DoScriptText(RAND(SAY_KILL_1, SAY_KILL_2), me);
@@ -89,13 +89,13 @@ class boss_earthrager_ptah : public CreatureScript
                 DoScriptText(SAY_AGGRO, me);
 				if (pInstance)
                     pInstance->SetData(DATA_EARTHRAGER_PTAH_EVENT, IN_PROGRESS);
-                
+
                 DoZoneInCombat();
 			}
 
             void UpdateAI(const uint32 uiDiff)
             {
-                if(!UpdateVictim())
+                if (!UpdateVictim())
                    return;
                 events.Update(uiDiff);
 

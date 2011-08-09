@@ -53,7 +53,7 @@ public:
 
         void Reset()
         {
-            uiNetTimer = urand(2000,4000);
+            uiNetTimer = urand(2000, 4000);
             if (pInstance)
                 pInstance->SetData(TYPE_GELIHAST, NOT_STARTED);
         }
@@ -78,15 +78,13 @@ public:
             if (uiNetTimer < diff)
             {
                 DoCastVictim(SPELL_NET);
-                uiNetTimer = urand(4000,7000);
+                uiNetTimer = urand(4000, 7000);
             } else uiNetTimer -= diff;
 
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_gelihast()
 {

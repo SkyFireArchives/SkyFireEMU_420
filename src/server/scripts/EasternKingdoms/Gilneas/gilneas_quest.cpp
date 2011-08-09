@@ -25,7 +25,7 @@
 /* ScriptData
 SDName: Gilneas Quests
 SD%Complete: 0
-SDComment: 
+SDComment:
 SDCategory: Gilneas
 EndScriptData */
 

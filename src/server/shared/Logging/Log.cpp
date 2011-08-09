@@ -42,11 +42,11 @@ Log::Log() :
 
 Log::~Log()
 {
-    if( logfile != NULL )
+    if ( logfile != NULL )
         fclose(logfile);
     logfile = NULL;
 
-    if( gmLogfile != NULL )
+    if ( gmLogfile != NULL )
         fclose(gmLogfile);
     gmLogfile = NULL;
 
@@ -54,7 +54,7 @@ Log::~Log()
         fclose(charLogfile);
     charLogfile = NULL;
 
-    if( dberLogfile != NULL )
+    if ( dberLogfile != NULL )
         fclose(dberLogfile);
     dberLogfile = NULL;
 
@@ -133,20 +133,20 @@ void Log::Initialize()
     InitColors(sConfig->GetStringDefault("LogColors", ""));
 
     m_gmlog_per_account = sConfig->GetBoolDefault("GmLogPerAccount", false);
-    if(!m_gmlog_per_account)
+    if (!m_gmlog_per_account)
         gmLogfile = openLogFile("GMLogFile", "GmLogTimestamp", "a");
     else
     {
         // GM log settings for per account case
         m_gmlog_filename_format = sConfig->GetStringDefault("GMLogFile", "");
-        if(!m_gmlog_filename_format.empty())
+        if (!m_gmlog_filename_format.empty())
         {
             bool m_gmlog_timestamp = sConfig->GetBoolDefault("GmLogTimestamp", false);
 
             size_t dot_pos = m_gmlog_filename_format.find_last_of(".");
-            if(dot_pos!=m_gmlog_filename_format.npos)
+            if (dot_pos!=m_gmlog_filename_format.npos)
             {
-                if(m_gmlog_timestamp)
+                if (m_gmlog_timestamp)
                     m_gmlog_filename_format.insert(dot_pos, m_logsTimestamp);
 
                 m_gmlog_filename_format.insert(dot_pos, "_#%u");
@@ -155,7 +155,7 @@ void Log::Initialize()
             {
                 m_gmlog_filename_format += "_#%u";
 
-                if(m_gmlog_timestamp)
+                if (m_gmlog_timestamp)
                     m_gmlog_filename_format += m_logsTimestamp;
             }
 
@@ -194,13 +194,13 @@ void Log::Initialize()
 FILE* Log::openLogFile(char const* configFileName, char const* configTimeStampFlag, char const* mode)
 {
     std::string logfn=sConfig->GetStringDefault(configFileName, "");
-    if(logfn.empty())
+    if (logfn.empty())
         return NULL;
 
-    if(configTimeStampFlag && sConfig->GetBoolDefault(configTimeStampFlag, false))
+    if (configTimeStampFlag && sConfig->GetBoolDefault(configTimeStampFlag, false))
     {
         size_t dot_pos = logfn.find_last_of(".");
-        if(dot_pos!=logfn.npos)
+        if (dot_pos!=logfn.npos)
             logfn.insert(dot_pos, m_logsTimestamp);
         else
             logfn += m_logsTimestamp;
@@ -211,7 +211,7 @@ FILE* Log::openLogFile(char const* configFileName, char const* configTimeStampFl
 
 FILE* Log::openGmlogPerAccount(uint32 account)
 {
-    if(m_gmlog_filename_format.empty())
+    if (m_gmlog_filename_format.empty())
         return NULL;
 
     char namebuf[TRINITY_PATH_MAX];
@@ -234,7 +234,7 @@ void Log::outTimestamp(FILE* file)
 
 void Log::InitColors(const std::string& str)
 {
-    if(str.empty())
+    if (str.empty())
     {
         m_colored = false;
         return;
@@ -248,10 +248,10 @@ void Log::InitColors(const std::string& str)
     {
         ss >> color[i];
 
-        if(!ss)
+        if (!ss)
             return;
 
-        if(color[i] < 0 || color[i] >= Colors)
+        if (color[i] < 0 || color[i] >= Colors)
             return;
     }
 
@@ -407,7 +407,7 @@ void Log::outString(const char * str, ...)
         ResetColor(true);
 
     printf("\n");
-    if(logfile)
+    if (logfile)
     {
         outTimestamp(logfile);
         va_start(ap, str);
@@ -710,7 +710,7 @@ void Log::outDebugInLine(const char * str, ...)
         vutf8printf(stdout, str, &ap);
         va_end(ap);
 
-        //if(m_colored)
+        //if (m_colored)
         //    ResetColor(true);
 
         if (logfile)
@@ -767,7 +767,7 @@ void Log::outDebug(DebugLogFilters f, const char * str, ...)
         va_end(ap2);
     }
 
-    if( m_logLevel > LOGL_DETAIL )
+    if ( m_logLevel > LOGL_DETAIL )
     {
         if (m_colored)
             SetColor(true, m_colors[LOGL_DEBUG]);
@@ -777,7 +777,7 @@ void Log::outDebug(DebugLogFilters f, const char * str, ...)
         vutf8printf(stdout, str, &ap);
         va_end(ap);
 
-        if(m_colored)
+        if (m_colored)
             ResetColor(true);
 
         printf( "\n" );
@@ -812,7 +812,7 @@ void Log::outStaticDebug(const char * str, ...)
         va_end(ap2);
     }
 
-    if( m_logLevel > LOGL_DETAIL )
+    if ( m_logLevel > LOGL_DETAIL )
     {
         if (m_colored)
             SetColor(true, m_colors[LOGL_DEBUG]);
@@ -822,7 +822,7 @@ void Log::outStaticDebug(const char * str, ...)
         vutf8printf(stdout, str, &ap);
         va_end(ap);
 
-        if(m_colored)
+        if (m_colored)
             ResetColor(true);
 
         printf( "\n" );

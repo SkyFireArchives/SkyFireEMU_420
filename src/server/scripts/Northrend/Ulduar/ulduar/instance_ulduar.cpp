@@ -181,7 +181,6 @@ public:
                     uiAlgalonGUID = creature->GetGUID();
                     break;
             }
-
          }
 
         void OnGameObjectCreate(GameObject* go)
@@ -255,10 +254,10 @@ public:
                 case TYPE_LEVIATHAN:
                     if (state == IN_PROGRESS)
                         for (uint8 uiI = 0; uiI < 7; ++uiI)
-                            HandleGameObject(uiLeviathanDoor[uiI],false);
+                            HandleGameObject(uiLeviathanDoor[uiI], false);
                     else
                         for (uint8 uiI = 0; uiI < 7; ++uiI)
-                            HandleGameObject(uiLeviathanDoor[uiI],true);
+                            HandleGameObject(uiLeviathanDoor[uiI], true);
                     break;
                 case TYPE_IGNIS:
                 case TYPE_RAZORSCALE:
@@ -416,9 +415,7 @@ public:
             OUT_LOAD_INST_DATA_COMPLETE;
         }
     };
-
 };
-
 
 void AddSC_instance_ulduar()
 {

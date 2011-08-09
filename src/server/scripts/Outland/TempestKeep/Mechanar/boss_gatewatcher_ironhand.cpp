@@ -77,7 +77,6 @@ class boss_gatewatcher_iron_hand : public CreatureScript
                     Shadow_Power_Timer = 25000;
                     Jackhammer_Timer = 45000;
                     Stream_of_Machine_Fluid_Timer = 55000;
-
                 }
                 void EnterCombat(Unit * /*who*/)
                 {
@@ -89,7 +88,7 @@ class boss_gatewatcher_iron_hand : public CreatureScript
                     if (rand()%2)
                         return;
 
-                    DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2), me);
+                    DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2), me);
                 }
 
                 void JustDied(Unit* /*Killer*/)
@@ -124,7 +123,7 @@ class boss_gatewatcher_iron_hand : public CreatureScript
                         if (rand()%2)
                                             return;
 
-                        DoScriptText(RAND(SAY_HAMMER_1,SAY_HAMMER_2), me);
+                        DoScriptText(RAND(SAY_HAMMER_1, SAY_HAMMER_2), me);
                         Jackhammer_Timer = 30000;
                     }
                     else
@@ -153,4 +152,3 @@ void AddSC_boss_gatewatcher_iron_hand()
 {
     new boss_gatewatcher_iron_hand();
 }
-

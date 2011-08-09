@@ -113,7 +113,7 @@ class account_commandscript : public CommandScript
             switch(result)
             {
                 case AOR_OK:
-                    handler->PSendSysMessage(LANG_ACCOUNT_CREATED,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_CREATED, account_name.c_str());
                     break;
                 case AOR_NAME_TOO_LONG:
                     handler->SendSysMessage(LANG_ACCOUNT_TOO_LONG);
@@ -124,11 +124,11 @@ class account_commandscript : public CommandScript
                     handler->SetSentErrorMessage(true);
                     return false;
                 case AOR_DB_INTERNAL_ERROR:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_CREATED_SQL_ERROR,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_CREATED_SQL_ERROR, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 default:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_CREATED,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_CREATED, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
             }
@@ -144,14 +144,14 @@ class account_commandscript : public CommandScript
                 return false;
 
             ///- Get the account name from the command line
-            char *account_name_str=strtok ((char*)args," ");
+            char *account_name_str=strtok ((char*)args, " ");
             if (!account_name_str)
                 return false;
 
             std::string account_name = account_name_str;
             if (!AccountMgr::normalizeString(account_name))
             {
-                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
@@ -159,7 +159,7 @@ class account_commandscript : public CommandScript
             uint32 account_id = sAccountMgr->GetId(account_name);
             if (!account_id)
             {
-                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
@@ -167,25 +167,25 @@ class account_commandscript : public CommandScript
             /// Commands not recommended call from chat, but support anyway
             /// can delete only for account with less security
             /// This is also reject self apply in fact
-            if (handler->HasLowerSecurityAccount (NULL,account_id,true))
+            if (handler->HasLowerSecurityAccount (NULL, account_id, true))
                 return false;
 
             AccountOpResult result = sAccountMgr->DeleteAccount(account_id);
             switch(result)
             {
                 case AOR_OK:
-                    handler->PSendSysMessage(LANG_ACCOUNT_DELETED,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_DELETED, account_name.c_str());
                     break;
                 case AOR_NAME_NOT_EXIST:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 case AOR_DB_INTERNAL_ERROR:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_DELETED_SQL_ERROR,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_DELETED_SQL_ERROR, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 default:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_DELETED,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_DELETED, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
             }
@@ -197,7 +197,7 @@ class account_commandscript : public CommandScript
         static bool HandleAccountOnlineListCommand(ChatHandler* handler, const char* /*args*/)
         {
             ///- Get the list of accounts ID logged to the realm
-            QueryResult resultDB = CharacterDatabase.Query("SELECT name,account,map,zone FROM characters WHERE online > 0");
+            QueryResult resultDB = CharacterDatabase.Query("SELECT name, account, map, zone FROM characters WHERE online > 0");
             if (!resultDB)
             {
                 handler->SendSysMessage(LANG_ACCOUNT_LIST_EMPTY);
@@ -228,11 +228,10 @@ class account_commandscript : public CommandScript
                 {
                     Field *fieldsLogin = resultLogin->Fetch();
                     handler->PSendSysMessage(LANG_ACCOUNT_LIST_LINE,
-                        fieldsLogin[0].GetCString(),name.c_str(),fieldsLogin[1].GetCString(),fieldsDB[2].GetInt32(),fieldsDB[3].GetInt32(),fieldsLogin[3].GetUInt32(),fieldsLogin[2].GetUInt32());
+                        fieldsLogin[0].GetCString(), name.c_str(), fieldsLogin[1].GetCString(), fieldsDB[2].GetInt32(), fieldsDB[3].GetInt32(), fieldsLogin[3].GetUInt32(), fieldsLogin[2].GetUInt32());
                 }
                 else
-                    handler->PSendSysMessage(LANG_ACCOUNT_LIST_ERROR,name.c_str());
-
+                    handler->PSendSysMessage(LANG_ACCOUNT_LIST_ERROR, name.c_str());
             }while (resultDB->NextRow());
 
             handler->SendSysMessage(LANG_ACCOUNT_LIST_BAR);
@@ -251,14 +250,14 @@ class account_commandscript : public CommandScript
             std::string argstr = (char*)args;
             if (argstr == "on")
             {
-                LoginDatabase.PExecute("UPDATE account SET locked = '1' WHERE id = '%d'",handler->GetSession()->GetAccountId());
+                LoginDatabase.PExecute("UPDATE account SET locked = '1' WHERE id = '%d'", handler->GetSession()->GetAccountId());
                 handler->PSendSysMessage(LANG_COMMAND_ACCLOCKLOCKED);
                 return true;
             }
 
             if (argstr == "off")
             {
-                LoginDatabase.PExecute("UPDATE account SET locked = '0' WHERE id = '%d'",handler->GetSession()->GetAccountId());
+                LoginDatabase.PExecute("UPDATE account SET locked = '0' WHERE id = '%d'", handler->GetSession()->GetAccountId());
                 handler->PSendSysMessage(LANG_COMMAND_ACCLOCKUNLOCKED);
                 return true;
             }
@@ -336,8 +335,8 @@ class account_commandscript : public CommandScript
         static bool HandleAccountSetAddonCommand(ChatHandler* handler, const char *args)
         {
             ///- Get the command line arguments
-            char *szAcc = strtok((char*)args," ");
-            char *szExp = strtok(NULL," ");
+            char *szAcc = strtok((char*)args, " ");
+            char *szExp = strtok(NULL, " ");
 
             if (!szAcc)
                 return false;
@@ -352,7 +351,7 @@ class account_commandscript : public CommandScript
                     return false;
 
                 account_id = player->GetSession()->GetAccountId();
-                sAccountMgr->GetName(account_id,account_name);
+                sAccountMgr->GetName(account_id, account_name);
                 szExp = szAcc;
             }
             else
@@ -361,7 +360,7 @@ class account_commandscript : public CommandScript
                 account_name = szAcc;
                 if (!AccountMgr::normalizeString(account_name))
                 {
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 }
@@ -369,17 +368,16 @@ class account_commandscript : public CommandScript
                 account_id = sAccountMgr->GetId(account_name);
                 if (!account_id)
                 {
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 }
-
             }
 
             // Let set addon state only for lesser (strong) security level
             // or to self account
             if (handler->GetSession() && handler->GetSession()->GetAccountId () != account_id &&
-                handler->HasLowerSecurityAccount (NULL,account_id,true))
+                handler->HasLowerSecurityAccount (NULL, account_id, true))
                 return false;
 
             int expansion = atoi(szExp);                                    //get int anyway (0 if error)
@@ -387,8 +385,8 @@ class account_commandscript : public CommandScript
                  return false;
 
             // No SQL injection
-            LoginDatabase.PExecute("UPDATE account SET expansion = '%d' WHERE id = '%u'",expansion,account_id);
-            handler->PSendSysMessage(LANG_ACCOUNT_SETADDON,account_name.c_str(),account_id,expansion);
+            LoginDatabase.PExecute("UPDATE account SET expansion = '%d' WHERE id = '%u'", expansion, account_id);
+            handler->PSendSysMessage(LANG_ACCOUNT_SETADDON, account_name.c_str(), account_id, expansion);
             return true;
         }
 
@@ -423,7 +421,7 @@ class account_commandscript : public CommandScript
                 targetAccountName = arg1;
                 if (!AccountMgr::normalizeString(targetAccountName))
                 {
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,targetAccountName.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, targetAccountName.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 }
@@ -484,7 +482,7 @@ class account_commandscript : public CommandScript
                 LoginDatabase.PExecute("DELETE FROM account_access WHERE id = '%u' AND (RealmID = '%d' OR RealmID = '-1')", targetAccountId, realmID);
 
             if (gm != 0)
-                LoginDatabase.PExecute("INSERT INTO account_access VALUES ('%u','%d','%d')", targetAccountId, gm, realmID);
+                LoginDatabase.PExecute("INSERT INTO account_access VALUES ('%u', '%d', '%d')", targetAccountId, gm, realmID);
             handler->PSendSysMessage(LANG_YOU_CHANGE_SECURITY, targetAccountName.c_str(), gm);
             return true;
         }
@@ -496,9 +494,9 @@ class account_commandscript : public CommandScript
                 return false;
 
             ///- Get the command line arguments
-            char *szAccount = strtok ((char*)args," ");
-            char *szPassword1 =  strtok (NULL," ");
-            char *szPassword2 =  strtok (NULL," ");
+            char *szAccount = strtok ((char*)args, " ");
+            char *szPassword1 =  strtok (NULL, " ");
+            char *szPassword2 =  strtok (NULL, " ");
 
             if (!szAccount||!szPassword1 || !szPassword2)
                 return false;
@@ -506,7 +504,7 @@ class account_commandscript : public CommandScript
             std::string account_name = szAccount;
             if (!AccountMgr::normalizeString(account_name))
             {
-                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
@@ -514,17 +512,17 @@ class account_commandscript : public CommandScript
             uint32 targetAccountId = sAccountMgr->GetId(account_name);
             if (!targetAccountId)
             {
-                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                 handler->SetSentErrorMessage(true);
                 return false;
             }
 
             /// can set password only for target with less security
             /// This is also reject self apply in fact
-            if (handler->HasLowerSecurityAccount (NULL,targetAccountId,true))
+            if (handler->HasLowerSecurityAccount (NULL, targetAccountId, true))
                 return false;
 
-            if (strcmp(szPassword1,szPassword2))
+            if (strcmp(szPassword1, szPassword2))
             {
                 handler->SendSysMessage (LANG_NEW_PASSWORDS_NOT_MATCH);
                 handler->SetSentErrorMessage (true);
@@ -539,7 +537,7 @@ class account_commandscript : public CommandScript
                     handler->SendSysMessage(LANG_COMMAND_PASSWORD);
                     break;
                 case AOR_NAME_NOT_EXIST:
-                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST,account_name.c_str());
+                    handler->PSendSysMessage(LANG_ACCOUNT_NOT_EXIST, account_name.c_str());
                     handler->SetSentErrorMessage(true);
                     return false;
                 case AOR_PASS_TOO_LONG:

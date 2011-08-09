@@ -132,4 +132,3 @@ struct PSI_bootstrap *PSI_hook= NULL;
   with the version used at compile time for plugin XYZ.
 */
 PSI *PSI_server= NULL;
-

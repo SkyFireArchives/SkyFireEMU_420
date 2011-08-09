@@ -220,11 +220,11 @@ public:
             {
                 case EVENT_PURSUE:
                     if (Creature* pKrick = GetKrick())
-                        DoScriptText(RAND(SAY_KRICK_CHASE_1,SAY_KRICK_CHASE_2,SAY_KRICK_CHASE_3), pKrick);
+                        DoScriptText(RAND(SAY_KRICK_CHASE_1, SAY_KRICK_CHASE_2, SAY_KRICK_CHASE_3), pKrick);
 
                     if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     {
-                        me->Attack(pTarget,false);
+                        me->Attack(pTarget, false);
                         DoScriptText(SAY_ICK_CHASE_1, me, pTarget);
                         DoCast(pTarget, SPELL_PURSUED);
                     }
@@ -280,7 +280,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_krick : public CreatureScript
@@ -328,7 +327,7 @@ public:
             if (victim == me)
                 return;
 
-            DoScriptText(RAND(SAY_KRICK_SLAY_1,SAY_KRICK_SLAY_2), me);
+            DoScriptText(RAND(SAY_KRICK_SLAY_1, SAY_KRICK_SLAY_2), me);
         }
 
         void DamageTaken(Unit * /*pDoneBy*/, uint32 &uiDamage)
@@ -488,10 +487,7 @@ public:
             }
         }
     };
-
 };
-
-
 
 void AddSC_boss_ick()
 {

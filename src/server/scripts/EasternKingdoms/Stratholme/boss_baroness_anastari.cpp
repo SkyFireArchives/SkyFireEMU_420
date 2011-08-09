@@ -76,7 +76,7 @@ public:
          void JustDied(Unit* /*Killer*/)
          {
              if (pInstance)
-                 pInstance->SetData(TYPE_BARONESS,IN_PROGRESS);
+                 pInstance->SetData(TYPE_BARONESS, IN_PROGRESS);
          }
 
         void UpdateAI(const uint32 diff)
@@ -118,7 +118,7 @@ public:
               if (rand()%100 < 65)
             {
             Unit *pTarget = NULL;
-            pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+            pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
             if (pTarget)DoCast(pTarget, SPELL_POSSESS);
             }
             //50 seconds until we should cast this again
@@ -129,7 +129,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_baroness_anastari()

@@ -36,16 +36,15 @@ enum ShamanSpells
     SHAMAN_SPELL_LIGHTNING_SHIELD_PROC  = 26364,
 
     SHAMAN_SPELL_UNLEASH_ELEMENTS       = 73680,
-    
+
     //For Earthen Power
     SHAMAN_TOTEM_SPELL_EARTHBIND_TOTEM  = 6474, //Spell casted by totem
-    SHAMAN_TOTEM_SPELL_EARTHEN_POWER    = 59566,//Spell witch remove snare effect
+    SHAMAN_TOTEM_SPELL_EARTHEN_POWER    = 59566, //Spell witch remove snare effect
     SHAMAN_TOTEM_SPELL_EARTHS_GRASP     = 51485,
     SHAMAN_TOTEM_SPELL_EARTHGRAB        = 64695,
 
     SHAMAN_TOTEM_SPELL_TOTEMIC_WRATH    = 77746,
     SHAMAN_TOTEM_SPELL_TOTEMIC_WRATH_AURA = 77747,
-
 };
 
 // 51474 - Astral shift
@@ -137,7 +136,7 @@ public:
     }
 };
 
-// 6474 - Earthbind Totem - Fix Talent:Earthen Power 
+// 6474 - Earthbind Totem - Fix Talent:Earthen Power
 class spell_sha_earthbind_totem : public SpellScriptLoader
 {
 public:
@@ -145,11 +144,11 @@ public:
 
     class spell_sha_earthbind_totem_AuraScript : public AuraScript
     {
-        PrepareAuraScript(spell_sha_earthbind_totem_AuraScript); 
-        
+        PrepareAuraScript(spell_sha_earthbind_totem_AuraScript);
+
         bool Validate(SpellEntry const * /*spellEntry*/)
         {
-            if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_EARTHBIND_TOTEM)) 
+            if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_EARTHBIND_TOTEM))
                 return false;
             if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_EARTHEN_POWER))
                 return false;
@@ -211,13 +210,13 @@ public:
         void HandleDummy(SpellEffIndex /*effIndex*/)
         {
             Unit* caster = GetCaster();
-            if(!caster)
+            if (!caster)
                 return;
             Player* plr = caster->ToPlayer();
-            if(!plr)
+            if (!plr)
                 return;
 
-            if(!GetTargetUnit())
+            if (!GetTargetUnit())
                 return;
 
             Item *weapons[2];
@@ -225,14 +224,14 @@ public:
             weapons[1] = plr->GetItemByPos(INVENTORY_SLOT_BAG_0, EQUIPMENT_SLOT_OFFHAND);
             for(int i = 0; i < 2; i++)
             {
-                if(!weapons[i])
+                if (!weapons[i])
                     continue;
 
                 uint32 unleashSpell = 0;
                 Unit *target = GetTargetUnit();
                 bool hostileTarget = plr->IsHostileTo(target);
                 bool hostileSpell = true;
-                
+
                 switch (weapons[i]->GetEnchantmentId(TEMP_ENCHANTMENT_SLOT))
                 {
                     case 3345: // Earthliving Weapon
@@ -252,12 +251,12 @@ public:
                         unleashSpell = 73681; // Unleash Wind
                         break;
                 }
-                if(hostileSpell && !hostileTarget)
+                if (hostileSpell && !hostileTarget)
                     return; // don't allow to attack non-hostile targets. TODO: check this before cast
 
-                if(!hostileSpell && hostileTarget)
+                if (!hostileSpell && hostileTarget)
                     target = plr;   // heal ourselves instead of the enemy
-                if(unleashSpell)
+                if (unleashSpell)
                 {
                     plr->CastSpell(target, unleashSpell, true);
                 }
@@ -284,11 +283,11 @@ public:
 
     class spell_sha_totemic_wrath_AuraScript : public AuraScript
     {
-        PrepareAuraScript(spell_sha_totemic_wrath_AuraScript); 
+        PrepareAuraScript(spell_sha_totemic_wrath_AuraScript);
 
         bool Validate(SpellEntry const * /*spellEntry*/)
         {
-            if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_TOTEMIC_WRATH)) 
+            if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_TOTEMIC_WRATH))
                 return false;
             if (!sSpellStore.LookupEntry(SHAMAN_TOTEM_SPELL_TOTEMIC_WRATH_AURA))
                 return false;
@@ -298,7 +297,7 @@ public:
         void HandleEffectApply(AuraEffect const * aurEff, AuraEffectHandleModes /*mode*/)
         {
             Unit* target = GetTarget();
-            if(target->ToPlayer())
+            if (target->ToPlayer())
                 return; // just apply as dummy
 
             // applied by a totem - cast the real aura if owner has the talent
@@ -345,18 +344,18 @@ public:
             // make caster cast a spell on a unit target of effect
             Unit *target = GetHitUnit();
             Unit *caster = GetCaster();
-            if(!target || !caster)
+            if (!target || !caster)
                 return;
-            
+
             AuraEffect *fulminationAura = caster->GetDummyAuraEffect(SPELLFAMILY_SHAMAN, 2010, 0);
             if (!fulminationAura)
                 return;
 
             Aura * lightningShield = caster->GetAura(324);
-            if(!lightningShield)
+            if (!lightningShield)
                 return;
             uint8 lsCharges = lightningShield->GetCharges();
-            if(lsCharges <= 3)
+            if (lsCharges <= 3)
                 return;
             uint8 usedCharges = lsCharges - 3;
 

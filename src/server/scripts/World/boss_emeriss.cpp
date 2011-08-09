@@ -139,4 +139,3 @@ void AddSC_boss_emeriss()
 {
     new boss_emeriss;
 }
-

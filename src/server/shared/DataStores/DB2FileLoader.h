@@ -74,7 +74,6 @@ class DB2FileLoader
         DB2FileLoader &file;
 
         friend class DB2FileLoader;
-
     };
 
     // Get record by id

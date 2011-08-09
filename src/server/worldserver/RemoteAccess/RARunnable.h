@@ -40,7 +40,6 @@ public:
 
 private:
     ACE_Reactor* m_Reactor;
-
 };
 
 #endif /* _TRINITY_RARUNNABLE_H_ */

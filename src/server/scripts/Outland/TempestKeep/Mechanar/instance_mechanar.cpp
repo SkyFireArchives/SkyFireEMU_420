@@ -92,9 +92,7 @@ class instance_mechanar : public InstanceMapScript
         }
 };
 
-
 void AddSC_instance_mechanar()
 {
     new instance_mechanar;
 }
-

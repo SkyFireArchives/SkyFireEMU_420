@@ -90,7 +90,7 @@ struct ActiveBoatStruct
 {
     uint32 npc;
     int32 say;
-    float MoveX,MoveY,MoveZ,SpawnX,SpawnY,SpawnZ,SpawnO;
+    float MoveX, MoveY, MoveZ, SpawnX, SpawnY, SpawnZ, SpawnO;
 };
 
 static ActiveBoatStruct ActiveBot[4] =
@@ -300,7 +300,7 @@ public:
 
                 if (m_bIsActiveWithTORGYN && m_uiAbility_TORGYN_Timer <= diff)
                 {
-                    float x,y,z;
+                    float x, y, z;
                     x = me->GetPositionX()-5;
                     y = me->GetPositionY()-5;
                     z = me->GetPositionZ();
@@ -379,7 +379,6 @@ public:
             m_uiCreatureGUID = 0;
         }
     };
-
 };
 
 void AddSC_boss_ymiron()

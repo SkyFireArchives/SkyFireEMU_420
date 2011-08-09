@@ -37,10 +37,10 @@ enum CreatureIds
 {
     // Dungeon Bosses
 
-    BOSS_GRAND_VIZIER_ERTAN     = 43878, 
+    BOSS_GRAND_VIZIER_ERTAN     = 43878,
     BOSS_ALTAIRUS               = 43873,
     BOSS_ASAAD                  = 43875,
-    
+
     // Trash mobs
 
     NPC_ARMORED_MISTRAL         = 45915,
@@ -55,7 +55,7 @@ enum CreatureIds
     NPC_YOUNG_STORM_DRAGON      = 45919,
     NPC_WILD_VORTEX             = 45912,
     // Various NPCs
-    
+
     NPC_GOLDEN_ORB              = 51157,  /*Heroic Mode*/
     NPC_ITESH                   = 49943,
 };

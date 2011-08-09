@@ -50,7 +50,7 @@ int my_redel(const char *org_name, const char *tmp_name, myf MyFlags)
     goto end;
   if (MyFlags & MY_REDEL_MAKE_BACKUP)
   {
-    char name_buff[FN_REFLEN+20];    
+    char name_buff[FN_REFLEN+20];
     char ext[20];
     ext[0]='-';
     get_date(ext+1,2+4,(time_t) 0);
@@ -68,7 +68,6 @@ int my_redel(const char *org_name, const char *tmp_name, myf MyFlags)
 end:
   DBUG_RETURN(error);
 } /* my_redel */
-
 
 	/* Copy stat from one file to another */
 	/* Return -1 if can't get stat, 1 if wrong type of file */

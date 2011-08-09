@@ -79,7 +79,6 @@ public:
 ## npc_inquisitor_hallard. Quest 12321
 ######*/
 
-
 enum eInquisitor
 {
     NPC_GODFREY                 = 27577,

@@ -48,42 +48,42 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
     uint32 talentsCount;
     recvPacket >> spec >> talentsCount;
 
-    if(spec != ((uint32)-1))
+    if (spec != ((uint32)-1))
     {
         uint32 specID = 0;
         for(uint32 i = 0; i < sTalentTabStore.GetNumRows(); i++)
         {
             TalentTabEntry const * entry = sTalentTabStore.LookupEntry(i);
-            if(entry)
+            if (entry)
             {
-                if(entry->ClassMask == _player->getClassMask() && entry->tabpage == spec)
+                if (entry->ClassMask == _player->getClassMask() && entry->tabpage == spec)
                 {
                     specID = entry->TalentTabID;
                     break;
                 }
             }
         }
-    
-        if(_player->m_usedTalentCount == 0 || _player->GetTalentBranchSpec(_player->m_activeSpec) == 0)
+
+        if (_player->m_usedTalentCount == 0 || _player->GetTalentBranchSpec(_player->m_activeSpec) == 0)
         {
-            if(_player->m_usedTalentCount != 0)
+            if (_player->m_usedTalentCount != 0)
                 _player->resetTalents();
 
             _player->SetTalentBranchSpec(specID, _player->m_activeSpec);
             for (uint32 i = 0; i < sTalentTreePrimarySpellsStore.GetNumRows(); ++i)
             {
                 TalentTreePrimarySpellsEntry const *talentInfo = sTalentTreePrimarySpellsStore.LookupEntry(i);
-                
+
                 if (!talentInfo || talentInfo->TalentTabID != specID)
                     continue;
-                
+
                 _player->learnSpell(talentInfo->SpellID, false);
-            }    
+            }
         }
-        else if(_player->GetTalentBranchSpec(_player->m_activeSpec) != specID) //cheat
+        else if (_player->GetTalentBranchSpec(_player->m_activeSpec) != specID) //cheat
             return;
     }
-    
+
     uint32 talentId, talentRank;
 
     for (uint32 i = 0; i < talentsCount; ++i)
@@ -92,7 +92,6 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
 
         _player->LearnTalent(talentId, talentRank, false);
     }
-    
 
     bool inOtherBranch = false;
     uint32 pointInBranchSpec = 0;
@@ -101,18 +100,18 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
         for(uint32 i = 0; i < sTalentStore.GetNumRows(); i++)
         {
             const TalentEntry * thisTalent = sTalentStore.LookupEntry(i);
-            if(thisTalent) 
+            if (thisTalent)
             {
                 int thisrank = -1;
                 for(int j = 0; j < 5; j++)
-                    if(thisTalent->RankID[j] == itr->first)
+                    if (thisTalent->RankID[j] == itr->first)
                     {
                         thisrank = j;
                         break;
                     }
-                if(thisrank != -1)
+                if (thisrank != -1)
                 {
-                    if(thisTalent->TalentTab == _player->GetTalentBranchSpec(_player->m_activeSpec))
+                    if (thisTalent->TalentTab == _player->GetTalentBranchSpec(_player->m_activeSpec))
                     {
                         int8 curtalent_maxrank = -1;
                         for (int8 rank = MAX_TALENT_RANK-1; rank >= 0; --rank)
@@ -123,7 +122,7 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
                                 break;
                             }
                         }
-                        if(curtalent_maxrank != -1 && thisrank == curtalent_maxrank)
+                        if (curtalent_maxrank != -1 && thisrank == curtalent_maxrank)
                             pointInBranchSpec += curtalent_maxrank + 1;
                     }
                     else
@@ -132,9 +131,9 @@ void WorldSession::HandleLearnPreviewTalents(WorldPacket& recvPacket)
             }
         }
     }
-    if(inOtherBranch && pointInBranchSpec < 31)
+    if (inOtherBranch && pointInBranchSpec < 31)
         _player->resetTalents();
-    
+
     _player->SendTalentsInfoData(false);
 }
 
@@ -144,7 +143,7 @@ void WorldSession::HandleTalentWipeConfirmOpcode(WorldPacket & recv_data)
     uint64 guid;
     recv_data >> guid;
 
-    Creature *unit = GetPlayer()->GetNPCIfCanInteractWith(guid,UNIT_NPC_FLAG_TRAINER);
+    Creature *unit = GetPlayer()->GetNPCIfCanInteractWith(guid, UNIT_NPC_FLAG_TRAINER);
     if (!unit)
     {
         sLog->outDebug(LOG_FILTER_NETWORKIO, "WORLD: HandleTalentWipeConfirmOpcode - Unit (GUID: %u) not found or you can't interact with him.", uint32(GUID_LOPART(guid)));
@@ -174,4 +173,3 @@ void WorldSession::HandleUnlearnSkillOpcode(WorldPacket & recv_data)
     recv_data >> skill_id;
     GetPlayer()->SetSkill(skill_id, 0, 0, 0);
 }
-

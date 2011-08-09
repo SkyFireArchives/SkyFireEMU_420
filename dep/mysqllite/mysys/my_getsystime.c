@@ -17,7 +17,7 @@
 /* thus to get the current time we should use the system function
    with the highest possible resolution */
 
-/* 
+/*
    TODO: in functions my_micro_time() and my_micro_time_and_time() there
    exists some common code that should be merged into a function.
 */
@@ -49,7 +49,6 @@ ulonglong my_getsystime()
 #endif
 }
 
-
 /*
   Return current time
 
@@ -75,7 +74,6 @@ time_t my_time(myf flags __attribute__((unused)))
   return t;
 #endif
 }
-
 
 /*
   Return time in micro seconds
@@ -118,7 +116,6 @@ ulonglong my_micro_time()
   return newtime;
 #endif  /* defined(__WIN__) */
 }
-
 
 /*
   Return time in seconds and timer in microseconds (not different start!)
@@ -193,7 +190,6 @@ ulonglong my_micro_time_and_time(time_t *time_arg)
 #endif  /* defined(__WIN__) */
 }
 
-
 /*
   Returns current time
 
@@ -223,4 +219,3 @@ time_t my_time_possible_from_micro(ulonglong microtime __attribute__((unused)))
   return (time_t) (microtime / 1000000);
 #endif  /* defined(__WIN__) */
 }
-

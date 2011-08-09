@@ -62,4 +62,3 @@ class WorldLog
 #define sWorldLog ACE_Singleton<WorldLog, ACE_Thread_Mutex>::instance()
 #endif
 /// @}
-

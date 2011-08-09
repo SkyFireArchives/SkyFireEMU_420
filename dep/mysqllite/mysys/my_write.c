@@ -17,7 +17,6 @@
 #include "mysys_err.h"
 #include <errno.h>
 
-
 	/* Write a chunk of bytes to a file */
 
 size_t my_write(File Filedes, const uchar *Buffer, size_t Count, myf MyFlags)
@@ -32,7 +31,7 @@ size_t my_write(File Filedes, const uchar *Buffer, size_t Count, myf MyFlags)
   /* The behavior of write(fd, buf, 0) is not portable */
   if (unlikely(!Count))
     DBUG_RETURN(0);
-  
+
   for (;;)
   {
 #ifdef _WIN32

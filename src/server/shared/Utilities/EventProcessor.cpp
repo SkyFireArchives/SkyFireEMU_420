@@ -75,17 +75,17 @@ void EventProcessor::KillAllEvents(bool force)
 
         i_old->second->to_Abort = true;
         i_old->second->Abort(m_time);
-        if(force || i_old->second->IsDeletable())
+        if (force || i_old->second->IsDeletable())
         {
             delete i_old->second;
 
-            if(!force)                                      // need per-element cleanup
+            if (!force)                                      // need per-element cleanup
                 m_events.erase (i_old);
         }
     }
 
     // fast clear event list (in force case)
-    if(force)
+    if (force)
         m_events.clear();
 }
 
@@ -100,4 +100,3 @@ uint64 EventProcessor::CalculateTime(uint64 t_offset) const
 {
     return(m_time + t_offset);
 }
-

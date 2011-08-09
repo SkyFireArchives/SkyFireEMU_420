@@ -108,7 +108,7 @@ public:
         void DespawnSphere()
         {
             std::list<Creature*> assistList;
-            GetCreatureListWithEntryInGrid(assistList,me, NPC_ETHEREAL_SPHERE ,150.0f);
+            GetCreatureListWithEntryInGrid(assistList, me, NPC_ETHEREAL_SPHERE , 150.0f);
 
             if (assistList.empty())
                 return;
@@ -227,12 +227,10 @@ public:
             if (pVictim == me)
                 return;
 
-            DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2,SAY_SLAY_3), me);
+            DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2, SAY_SLAY_3), me);
         }
     };
-
 };
-
 
 class mob_ethereal_sphere : public CreatureScript
 {
@@ -308,9 +306,7 @@ public:
             else uiSummonPlayers_Timer -= uiDiff;
         }
     };
-
 };
-
 
 void AddSC_boss_xevozz()
 {

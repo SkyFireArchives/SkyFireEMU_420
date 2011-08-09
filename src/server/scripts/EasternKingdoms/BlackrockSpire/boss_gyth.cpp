@@ -205,9 +205,7 @@ public:
             }                                                   // end if Aggro
         }
     };
-
 };
-
 
 void AddSC_boss_gyth()
 {

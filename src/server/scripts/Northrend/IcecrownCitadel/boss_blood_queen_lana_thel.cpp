@@ -85,9 +85,9 @@ static const uint32 vampireAuras[3][MAX_DIFFICULTY] =
     {70877, 71474, 70877, 71474},
 };
 
-#define ESSENCE_OF_BLOOD_QUEEN     RAID_MODE<uint32>(70867,71473,71532,71533)
-#define ESSENCE_OF_BLOOD_QUEEN_PLR RAID_MODE<uint32>(70879,71525,71530,71531)
-#define FRENZIED_BLOODTHIRST       RAID_MODE<uint32>(70877,71474,70877,71474)
+#define ESSENCE_OF_BLOOD_QUEEN     RAID_MODE<uint32>(70867, 71473, 71532, 71533)
+#define ESSENCE_OF_BLOOD_QUEEN_PLR RAID_MODE<uint32>(70879, 71525, 71530, 71531)
+#define FRENZIED_BLOODTHIRST       RAID_MODE<uint32>(70877, 71474, 70877, 71474)
 
 enum eEvents
 {
@@ -290,7 +290,6 @@ class boss_blood_queen_lana_thel : public CreatureScript
                                         if (Item* shadowsEdge = offtank->GetWeaponForAttack(BASE_ATTACK, true))
                                             if (!offtank->HasAura(SPELL_THIRST_QUENCHED) && shadowsEdge->GetEntry() == ITEM_SHADOW_S_EDGE && !offtank->HasAura(SPELL_GUSHING_WOUND))
                                                 offtank->CastSpell(offtank, SPELL_GUSHING_WOUND, true);
-
                                     }
                                 }
                             }
@@ -593,7 +592,7 @@ class spell_blood_queen_pact_of_the_darkfallen : public SpellScriptLoader
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(PactOfTheDarkfallenCheck(false));
+                unitList.remove_if (PactOfTheDarkfallenCheck(false));
 
                 bool remove = true;
                 std::list<Unit*>::const_iterator itrEnd = unitList.end(), itr, itr2;
@@ -679,7 +678,7 @@ class spell_blood_queen_pact_of_the_darkfallen_dmg_target : public SpellScriptLo
 
             void FilterTargets(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(PactOfTheDarkfallenCheck(true));
+                unitList.remove_if (PactOfTheDarkfallenCheck(true));
                 unitList.push_back(GetCaster());
             }
 

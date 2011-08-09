@@ -554,7 +554,6 @@ public:
             }
         }
     };
-
 };
 
 enum TrashSpells
@@ -690,7 +689,7 @@ public:
                         return;
                     case EVENT_DARK_MENDING:
                         // find an ally with missing HP
-                        if (Unit *pTarget = DoSelectLowestHpFriendly(40, DUNGEON_MODE(30000,50000)))
+                        if (Unit *pTarget = DoSelectLowestHpFriendly(40, DUNGEON_MODE(30000, 50000)))
                         {
                             DoCast(pTarget, SPELL_DARK_MENDING);
                             events.ScheduleEvent(EVENT_DARK_MENDING, 20000);
@@ -707,7 +706,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class npc_phantom_mage : public CreatureScript
@@ -784,7 +782,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class npc_phantom_hallucination : public CreatureScript
@@ -808,7 +805,6 @@ public:
             DoCast(SPELL_HALLUCINATION_2);
         }
     };
-
 };
 
 class npc_shadowy_mercenary : public CreatureScript
@@ -879,7 +875,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class npc_spectral_footman : public CreatureScript
@@ -944,7 +939,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class npc_tortured_rifleman : public CreatureScript
@@ -1017,7 +1011,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_halls_of_reflection()

@@ -111,7 +111,6 @@ static int search_default_file_with_ext(Process_option_func func,
 					const char *dir, const char *ext,
 					const char *config_file, int recursion_level);
 
-
 /**
   Create the list of default directories.
 
@@ -140,9 +139,7 @@ static int search_default_file_with_ext(Process_option_func func,
 
 static const char **init_default_directories(MEM_ROOT *alloc);
 
-
 static char *remove_end_comment(char *ptr);
-
 
 /*
   Expand a file name so that the current working directory is added if
@@ -193,7 +190,6 @@ fn_expand(const char *filename, char *result_buf)
   NOTES
     --defaults-group-suffix is only processed if we are called from
     load_defaults().
-
 
   RETURN
     0  ok
@@ -250,37 +246,37 @@ int my_search_option_files(const char *conf_file, int *argc, char ***argv,
     /* Handle --defaults-group-suffix= */
     uint i;
     const char **extra_groups;
-    const size_t instance_len= strlen(my_defaults_group_suffix); 
+    const size_t instance_len= strlen(my_defaults_group_suffix);
     struct handle_option_ctx *ctx= (struct handle_option_ctx*) func_ctx;
     char *ptr;
     TYPELIB *group= ctx->group;
-    
-    if (!(extra_groups= 
+
+    if (!(extra_groups=
 	  (const char**)alloc_root(ctx->alloc,
                                    (2*group->count+1)*sizeof(char*))))
       DBUG_RETURN(2);
-    
+
     for (i= 0; i < group->count; i++)
     {
       size_t len;
       extra_groups[i]= group->type_names[i]; /** copy group */
-      
+
       len= strlen(extra_groups[i]);
       if (!(ptr= alloc_root(ctx->alloc, (uint) (len+instance_len+1))))
        DBUG_RETURN(2);
-      
+
       extra_groups[i+group->count]= ptr;
-      
+
       /** Construct new group */
       memcpy(ptr, extra_groups[i], len);
       memcpy(ptr+len, my_defaults_group_suffix, instance_len+1);
     }
-    
+
     group->count*= 2;
     group->type_names= extra_groups;
     group->type_names[group->count]= 0;
   }
-  
+
   if (my_defaults_file)
   {
     if ((error= search_default_file_with_ext(func, func_ctx, "", "",
@@ -329,7 +325,6 @@ err:
   DBUG_RETURN(1);
 }
 
-
 /*
   The option handler for load_defaults.
 
@@ -373,7 +368,6 @@ static int handle_default_option(void *in_ctx, const char *group_name,
 
   return 0;
 }
-
 
 /*
   Gets options from the command line
@@ -476,7 +470,7 @@ int load_defaults(const char *conf_file, const char **groups,
    NOTES
     In case of fatal error, the function will print a warning and do
     exit(1)
- 
+
     To free used memory one should call free_defaults() with the argument
     that was put in *argv
 
@@ -485,11 +479,10 @@ int load_defaults(const char *conf_file, const char **groups,
      a pointer to the array of default directory paths is stored to a location
      it points to. That stored value must be passed to my_search_option_files()
      later.
-     
+
      - 1 is returned if the given conf_file didn't exist. In this case, the
      value pointed to by default_directories is undefined.
 */
-
 
 int my_load_defaults(const char *conf_file, const char **groups,
                   int *argc, char ***argv, const char ***default_directories)
@@ -616,14 +609,12 @@ int my_load_defaults(const char *conf_file, const char **groups,
   return 0;					/* Keep compiler happy */
 }
 
-
 void free_defaults(char **argv)
 {
   MEM_ROOT ptr;
   memcpy(&ptr, ((char *) argv) - sizeof(ptr), sizeof(ptr));
   free_root(&ptr,MYF(0));
 }
-
 
 static int search_default_file(Process_option_func opt_handler,
                                void *handler_ctx,
@@ -645,7 +636,6 @@ static int search_default_file(Process_option_func opt_handler,
   }
   return 0;
 }
-
 
 /*
   Skip over keyword and get argument after keyword
@@ -696,7 +686,6 @@ static char *get_argument(const char *keyword, size_t kwlen,
   return ptr;
 }
 
-
 /*
   Open a configuration file (if exists) and read given options from it
 
@@ -704,7 +693,7 @@ static char *get_argument(const char *keyword, size_t kwlen,
     search_default_file_with_ext()
     opt_handler                 Option handler function. It is used to process
                                 every separate option.
-    handler_ctx                 Pointer to the structure to store actual 
+    handler_ctx                 Pointer to the structure to store actual
                                 parameters of the function.
     dir				directory to read
     ext				Extension for configuration file
@@ -760,7 +749,7 @@ static int search_default_file_with_ext(Process_option_func opt_handler,
     /*
       Ignore world-writable regular files.
       This is mainly done to protect us to not read a file created by
-      the mysqld server, but the check is still valid in most context. 
+      the mysqld server, but the check is still valid in most context.
     */
     if ((stat_info.st_mode & S_IWOTH) &&
 	(stat_info.st_mode & S_IFMT) == S_IFREG)
@@ -789,7 +778,7 @@ static int search_default_file_with_ext(Process_option_func opt_handler,
     {
       if (recursion_level >= max_recursion_level)
       {
-        for (end= ptr + strlen(ptr) - 1; 
+        for (end= ptr + strlen(ptr) - 1;
              my_isspace(&my_charset_latin1, *(end - 1));
              end--)
         {}
@@ -884,8 +873,7 @@ static int search_default_file_with_ext(Process_option_func opt_handler,
 	      name,line);
       goto err;
     }
-    
-   
+
     end= remove_end_comment(ptr);
     if ((value= strchr(ptr, '=')))
       end= value;				/* Option without argument */
@@ -972,7 +960,6 @@ static int search_default_file_with_ext(Process_option_func opt_handler,
   return -1;					/* Fatal error */
 }
 
-
 static char *remove_end_comment(char *ptr)
 {
   char quote= 0;	/* we are inside quote marks */
@@ -997,7 +984,6 @@ static char *remove_end_comment(char *ptr)
   }
   return ptr;
 }
-
 
 void my_print_default_files(const char *conf_file)
 {
@@ -1077,7 +1063,6 @@ void print_defaults(const char *conf_file, const char **groups)
 --defaults-extra-file=# Read this file after the global files are read.");
 }
 
-
 static int add_directory(MEM_ROOT *alloc, const char *dir, const char **dirs)
 {
   char buf[FN_REFLEN];
@@ -1094,7 +1079,6 @@ static int add_directory(MEM_ROOT *alloc, const char *dir, const char **dirs)
 
   return 0;
 }
-
 
 #ifdef __WIN__
 /*
@@ -1118,7 +1102,7 @@ static size_t my_get_system_windows_directory(char *buffer, size_t size)
     return func_ptr(buffer, (uint) size);
 
   /*
-    Windows NT 4.0 Terminal Server Edition:  
+    Windows NT 4.0 Terminal Server Edition:
     To retrieve the shared Windows directory, call GetSystemDirectory and
     trim the "System32" element from the end of the returned path.
   */
@@ -1130,7 +1114,6 @@ static size_t my_get_system_windows_directory(char *buffer, size_t size)
   }
   return count;
 }
-
 
 static const char *my_get_module_parent(char *buf, size_t size)
 {
@@ -1162,7 +1145,6 @@ static const char *my_get_module_parent(char *buf, size_t size)
   return buf;
 }
 #endif /* __WIN__ */
-
 
 static const char **init_default_directories(MEM_ROOT *alloc)
 {

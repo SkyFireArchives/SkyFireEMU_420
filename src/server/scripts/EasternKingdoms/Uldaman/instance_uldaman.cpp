@@ -29,7 +29,6 @@ SDComment: Need some cosmetics updates when archeadas door are closing (Guardian
 SDCategory: Uldaman
 EndScriptData */
 
-
 #include "ScriptPCH.h"
 #include "uldaman.h"
 
@@ -113,14 +112,14 @@ class instance_uldaman : public InstanceMapScript
                     case GO_ALTAR_OF_THE_KEEPER_TEMPLE_DOOR:         // lock the door
                         uiAltarOfTheKeeperTempleDoor = pGO->GetGUID();
 
-                        if(m_auiEncounter[0] == DONE)
+                        if (m_auiEncounter[0] == DONE)
                            HandleGameObject(NULL, true, pGO);
                         break;
 
                     case GO_ARCHAEDAS_TEMPLE_DOOR:
                         uiArchaedasTempleDoor = pGO->GetGUID();
 
-                        if(m_auiEncounter[0] == DONE)
+                        if (m_auiEncounter[0] == DONE)
                             HandleGameObject(NULL, true, pGO);
                         break;
 
@@ -129,14 +128,14 @@ class instance_uldaman : public InstanceMapScript
                         pGO->SetUInt32Value(GAMEOBJECT_FLAGS, 33);
                         uiAncientVaultDoor = pGO->GetGUID();
 
-                        if(m_auiEncounter[1] == DONE)
+                        if (m_auiEncounter[1] == DONE)
                             HandleGameObject(NULL, true, pGO);
                         break;
 
                     case GO_IRONAYA_SEAL_DOOR:
                         uiIronayaSealDoor = pGO->GetGUID();
 
-                        if (m_auiEncounter[2] == DONE) 
+                        if (m_auiEncounter[2] == DONE)
                             HandleGameObject(NULL, true, pGO);
                         break;
 
@@ -156,7 +155,7 @@ class instance_uldaman : public InstanceMapScript
             {
                 pCreature->setFaction(35);
                 pCreature->RemoveAllAuras();
-                //creature->RemoveFlag (UNIT_FIELD_FLAGS,UNIT_FLAG_ANIMATION_FROZEN);
+                //creature->RemoveFlag (UNIT_FIELD_FLAGS, UNIT_FLAG_ANIMATION_FROZEN);
                 pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                 pCreature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);
             }
@@ -173,7 +172,7 @@ class instance_uldaman : public InstanceMapScript
             void BlockGO(uint64 guid)
             {
                 GameObject *pGO = instance->GetGameObject(guid);
-                if(!pGO)
+                if (!pGO)
                     return;
 
                 pGO->SetUInt32Value(GAMEOBJECT_FLAGS, GO_FLAG_INTERACT_COND);
@@ -186,7 +185,7 @@ class instance_uldaman : public InstanceMapScript
                     Creature *pTarget = instance->GetCreature(*i);
                     if (!pTarget || !pTarget->isAlive() || pTarget->getFaction() == 14)
                         continue;
-                    pTarget->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_DISABLE_MOVE);
+                    pTarget->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);
                     pTarget->setFaction(14);
                     pTarget->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                     return;        // only want the first one we find
@@ -208,7 +207,7 @@ class instance_uldaman : public InstanceMapScript
                     if (!pTarget || !pTarget->isAlive() || pTarget->getFaction() == 14)
                         continue;
                     archaedas->CastSpell(pTarget, SPELL_AWAKEN_VAULT_WALKER, true);
-                    pTarget->CastSpell(pTarget, SPELL_ARCHAEDAS_AWAKEN,true);
+                    pTarget->CastSpell(pTarget, SPELL_ARCHAEDAS_AWAKEN, true);
                     return;        // only want the first one we find
                 }
             }
@@ -255,7 +254,7 @@ class instance_uldaman : public InstanceMapScript
 
                 if (Unit::GetUnit(*archaedas, target))
                 {
-                    archaedas->CastSpell(archaedas, SPELL_ARCHAEDAS_AWAKEN,false);
+                    archaedas->CastSpell(archaedas, SPELL_ARCHAEDAS_AWAKEN, false);
                     uiWhoWokeuiArchaedasGUID = target;
                 }
             }
@@ -263,11 +262,11 @@ class instance_uldaman : public InstanceMapScript
             void ActivateIronaya()
             {
                 Creature *ironaya = instance->GetCreature(uiIronayaGUID);
-                if(!ironaya)
+                if (!ironaya)
                     return;
 
                 ironaya->setFaction(415);
-                ironaya->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_DISABLE_MOVE);
+                ironaya->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);
                 ironaya->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
             }
 
@@ -314,7 +313,7 @@ class instance_uldaman : public InstanceMapScript
                 if (!bKeystoneCheck)
                     return;
 
-                if(uiIronayaSealDoorTimer <= diff)
+                if (uiIronayaSealDoorTimer <= diff)
                 {
                     ActivateIronaya();
 
@@ -334,13 +333,13 @@ class instance_uldaman : public InstanceMapScript
                 {
                     case DATA_ALTAR_DOORS:
                         m_auiEncounter[0] = data;
-                        if(data == DONE)
+                        if (data == DONE)
                             SetDoor(uiAltarOfTheKeeperTempleDoor, true);
                         break;
 
                     case DATA_ANCIENT_DOOR:
                         m_auiEncounter[1] = data;
-                        if(data == DONE) //archeadas defeat
+                        if (data == DONE) //archeadas defeat
                         {
                             SetDoor(uiArchaedasTempleDoor, true); //re open enter door
                             SetDoor(uiAncientVaultDoor, true);
@@ -359,7 +358,7 @@ class instance_uldaman : public InstanceMapScript
                         switch(data)
                         {
                             case NOT_STARTED:
-                                if (m_auiEncounter[0] == DONE) //if players opened the doors 
+                                if (m_auiEncounter[0] == DONE) //if players opened the doors
                                     SetDoor(uiArchaedasTempleDoor, true);
 
                                 RespawnMinions();
@@ -454,7 +453,7 @@ class instance_uldaman : public InstanceMapScript
                     case 7228:    // Ironaya
                         uiIronayaGUID = pCreature->GetGUID();
 
-                        if(m_auiEncounter[2] != DONE)
+                        if (m_auiEncounter[2] != DONE)
                             SetFrozenState (pCreature);
                         break;
 
@@ -465,7 +464,6 @@ class instance_uldaman : public InstanceMapScript
                     case 2748:    // Archaedas
                         uiArchaedasGUID = pCreature->GetGUID();
                         break;
-
                 } // end switch
             } // end OnCreatureCreate
 

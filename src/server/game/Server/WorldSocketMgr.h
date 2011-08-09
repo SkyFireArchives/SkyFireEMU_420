@@ -42,7 +42,7 @@ class WorldSocketMgr
 {
 public:
     friend class WorldSocket;
-    friend class ACE_Singleton<WorldSocketMgr,ACE_Thread_Mutex>;
+    friend class ACE_Singleton<WorldSocketMgr, ACE_Thread_Mutex>;
 
     /// Start network, listen at address:port .
     int StartNetwork (ACE_UINT16 port, const char* address);
@@ -72,8 +72,7 @@ private:
     ACE_Event_Handler* m_Acceptor;
 };
 
-#define sWorldSocketMgr ACE_Singleton<WorldSocketMgr,ACE_Thread_Mutex>::instance()
+#define sWorldSocketMgr ACE_Singleton<WorldSocketMgr, ACE_Thread_Mutex>::instance()
 
 #endif
 /// @}
-

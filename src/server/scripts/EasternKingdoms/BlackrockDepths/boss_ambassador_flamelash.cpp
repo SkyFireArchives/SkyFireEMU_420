@@ -63,7 +63,7 @@ public:
 
         void SummonSpirits(Unit* victim)
         {
-            if (Creature *Spirit = DoSpawnCreature(9178, float(irand(-9,9)), float(irand(-9,9)), 0, 0, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 60000))
+            if (Creature *Spirit = DoSpawnCreature(9178, float(irand(-9, 9)), float(irand(-9, 9)), 0, 0, TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 60000))
                 Spirit->AI()->AttackStart(victim);
         }
 
@@ -94,7 +94,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_ambassador_flamelash()

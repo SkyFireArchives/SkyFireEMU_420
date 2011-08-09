@@ -104,7 +104,7 @@ class boss_nethermancer_sepethrea : public CreatureScript
 
             void KilledUnit(Unit* /*victim*/)
             {
-                DoScriptText(RAND(SAY_SLAY1,SAY_SLAY2), me);
+                DoScriptText(RAND(SAY_SLAY1, SAY_SLAY2), me);
             }
 
             void JustDied(Unit* /*Killer*/)
@@ -119,7 +119,6 @@ class boss_nethermancer_sepethrea : public CreatureScript
                 //Return since we have no target
                 if (!UpdateVictim())
                     return;
-
 
                 //Frost Attack
                 if (frost_attack_Timer <= diff)
@@ -146,7 +145,7 @@ class boss_nethermancer_sepethrea : public CreatureScript
                     {
                         if (rand()%2)
                             return;
-                        DoScriptText(RAND(SAY_DRAGONS_BREATH_1,SAY_DRAGONS_BREATH_2), me);
+                        DoScriptText(RAND(SAY_DRAGONS_BREATH_1, SAY_DRAGONS_BREATH_2), me);
                     }
                     dragons_breath_Timer = 12000 + rand()%10000;
                 }
@@ -240,7 +239,7 @@ class mob_ragin_flames : public CreatureScript
 
                     if (!onlyonce)
                     {
-                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                             me->GetMotionMaster()->MoveChase(pTarget);
                         onlyonce = true;
                     }
@@ -260,7 +259,6 @@ class mob_ragin_flames : public CreatureScript
 
                     DoMeleeAttackIfReady();
                 }
-
             };
             CreatureAI* GetAI(Creature* creature) const
             {
@@ -272,4 +270,3 @@ void AddSC_boss_nethermancer_sepethrea()
     new boss_nethermancer_sepethrea();
     new mob_ragin_flames();
 }
-

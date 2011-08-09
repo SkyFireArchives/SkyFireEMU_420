@@ -49,4 +49,3 @@
 #  define _FULLVERSION _PACKAGENAME "Hash: " _HASH " (Unix, " _BUILD_DIRECTIVE " (" _ENDIAN_STRING "))"
 #endif
 #endif
-

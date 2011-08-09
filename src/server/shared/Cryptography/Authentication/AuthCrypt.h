@@ -46,4 +46,3 @@ class AuthCrypt
         bool _initialized;
 };
 #endif
-

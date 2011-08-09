@@ -52,4 +52,3 @@ class SHA1Hash
         uint8 mDigest[SHA_DIGEST_LENGTH];
 };
 #endif
-

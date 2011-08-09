@@ -157,7 +157,7 @@ public:
                 Phase = 1;
                 DoScriptText(SAY_SHIELD, me);
                 DoCast(me, SPELL_RIFT_SHIELD);
-                Creature* Rift = me->SummonCreature(MOB_CHAOTIC_RIFT, RiftLocation[urand(0,5)], TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 1*IN_MILLISECONDS);
+                Creature* Rift = me->SummonCreature(MOB_CHAOTIC_RIFT, RiftLocation[urand(0, 5)], TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 1*IN_MILLISECONDS);
                 if (Rift)
                 {
                     //DoCast(Rift, SPELL_CHARGE_RIFT);
@@ -167,7 +167,6 @@ public:
                     DoScriptText(SAY_RIFT , me);
                 }
             }
-
 
             if (uiSparkTimer <= diff)
             {
@@ -179,9 +178,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 enum RiftSpells
 {
@@ -225,7 +222,7 @@ public:
         void JustDied(Unit * /*killer*/)
         {
             if (Creature* pAnomalus = Unit::GetCreature(*me, pInstance ? pInstance->GetData64(DATA_ANOMALUS) : 0))
-                CAST_AI(boss_anomalus::boss_anomalusAI,pAnomalus->AI())->bDeadChaoticRift = true;
+                CAST_AI(boss_anomalus::boss_anomalusAI, pAnomalus->AI())->bDeadChaoticRift = true;
         }
 
         void UpdateAI(const uint32 diff)
@@ -260,9 +257,7 @@ public:
             } else uiSummonCrazedManaWraithTimer -= diff;
         }
     };
-
 };
-
 
 void AddSC_boss_anomalus()
 {

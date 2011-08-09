@@ -203,7 +203,7 @@ public:
                         std::list<HostileReference*>::const_iterator i = me->getThreatManager().getThreatList().begin();
                         for (; i != me->getThreatManager().getThreatList().end(); ++i)
                         {
-                            Unit* pTemp = Unit::GetUnit((*me),(*i)->getUnitGuid());
+                            Unit* pTemp = Unit::GetUnit((*me), (*i)->getUnitGuid());
                             if (pTemp && pTemp->GetTypeId() == TYPEID_PLAYER && pTemp->getClass() == Healer)
                             {
                                 pTarget = pTemp;
@@ -227,7 +227,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_crystal_spike : public CreatureScript
@@ -270,7 +269,6 @@ public:
             } else SpellCrystalSpikeDamageTimer -= diff;
         }
     };
-
 };
 
 class mob_crystalline_tangler : public CreatureScript
@@ -306,11 +304,7 @@ public:
             } else uiRootsTimer -= diff;
         }
     };
-
 };
-
-
-
 
 void AddSC_boss_ormorok()
 {

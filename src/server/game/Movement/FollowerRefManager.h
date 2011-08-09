@@ -30,7 +30,5 @@ class TargetedMovementGeneratorBase;
 
 class FollowerRefManager : public RefManager<Unit, TargetedMovementGeneratorBase>
 {
-
 };
 #endif
-

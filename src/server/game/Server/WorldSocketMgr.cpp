@@ -52,7 +52,7 @@
 #include "ScriptMgr.h"
 
 /**
-* This is a helper class to WorldSocketMgr ,that manages
+* This is a helper class to WorldSocketMgr , that manages
 * network threads, and assigning connections from acceptor thread
 * to other network threads
 */
@@ -270,7 +270,7 @@ WorldSocketMgr::StartReactiveIO (ACE_UINT16 port, const char* address)
 
     if (acc->open(listen_addr, m_NetThreads[0].GetReactor(), ACE_NONBLOCK) == -1)
     {
-        sLog->outError ("Failed to open acceptor ,check if the port is free");
+        sLog->outError ("Failed to open acceptor , check if the port is free");
         return -1;
     }
 

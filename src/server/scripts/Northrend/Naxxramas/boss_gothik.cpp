@@ -403,11 +403,11 @@ public:
                             }
 
                             if (waves[waveCount].mode == 1)
-                                events.ScheduleEvent(EVENT_SUMMON,waves[waveCount].time);
+                                events.ScheduleEvent(EVENT_SUMMON, waves[waveCount].time);
                             else if ((waves[waveCount].mode == 2) && (getDifficulty() == RAID_DIFFICULTY_25MAN_NORMAL))
-                                events.ScheduleEvent(EVENT_SUMMON,waves[waveCount].time);
+                                events.ScheduleEvent(EVENT_SUMMON, waves[waveCount].time);
                             else if ((waves[waveCount].mode == 0) && (getDifficulty() == RAID_DIFFICULTY_10MAN_NORMAL))
-                                events.ScheduleEvent(EVENT_SUMMON,waves[waveCount].time);
+                                events.ScheduleEvent(EVENT_SUMMON, waves[waveCount].time);
                             else
                                 events.ScheduleEvent(EVENT_SUMMON, 0);
 
@@ -423,7 +423,7 @@ public:
                             summons.DoAction(0, 0);
                             summons.DoZoneInCombat();
                             events.ScheduleEvent(EVENT_BOLT, 1000);
-                            events.ScheduleEvent(EVENT_HARVEST, urand(3000,15000));
+                            events.ScheduleEvent(EVENT_HARVEST, urand(3000, 15000));
                             events.ScheduleEvent(EVENT_TELEPORT, 20000);
                         }
                         break;
@@ -433,7 +433,7 @@ public:
                         break;
                     case EVENT_HARVEST:
                         DoCast(me->getVictim(), SPELL_HARVEST_SOUL, true);
-                        events.ScheduleEvent(EVENT_HARVEST, urand(20000,25000));
+                        events.ScheduleEvent(EVENT_HARVEST, urand(20000, 25000));
                         break;
                     case EVENT_TELEPORT:
                         if (!thirtyPercentReached)
@@ -464,7 +464,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_gothik_minion : public CreatureScript
@@ -555,10 +554,7 @@ public:
             CombatAI::UpdateAI(diff);
         }
     };
-
 };
-
-
 
 void AddSC_boss_gothik()
 {

@@ -85,7 +85,7 @@ public:
             if (Immolate_Timer <= diff)
             {
                 Unit *pTarget = NULL;
-                pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget) DoCast(pTarget, SPELL_IMMOLATE);
 
                 Immolate_Timer = 12000;
@@ -101,7 +101,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_lordalexeibarov()

@@ -151,7 +151,7 @@ class boss_high_astromancer_solarian : public CreatureScript
 
             void KilledUnit(Unit * /*victim*/)
             {
-                DoScriptText(RAND(SAY_KILL1,SAY_KILL2,SAY_KILL3), me);
+                DoScriptText(RAND(SAY_KILL1, SAY_KILL2, SAY_KILL3), me);
             }
 
             void JustDied(Unit * /*victim*/)
@@ -186,7 +186,7 @@ class boss_high_astromancer_solarian : public CreatureScript
 
             float Portal_X(float radius)
             {
-                if (urand(0,1))
+                if (urand(0, 1))
                     radius = -radius;
 
                 return radius * (float)(rand()%100)/100.0f + CENTER_X;
@@ -453,7 +453,7 @@ class mob_solarium_priest : public CreatureScript
                 if (healTimer <= diff)
                 {
                     Unit *pTarget = NULL;
-                    switch (urand(0,1))
+                    switch (urand(0, 1))
                     {
                         case 0:
                             if (pInstance)
@@ -503,4 +503,3 @@ void AddSC_boss_high_astromancer_solarian()
     new boss_high_astromancer_solarian();
     new mob_solarium_priest();
 }
-

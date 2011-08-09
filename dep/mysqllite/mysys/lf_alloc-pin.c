@@ -524,4 +524,3 @@ uint lf_alloc_pool_count(LF_ALLOCATOR *allocator)
     /* no op */;
   return i;
 }
-

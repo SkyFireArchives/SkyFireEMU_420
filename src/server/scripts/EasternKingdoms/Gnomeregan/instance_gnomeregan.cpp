@@ -98,12 +98,12 @@ public:
                 case GO_CAVE_IN_LEFT:
                     uiCaveInLeftGUID = pGo->GetGUID();
                     if (m_auiEncounter[0] == DONE || m_auiEncounter[0] == NOT_STARTED)
-                        HandleGameObject(NULL,false,pGo);
+                        HandleGameObject(NULL, false, pGo);
                     break;
                 case GO_CAVE_IN_RIGHT:
                     uiCaveInRightGUID = pGo->GetGUID();
                     if (m_auiEncounter[0] == DONE || m_auiEncounter[0] == NOT_STARTED)
-                        HandleGameObject(NULL,false,pGo);
+                        HandleGameObject(NULL, false, pGo);
                     break;
             }
         }
@@ -141,9 +141,7 @@ public:
             return 0;
         }
     };
-
 };
-
 
 void AddSC_instance_gnomeregan()
 {

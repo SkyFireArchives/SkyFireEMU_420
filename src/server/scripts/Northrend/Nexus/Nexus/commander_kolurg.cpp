@@ -74,9 +74,7 @@ public:
         }
         void JustDied(Unit* /*killer*/)  {}
     };
-
 };
-
 
 void AddSC_boss_commander_kolurg()
 {

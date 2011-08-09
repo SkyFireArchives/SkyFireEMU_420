@@ -69,7 +69,7 @@ public:
 
         void JustDied(Unit* /*killer*/)
         {
-            me->SummonCreature(12238,28.067f,61.875f,-123.405f,4.67f,TEMPSUMMON_TIMED_DESPAWN,600000);
+            me->SummonCreature(12238, 28.067f, 61.875f, -123.405f, 4.67f, TEMPSUMMON_TIMED_DESPAWN, 600000);
         }
 
         void UpdateAI(const uint32 diff)
@@ -88,7 +88,7 @@ public:
             if (Boulder_Timer <= diff)
             {
                 Unit *pTarget = NULL;
-                pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget)
                     DoCast(pTarget, SPELL_BOULDER);
                 Boulder_Timer = 10000;
@@ -111,7 +111,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_ptheradras()

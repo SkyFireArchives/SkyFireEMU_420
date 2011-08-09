@@ -57,8 +57,8 @@ class PathMovementBase
         void ReloadPath(T &);
         uint32 GetCurrentNode() const { return i_currentNode; }
 
-        bool GetDestination(float& x, float& y, float& z) const { i_destinationHolder.GetDestination(x,y,z); return true; }
-        bool GetPosition(float& x, float& y, float& z) const { i_destinationHolder.GetLocationNowNoMicroMovement(x,y,z); return true; }
+        bool GetDestination(float& x, float& y, float& z) const { i_destinationHolder.GetDestination(x, y, z); return true; }
+        bool GetPosition(float& x, float& y, float& z) const { i_destinationHolder.GetLocationNowNoMicroMovement(x, y, z); return true; }
 
     protected:
         uint32 i_currentNode;
@@ -98,7 +98,7 @@ class WaypointMovementGenerator
  */
 class FlightPathMovementGenerator
 : public MovementGeneratorMedium< Player, FlightPathMovementGenerator >,
-public PathMovementBase<Player,TaxiPathNodeList const*>
+public PathMovementBase<Player, TaxiPathNodeList const*>
 {
     public:
         explicit FlightPathMovementGenerator(TaxiPathNodeList const& pathnodes, uint32 startNode = 0)
@@ -119,7 +119,7 @@ public PathMovementBase<Player,TaxiPathNodeList const*>
         void SkipCurrentNode() { ++i_currentNode; }
         void DoEventIfAny(Player& player, TaxiPathNodeEntry const& node, bool departure);
 
-        bool GetDestination(float& x, float& y, float& z) const { return PathMovementBase<Player,TaxiPathNodeList const*>::GetDestination(x,y,z); }
+        bool GetDestination(float& x, float& y, float& z) const { return PathMovementBase<Player, TaxiPathNodeList const*>::GetDestination(x, y, z); }
 
         void PreloadEndGrid();
         void InitEndGridInfo();
@@ -132,5 +132,3 @@ public PathMovementBase<Player,TaxiPathNodeList const*>
         float m_endGridY;
 };
 #endif
-
-

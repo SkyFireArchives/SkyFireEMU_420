@@ -145,7 +145,7 @@ public:
                     {
                         DoScriptText(RAND(SAY_HEAL1, SAY_HEAL2, SAY_HEAL3, SAY_HEAL4), me, pPlayer);
 
-                        pPlayer->TalkedToCreature(me->GetEntry(),me->GetGUID());
+                        pPlayer->TalkedToCreature(me->GetEntry(), me->GetGUID());
                     }
 
                     me->GetMotionMaster()->Clear();
@@ -175,7 +175,6 @@ public:
             } else SayHelpTimer -= diff;
         }
     };
-
 };
 
 /*######
@@ -289,11 +288,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
-
 
 /*######
 ## npc_injured_draenei
@@ -333,9 +328,7 @@ public:
         void UpdateAI(const uint32 /*diff*/)
         {
         }
-
     };
-
 };
 
 /*######
@@ -400,7 +393,7 @@ public:
             case 29:
                 DoScriptText(EMOTE_HUG, me, pPlayer);
                 DoScriptText(SAY_END2, me, pPlayer);
-                pPlayer->GroupEventHappens(QUEST_A_CRY_FOR_SAY_HELP,me);
+                pPlayer->GroupEventHappens(QUEST_A_CRY_FOR_SAY_HELP, me);
                 break;
             }
         }
@@ -412,9 +405,7 @@ public:
 
         void Reset() { }
     };
-
 };
-
 
 /*######
 ## npc_geezle
@@ -544,7 +535,7 @@ public:
                 if ((*itr)->GetQuestStatus(QUEST_TREES_COMPANY) == QUEST_STATUS_INCOMPLETE
                     &&(*itr)->HasAura(SPELL_TREE_DISGUISE))
                 {
-                    (*itr)->KilledMonsterCredit(MOB_SPARK,0);
+                    (*itr)->KilledMonsterCredit(MOB_SPARK, 0);
                 }
             }
         }
@@ -552,7 +543,7 @@ public:
         void DespawnNagaFlag(bool despawn)
         {
             std::list<GameObject*> FlagList;
-            me->GetGameObjectListWithEntryInGrid(FlagList,GO_NAGA_FLAG, 100.0f);
+            me->GetGameObjectListWithEntryInGrid(FlagList, GO_NAGA_FLAG, 100.0f);
 
             if (!FlagList.empty())
             {
@@ -579,7 +570,6 @@ public:
             } else SayTimer -= diff;
         }
     };
-
 };
 
 /*######
@@ -652,9 +642,7 @@ public:
     {
         return new npc_nestlewood_owlkinAI (pCreature);
     }
-
 };
-
 
 enum eRavegerCage
 {
@@ -677,7 +665,7 @@ public:
         {
             if (Creature* ravager = pGo->FindNearestCreature(NPC_DEATH_RAVAGER, 5.0f, true))
             {
-                ravager->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_NON_ATTACKABLE);
+                ravager->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                 ravager->SetReactState(REACT_AGGRESSIVE);
                 ravager->AI()->AttackStart(pPlayer);
             }
@@ -734,7 +722,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 /*########
@@ -765,15 +752,15 @@ public:
         {
             FleeTimer = 0;
             GameObject* cage = me->FindNearestGameObject(GO_BRISTELIMB_CAGE, 5.0f);
-            if(cage)
+            if (cage)
                 cage->ResetDoorOrButton();
         }
 
         void UpdateAI(const uint32 diff)
         {
-            if(FleeTimer)
+            if (FleeTimer)
             {
-                if(FleeTimer <= diff)
+                if (FleeTimer <= diff)
                     me->ForcedDespawn();
                 else FleeTimer -= diff;
             }
@@ -784,7 +771,6 @@ public:
     {
         return new npc_stillpine_capitiveAI(pCreature);
     }
-
 };
 
 class go_bristlelimb_cage : public GameObjectScript
@@ -794,10 +780,10 @@ public:
 
     bool OnGossipHello(Player* pPlayer, GameObject* pGo)
     {
-        if(pPlayer->GetQuestStatus(QUEST_THE_PROPHECY_OF_AKIDA) == QUEST_STATUS_INCOMPLETE)
+        if (pPlayer->GetQuestStatus(QUEST_THE_PROPHECY_OF_AKIDA) == QUEST_STATUS_INCOMPLETE)
         {
             Creature* pCreature = pGo->FindNearestCreature(NPC_STILLPINE_CAPITIVE, 5.0f, true);
-            if(pCreature)
+            if (pCreature)
             {
                 DoScriptText(RAND(CAPITIVE_SAY_1, CAPITIVE_SAY_2, CAPITIVE_SAY_3), pCreature, pPlayer);
                 pCreature->GetMotionMaster()->MoveFleeing(pPlayer, 3500);
@@ -808,7 +794,6 @@ public:
         }
         return true;
     }
-
 };
 
 void AddSC_azuremyst_isle()

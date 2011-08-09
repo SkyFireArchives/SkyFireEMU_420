@@ -128,7 +128,7 @@ public:
             //ManaStorm_Timer
             if (ManaStorm_Timer <= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     DoCast(pTarget, SPELL_MANASTORM);
                 ManaStorm_Timer = 7500 + rand()%5000;
             } else ManaStorm_Timer -= diff;
@@ -157,7 +157,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_azuregos()

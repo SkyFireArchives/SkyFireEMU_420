@@ -147,7 +147,6 @@ static void get_password(char *to,uint length,int fd, my_bool echo)
 }
 #endif /* ! HAVE_GETPASS */
 
-
 char *get_tty_password(const char *opt_message)
 {
 #ifdef HAVE_GETPASS
@@ -167,7 +166,7 @@ char *get_tty_password(const char *opt_message)
 #ifdef _PASSWORD_LEN
   memset(passbuff, 0, _PASSWORD_LEN);
 #endif
-#else 
+#else
   if (isatty(fileno(stdout)))
   {
     fputs(opt_message ? opt_message : "Enter password: ",stdout);

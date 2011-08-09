@@ -102,7 +102,7 @@ const Position RazorGround = {586.966f, -175.534f, 391.517f, 1.692f};
 
 enum Mobs
 {
-    RAZORSCALE                      = 33186,// ?? why not use instance?
+    RAZORSCALE                      = 33186, // ?? why not use instance?
     NPC_DARK_RUNE_GUARDIAN          = 33388,
     NPC_DARK_RUNE_SENTINEL          = 33846,
     NPC_DARK_RUNE_WATCHER           = 33453,
@@ -200,7 +200,7 @@ public:
         void EnterCombat(Unit* /*who*/)
         {
             _EnterCombat();
-            for (uint8 n = 0; n < RAID_MODE(2,4); ++n)
+            for (uint8 n = 0; n < RAID_MODE(2, 4); ++n)
                 Harpoon[n] = me->SummonCreature(NPC_HARPOON, PosHarpoon[n], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 0);
             me->SetSpeed(MOVE_FLIGHT, 3.0f, true);
             me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
@@ -259,7 +259,7 @@ public:
                             me->SetReactState(REACT_PASSIVE);
                             me->AttackStop();
                             me->RemoveAllAuras();
-                            me->GetMotionMaster()->MovePoint(0,RazorFlight);
+                            me->GetMotionMaster()->MovePoint(0, RazorFlight);
                             events.ScheduleEvent(EVENT_FIREBALL, 7000, 0, PHASE_FLIGHT);
                             events.ScheduleEvent(EVENT_DEVOURING, 10000, 0, PHASE_FLIGHT);
                             events.ScheduleEvent(EVENT_SUMMON, 5000, 0, PHASE_FLIGHT);
@@ -279,7 +279,7 @@ public:
                             events.ScheduleEvent(EVENT_FLIGHT, 35000, 0, PHASE_GROUND);
                             return;
                         case EVENT_HARPOON:
-                            for (uint8 n = 0; n < RAID_MODE(2,4); ++n)
+                            for (uint8 n = 0; n < RAID_MODE(2, 4); ++n)
                                 if (Harpoon[n])
                                     Harpoon[n]->CastSpell(me, SPELL_HARPOON, true);
                             events.ScheduleEvent(EVENT_HARPOON, 1500, 0, PHASE_GROUND);
@@ -292,7 +292,7 @@ public:
                             return;
                         case EVENT_BUFFET:
                             DoCastAOE(SPELL_WINGBUFFET);
-                            for (uint8 n = 0; n < RAID_MODE(2,4); ++n)
+                            for (uint8 n = 0; n < RAID_MODE(2, 4); ++n)
                                 if (Harpoon[n])
                                     Harpoon[n]->CastSpell(Harpoon[n], SPELL_FLAMED, true);
                             events.CancelEvent(EVENT_BUFFET);
@@ -349,7 +349,7 @@ public:
                             events.SetPhase(PHASE_GROUND);
                             if (Harpoon[0])
                                 Harpoon[0]->MonsterTextEmote(EMOTE_HARPOON, 0, true);
-                            me->GetMotionMaster()->MovePoint(0,RazorGround);
+                            me->GetMotionMaster()->MovePoint(0, RazorGround);
                             events.ScheduleEvent(EVENT_LAND, 5500, 0, PHASE_GROUND);
                             return;
                         case EVENT_FIREBALL:
@@ -396,7 +396,7 @@ public:
         {
             // Adds will come in waves from mole machines. One mole can spawn a Dark Rune Watcher
             // with 1-2 Guardians, or a lone Sentinel. Up to 4 mole machines can spawn adds at any given time.
-            uint8 random = urand(1,4);
+            uint8 random = urand(1, 4);
             for (uint8 i = 0; i < random; ++i)
             {
                 float x = float(irand(540, 640));       // Safe range is between 500 and 650
@@ -418,7 +418,6 @@ public:
             }
         }
     };
-
 };
 
 /*====================================================================================
@@ -450,7 +449,7 @@ public:
         {
             pPlayer->PrepareGossipMenu(pCreature);
 
-            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT,GOSSIP_ITEM_1,GOSSIP_SENDER_MAIN,GOSSIP_ACTION_INFO_DEF);
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_1, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
             pPlayer->SEND_GOSSIP_MENU(13853, pCreature->GetGUID());
         }
         else pPlayer->SEND_GOSSIP_MENU(13910, pCreature->GetGUID());
@@ -525,7 +524,7 @@ public:
                         uiPhase = 2;
                         break;
                     case 2:
-                        for (uint8 n = 0; n < RAID_MODE(2,4); ++n)
+                        for (uint8 n = 0; n < RAID_MODE(2, 4); ++n)
                         {
                             engineer[n] = me->SummonCreature(NPC_ENGINEER, PosEngSpawn, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
                             engineer[n]->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
@@ -548,7 +547,7 @@ public:
                         uiPhase = 4;
                         break;
                     case 4:
-                        for (uint8 n = 0; n < RAID_MODE(2,4); ++n)
+                        for (uint8 n = 0; n < RAID_MODE(2, 4); ++n)
                             engineer[n]->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_USESTANDING);
                         for (uint8 n = 0; n < 4; ++n)
                             defender[n]->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_STATE_READY2H);
@@ -567,9 +566,7 @@ public:
             else uiTimer -= uiDiff;
         }
     };
-
 };
-
 
 class npc_mole_machine_trigger : public CreatureScript
 {
@@ -616,7 +613,7 @@ public:
                 if (!(rand()%2))
                 {
                     me->SummonCreature(NPC_DARK_RUNE_WATCHER, x, y, z, 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 3000);
-                    uint8 random = urand(1,2);
+                    uint8 random = urand(1, 2);
                     for (uint8 i = 0; i < random; ++i)
                         me->SummonCreature(NPC_DARK_RUNE_GUARDIAN, x, y, z, 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 3000);
                 }
@@ -632,9 +629,7 @@ public:
             summon->AI()->DoZoneInCombat();
         }
     };
-
 };
-
 
 class npc_devouring_flame : public CreatureScript
 {
@@ -659,9 +654,7 @@ public:
             DoCast(me, SPELL_FLAME_GROUND);
         }
     };
-
 };
-
 
 class npc_darkrune_watcher : public CreatureScript
 {
@@ -713,9 +706,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 class npc_darkrune_guardian : public CreatureScript
 {
@@ -758,9 +749,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 class npc_darkrune_sentinel : public CreatureScript
 {
@@ -821,9 +810,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_razorscale()
 {

@@ -200,4 +200,3 @@ void AddSC_boss_ysondre()
     new boss_ysondre;
     new mob_dementeddruids;
 }
-

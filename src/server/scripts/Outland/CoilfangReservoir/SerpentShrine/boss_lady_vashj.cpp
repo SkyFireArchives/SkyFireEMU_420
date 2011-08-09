@@ -234,7 +234,7 @@ public:
         }
         void KilledUnit(Unit * /*victim*/)
         {
-            DoScriptText(RAND(SAY_SLAY1,SAY_SLAY2,SAY_SLAY3), me);
+            DoScriptText(RAND(SAY_SLAY1, SAY_SLAY2, SAY_SLAY3), me);
         }
 
         void JustDied(Unit * /*victim*/)
@@ -247,7 +247,7 @@ public:
 
         void StartEvent()
         {
-            DoScriptText(RAND(SAY_AGGRO1,SAY_AGGRO2,SAY_AGGRO3,SAY_AGGRO4), me);
+            DoScriptText(RAND(SAY_AGGRO1, SAY_AGGRO2, SAY_AGGRO3, SAY_AGGRO4), me);
 
             Phase = 1;
 
@@ -307,7 +307,7 @@ public:
 
         void CastShootOrMultishot()
         {
-            switch (urand(0,1))
+            switch (urand(0, 1))
             {
                 case 0:
                     //Shoot
@@ -322,7 +322,7 @@ public:
             }
             if (rand()%3)
             {
-                DoScriptText(RAND(SAY_BOWSHOT1,SAY_BOWSHOT2), me);
+                DoScriptText(RAND(SAY_BOWSHOT1, SAY_BOWSHOT2), me);
             }
         }
 
@@ -445,7 +445,6 @@ public:
 
                         if (SummonSporebat_Timer < 5000)
                             SummonSporebat_Timer = 5000;
-
                     } else SummonSporebat_Timer -= diff;
                 }
 
@@ -576,7 +575,6 @@ public:
             }
         }
     };
-
 };
 
 //Enchanted Elemental
@@ -607,8 +605,8 @@ public:
 
         void Reset()
         {
-            me->SetSpeed(MOVE_WALK,0.6f);//walk
-            me->SetSpeed(MOVE_RUN,0.6f);//run
+            me->SetSpeed(MOVE_WALK, 0.6f);//walk
+            me->SetSpeed(MOVE_RUN, 0.6f);//run
             move = 0;
             phase = 1;
 
@@ -624,7 +622,7 @@ public:
                 }
                 else
                 {
-                    if (me->GetDistance(ElementWPPos[i][0],ElementWPPos[i][1],ElementWPPos[i][2]) < me->GetDistance(x,y,z))
+                    if (me->GetDistance(ElementWPPos[i][0], ElementWPPos[i][1], ElementWPPos[i][2]) < me->GetDistance(x, y, z))
                     {
                         x = ElementWPPos[i][0];
                         y = ElementWPPos[i][1];
@@ -653,7 +651,7 @@ public:
                 me->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
                 if (phase == 1)
                     me->GetMotionMaster()->MovePoint(0, x, y, z);
-                if (phase == 1 && me->IsWithinDist3d(x,y,z, 0.1f))
+                if (phase == 1 && me->IsWithinDist3d(x, y, z, 0.1f))
                     phase = 2;
                 if (phase == 2)
                 {
@@ -678,11 +676,10 @@ public:
             } else move -= diff;
         }
     };
-
 };
 
 //Tainted Elemental
-//This mob has 7,900 life, doesn't move, and shoots Poison Bolts at one person anywhere in the area, doing 3,000 nature damage and placing a posion doing 2,000 damage every 2 seconds. He will switch targets often, or sometimes just hang on a single player, but there is nothing you can do about it except heal the damage and kill the Tainted Elemental
+//This mob has 7, 900 life, doesn't move, and shoots Poison Bolts at one person anywhere in the area, doing 3, 000 nature damage and placing a posion doing 2, 000 damage every 2 seconds. He will switch targets often, or sometimes just hang on a single player, but there is nothing you can do about it except heal the damage and kill the Tainted Elemental
 class mob_tainted_elemental : public CreatureScript
 {
 public:
@@ -753,7 +750,6 @@ public:
             } else Despawn_Timer -= diff;
         }
     };
-
 };
 
 //Toxic Sporebat
@@ -795,12 +791,10 @@ public:
 
         void EnterCombat(Unit * /*who*/)
         {
-
         }
 
         void MoveInLineOfSight(Unit * /*who*/)
         {
-
         }
 
         void MovementInform(uint32 type, uint32 id)
@@ -818,7 +812,7 @@ public:
             if (movement_timer <= diff)
             {
                 uint32 rndpos = rand()%8;
-                me->GetMotionMaster()->MovePoint(1,SporebatWPPos[rndpos][0], SporebatWPPos[rndpos][1], SporebatWPPos[rndpos][2]);
+                me->GetMotionMaster()->MovePoint(1, SporebatWPPos[rndpos][0], SporebatWPPos[rndpos][1], SporebatWPPos[rndpos][2]);
                 movement_timer = 6000;
             } else movement_timer -= diff;
 
@@ -829,11 +823,11 @@ public:
                 pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget)
                 {
-                    Creature* trig = me->SummonCreature(TOXIC_SPORES_TRIGGER,pTarget->GetPositionX(),pTarget->GetPositionY(),pTarget->GetPositionZ(),0,TEMPSUMMON_TIMED_DESPAWN,30000);
+                    Creature* trig = me->SummonCreature(TOXIC_SPORES_TRIGGER, pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN, 30000);
                     if (trig)
                     {
                         trig->setFaction(14);
-                        trig->CastSpell(trig, SPELL_TOXIC_SPORES,true);
+                        trig->CastSpell(trig, SPELL_TOXIC_SPORES, true);
                     }
                 }
                 bolt_timer = 10000+rand()%5000;
@@ -861,11 +855,10 @@ public:
             } else Check_Timer -= diff;
         }
     };
-
 };
 
 //Coilfang Elite
-//It's an elite Naga mob with 170,000 HP. It does about 5000 damage on plate, and has a nasty cleave hitting for about 7500 damage
+//It's an elite Naga mob with 170, 000 HP. It does about 5000 damage on plate, and has a nasty cleave hitting for about 7500 damage
 class mob_coilfang_elite : public CreatureScript
 {
 public:
@@ -886,7 +879,6 @@ public:
 
         return ai;
     }
-
 };
 
 //Coilfang Strider
@@ -913,7 +905,6 @@ public:
 
         return ai;
     }
-
 };
 
 class mob_shield_generator_channel : public CreatureScript
@@ -972,7 +963,6 @@ public:
             } else Check_Timer -= diff;
         }
     };
-
 };
 
 class item_tainted_core : public ItemScript
@@ -1052,7 +1042,6 @@ public:
         }
         return true;
     }
-
 };
 
 void AddSC_boss_lady_vashj()

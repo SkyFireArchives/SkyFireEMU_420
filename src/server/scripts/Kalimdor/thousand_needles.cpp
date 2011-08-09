@@ -103,10 +103,7 @@ public:
             pSummoned->AI()->AttackStart(me);
         }
     };
-
 };
-
-
 
 /*######
 # npc_lakota_windsong
@@ -199,10 +196,7 @@ public:
                 TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 60000);
         }
     };
-
 };
-
-
 
 /*######
 # npc_paoka_swiftmountain
@@ -238,7 +232,7 @@ public:
             DoScriptText(SAY_START, pCreature, pPlayer);
             pCreature->setFaction(FACTION_ESCORTEE);
 
-            if (npc_paoka_swiftmountainAI* pEscortAI = CAST_AI(npc_paoka_swiftmountain::npc_paoka_swiftmountainAI,pCreature->AI()))
+            if (npc_paoka_swiftmountainAI* pEscortAI = CAST_AI(npc_paoka_swiftmountain::npc_paoka_swiftmountainAI, pCreature->AI()))
                 pEscortAI->Start(false, false, pPlayer->GetGUID(), pQuest);
         }
         return true;
@@ -281,10 +275,7 @@ public:
                 TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 60000);
         }
     };
-
 };
-
-
 
 /*#####
 # npc_plucky
@@ -401,7 +392,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_thousand_needles()

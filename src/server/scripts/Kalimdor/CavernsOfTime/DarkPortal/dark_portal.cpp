@@ -114,7 +114,7 @@ public:
                     return;
 
                 DoScriptText(SAY_INTRO, me);
-                pInstance->SetData(TYPE_MEDIVH,IN_PROGRESS);
+                pInstance->SetData(TYPE_MEDIVH, IN_PROGRESS);
                 DoCast(me, SPELL_CHANNEL, false);
                 Check_Timer = 5000;
                      }
@@ -127,12 +127,12 @@ public:
                 if (entry == C_ASSAS || entry == C_WHELP || entry == C_CHRON || entry == C_EXECU || entry == C_VANQU)
                 {
                     who->StopMoving();
-                    who->CastSpell(me,SPELL_CORRUPT,false);
+                    who->CastSpell(me, SPELL_CORRUPT, false);
                 }
                 else if (entry == C_AEONUS)
                 {
                     who->StopMoving();
-                    who->CastSpell(me,SPELL_CORRUPT_AEONUS,false);
+                    who->CastSpell(me, SPELL_CORRUPT_AEONUS, false);
                 }
             }
         }
@@ -176,7 +176,7 @@ public:
             {
                 if (SpellCorrupt_Timer <= diff)
                 {
-                        pInstance->SetData(TYPE_MEDIVH,SPECIAL);
+                        pInstance->SetData(TYPE_MEDIVH, SPECIAL);
 
                     if (me->HasAura(SPELL_CORRUPT_AEONUS))
                         SpellCorrupt_Timer = 1000;
@@ -229,7 +229,7 @@ public:
                             me->RemoveAura(SPELL_CHANNEL);
 
                         //TODO: start the post-event here
-                        pInstance->SetData(TYPE_MEDIVH,DONE);
+                        pInstance->SetData(TYPE_MEDIVH, DONE);
                     }
                 } else Check_Timer -= diff;
             }
@@ -240,9 +240,7 @@ public:
             //DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 struct Wave
 {
@@ -282,7 +280,6 @@ public:
 
         void Reset()
         {
-
             TimeRiftWave_Timer = 15000;
             mRiftWaveCount = 0;
 
@@ -296,7 +293,6 @@ public:
             else if (mPortalCount > 12)
                 mWaveId = 2;
             else mWaveId = 1;
-
         }
         void EnterCombat(Unit * /*who*/) {}
 
@@ -320,7 +316,7 @@ public:
 
             if (Unit *Summon = DoSummon(creature_entry, pos, 30000, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT))
                 if (Unit *temp = Unit::GetUnit(*me, pInstance ? pInstance->GetData64(DATA_MEDIVH) : 0))
-                    Summon->AddThreat(temp,0.0f);
+                    Summon->AddThreat(temp, 0.0f);
         }
 
         void DoSelectSummon()
@@ -331,7 +327,7 @@ public:
                 mRiftWaveCount = 0;
 
             entry = PortalWaves[mWaveId].PortalMob[mRiftWaveCount];
-            sLog->outDebug(LOG_FILTER_TSCR, "TSCR: npc_time_rift: summoning wave Creature (Wave %u, Entry %u).",mRiftWaveCount,entry);
+            sLog->outDebug(LOG_FILTER_TSCR, "TSCR: npc_time_rift: summoning wave Creature (Wave %u, Entry %u).", mRiftWaveCount, entry);
 
             ++mRiftWaveCount;
 
@@ -360,12 +356,10 @@ public:
             me->setDeathState(JUST_DIED);
 
             if (pInstance->GetData(TYPE_RIFT) == IN_PROGRESS)
-                pInstance->SetData(TYPE_RIFT,SPECIAL);
+                pInstance->SetData(TYPE_RIFT, SPECIAL);
         }
     };
-
 };
-
 
 #define SAY_SAAT_WELCOME        -1269019
 
@@ -384,7 +378,7 @@ public:
         if (uiAction == GOSSIP_ACTION_INFO_DEF+1)
         {
             pPlayer->CLOSE_GOSSIP_MENU();
-            pCreature->CastSpell(pPlayer,SPELL_CHRONO_BEACON,false);
+            pCreature->CastSpell(pPlayer, SPELL_CHRONO_BEACON, false);
         }
         return true;
     }
@@ -394,15 +388,15 @@ public:
         if (pCreature->isQuestGiver())
             pPlayer->PrepareQuestMenu(pCreature->GetGUID());
 
-        if (pPlayer->GetQuestStatus(QUEST_OPENING_PORTAL) == QUEST_STATUS_INCOMPLETE && !pPlayer->HasItemCount(ITEM_CHRONO_BEACON,1))
+        if (pPlayer->GetQuestStatus(QUEST_OPENING_PORTAL) == QUEST_STATUS_INCOMPLETE && !pPlayer->HasItemCount(ITEM_CHRONO_BEACON, 1))
         {
-            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT,GOSSIP_ITEM_OBTAIN,GOSSIP_SENDER_MAIN,GOSSIP_ACTION_INFO_DEF+1);
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_OBTAIN, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
             pPlayer->SEND_GOSSIP_MENU(10000, pCreature->GetGUID());
             return true;
         }
-        else if (pPlayer->GetQuestRewardStatus(QUEST_OPENING_PORTAL) && !pPlayer->HasItemCount(ITEM_CHRONO_BEACON,1))
+        else if (pPlayer->GetQuestRewardStatus(QUEST_OPENING_PORTAL) && !pPlayer->HasItemCount(ITEM_CHRONO_BEACON, 1))
         {
-            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT,GOSSIP_ITEM_OBTAIN,GOSSIP_SENDER_MAIN,GOSSIP_ACTION_INFO_DEF+1);
+            pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_OBTAIN, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
             pPlayer->SEND_GOSSIP_MENU(10001, pCreature->GetGUID());
             return true;
         }
@@ -410,9 +404,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(10002, pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 void AddSC_dark_portal()
 {

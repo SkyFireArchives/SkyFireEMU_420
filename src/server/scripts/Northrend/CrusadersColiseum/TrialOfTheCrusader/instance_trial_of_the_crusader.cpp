@@ -132,7 +132,7 @@ public:
         {
             if (instance->IsHeroic())
             {
-                m_player->SendUpdateWorldState(UPDATE_STATE_UI_SHOW,1);
+                m_player->SendUpdateWorldState(UPDATE_STATE_UI_SHOW, 1);
                 m_player->SendUpdateWorldState(UPDATE_STATE_UI_COUNT, GetData(TYPE_COUNTER));
             }
         }
@@ -304,7 +304,7 @@ public:
                             }
                             if (tributeChest)
                                 if (Creature* pTirion =  instance->GetCreature(m_uiTirionGUID))
-                                    if (GameObject* pChest = pTirion->SummonGameObject(tributeChest,805.62f,134.87f,142.16f,3.27f,0,0,0,0,90000000))
+                                    if (GameObject* pChest = pTirion->SummonGameObject(tributeChest, 805.62f, 134.87f, 142.16f, 3.27f, 0, 0, 0, 0, 90000000))
                                         pChest->SetRespawnTime(pChest->GetRespawnDelay());
                             break;
                     }
@@ -318,8 +318,8 @@ public:
                     {
                         case GORMOK_DONE:
                             m_uiEvent = 200;
-                            SetData(TYPE_NORTHREND_BEASTS,IN_PROGRESS);
-                            SetData(TYPE_BEASTS,IN_PROGRESS);
+                            SetData(TYPE_NORTHREND_BEASTS, IN_PROGRESS);
+                            SetData(TYPE_BEASTS, IN_PROGRESS);
                             break;
                         case SNAKES_IN_PROGRESS: m_uiNotOneButTwoJormungarsTimer = 0; break;
                         case SNAKES_SPECIAL: m_uiNotOneButTwoJormungarsTimer = 10*IN_MILLISECONDS; break;
@@ -327,16 +327,16 @@ public:
                             if (m_uiNotOneButTwoJormungarsTimer > 0)
                                 DoUpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_BE_SPELL_TARGET, SPELL_WORMS_KILLED_IN_10_SECONDS);
                             m_uiEvent = 300;
-                            SetData(TYPE_NORTHREND_BEASTS,IN_PROGRESS);
-                            SetData(TYPE_BEASTS,IN_PROGRESS);
+                            SetData(TYPE_NORTHREND_BEASTS, IN_PROGRESS);
+                            SetData(TYPE_BEASTS, IN_PROGRESS);
                             break;
                         case ICEHOWL_DONE:
                             m_uiEvent = 400;
-                            SetData(TYPE_NORTHREND_BEASTS,DONE);
-                            SetData(TYPE_BEASTS,DONE);
+                            SetData(TYPE_NORTHREND_BEASTS, DONE);
+                            SetData(TYPE_BEASTS, DONE);
                             break;
                         case FAIL:
-                            SetData(TYPE_BEASTS,FAIL);
+                            SetData(TYPE_BEASTS, FAIL);
                             break;
                     }
                     break;
@@ -370,7 +370,7 @@ public:
 
             if (uiType < MAX_ENCOUNTERS)
             {
-                sLog->outBasic("[ToCr] m_auiEncounter[uiType %u] %u = uiData %u;",uiType,m_auiEncounter[uiType],uiData);
+                sLog->outBasic("[ToCr] m_auiEncounter[uiType %u] %u = uiData %u;", uiType, m_auiEncounter[uiType], uiData);
                 if (uiData == FAIL)
                 {
                     if (IsRaidWiped())
@@ -626,9 +626,7 @@ public:
             return false;
         }
     };
-
 };
-
 
 void AddSC_instance_trial_of_the_crusader()
 {

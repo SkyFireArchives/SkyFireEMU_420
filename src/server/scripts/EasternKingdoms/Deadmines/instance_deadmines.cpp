@@ -119,7 +119,7 @@ class instance_deadmines : public InstanceMapScript
                     if (ServerAllowsTwoSideGroups())
                         pCreature->setFaction(FACTION_HOSTILE_FOR_ALL);
                     if (TeamInInstance == ALLIANCE)
-                        pCreature->UpdateEntry(491, ALLIANCE); // Quartermaster Lewis <Quartermaster> 
+                        pCreature->UpdateEntry(491, ALLIANCE); // Quartermaster Lewis <Quartermaster>
                     break;
                 }
                 case 46890: // Shattered Hand Assassin
@@ -129,7 +129,7 @@ class instance_deadmines : public InstanceMapScript
                     if (TeamInInstance == ALLIANCE)
                         pCreature->UpdateEntry(1, ALLIANCE); // GM WAYPOINT
                     break;
-                }                
+                }
                 case 46903: // Mayhem Reaper Prototype
                 {
                     if (ServerAllowsTwoSideGroups())
@@ -180,8 +180,7 @@ class instance_deadmines : public InstanceMapScript
                    break;
                }
             }
-        
-            }                                                
+            }
             virtual void Update(uint32 diff)
             {
                 if (!IronCladDoorGUID || !DefiasCannonGUID || !DoorLeverGUID)
@@ -228,9 +227,9 @@ class instance_deadmines : public InstanceMapScript
             {
                 if (GameObject *pIronCladDoor = instance->GetGameObject(IronCladDoorGUID))
                 {
-                    Creature *DefiasPirate1 = pIronCladDoor->SummonCreature(657,pIronCladDoor->GetPositionX() - 2,pIronCladDoor->GetPositionY()-7,pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
-                    Creature *DefiasPirate2 = pIronCladDoor->SummonCreature(657,pIronCladDoor->GetPositionX() + 3,pIronCladDoor->GetPositionY()-6,pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
-                    Creature *DefiasCompanion = pIronCladDoor->SummonCreature(3450,pIronCladDoor->GetPositionX() + 2,pIronCladDoor->GetPositionY()-6,pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
+                    Creature *DefiasPirate1 = pIronCladDoor->SummonCreature(657, pIronCladDoor->GetPositionX() - 2, pIronCladDoor->GetPositionY()-7, pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
+                    Creature *DefiasPirate2 = pIronCladDoor->SummonCreature(657, pIronCladDoor->GetPositionX() + 3, pIronCladDoor->GetPositionY()-6, pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
+                    Creature *DefiasCompanion = pIronCladDoor->SummonCreature(3450, pIronCladDoor->GetPositionX() + 2, pIronCladDoor->GetPositionY()-6, pIronCladDoor->GetPositionZ(), 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 3000);
 
                     DefiasPirate1GUID = DefiasPirate1->GetGUID();
                     DefiasPirate2GUID = DefiasPirate2->GetGUID();
@@ -257,7 +256,7 @@ class instance_deadmines : public InstanceMapScript
             void MoveCreatureInside(Creature* pCreature)
             {
                 pCreature->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                pCreature->GetMotionMaster()->MovePoint(0, -102.7f,-655.9f, pCreature->GetPositionZ());
+                pCreature->GetMotionMaster()->MovePoint(0, -102.7f, -655.9f, pCreature->GetPositionZ());
             }
 
             void ShootCannon()
@@ -339,7 +338,7 @@ class instance_deadmines : public InstanceMapScript
                 WorldPacket data(4);
                 data.SetOpcode(SMSG_PLAY_SOUND);
                 data << uint32(sound);
-                unit->SendMessageToSet(&data,false);
+                unit->SendMessageToSet(&data, false);
             }
 
             void DoPlaySoundCreature(Unit* unit, uint32 sound)
@@ -347,7 +346,7 @@ class instance_deadmines : public InstanceMapScript
                 WorldPacket data(4);
                 data.SetOpcode(SMSG_PLAY_SOUND);
                 data << uint32(sound);
-                unit->SendMessageToSet(&data,false);
+                unit->SendMessageToSet(&data, false);
             }
         };
 

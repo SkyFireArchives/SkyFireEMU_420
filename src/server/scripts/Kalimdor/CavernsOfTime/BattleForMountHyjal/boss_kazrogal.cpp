@@ -101,7 +101,7 @@ public:
 
         void KilledUnit(Unit * /*victim*/)
         {
-            switch (urand(0,2))
+            switch (urand(0, 2))
             {
                 case 0:
                     DoPlaySoundToSet(me, SOUND_ONSLAY1);
@@ -125,7 +125,7 @@ public:
             {
                 Unit *pTarget = Unit::GetUnit((*me), pInstance->GetData64(DATA_THRALL));
                 if (pTarget && pTarget->isAlive())
-                    me->AddThreat(pTarget,0.0f);
+                    me->AddThreat(pTarget, 0.0f);
             }
         }
 
@@ -191,14 +191,14 @@ public:
                     Unit *pTarget = Unit::GetUnit(*me, (*itr)->getUnitGuid());
                     if (pTarget && pTarget->GetTypeId() == TYPEID_PLAYER && pTarget->getPowerType() == POWER_MANA)
                     {
-                        pTarget->CastSpell(pTarget, SPELL_MARK,true);//only cast on mana users
+                        pTarget->CastSpell(pTarget, SPELL_MARK, true);//only cast on mana users
                     }
                 }
                 MarkTimerBase -= 5000;
                 if (MarkTimerBase < 5500)
                     MarkTimerBase = 5500;
                 MarkTimer = MarkTimerBase;
-                switch (urand(0,2))
+                switch (urand(0, 2))
                 {
                     case 0:
                         DoPlaySoundToSet(me, SOUND_MARK1);
@@ -214,9 +214,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_kazrogal()
 {

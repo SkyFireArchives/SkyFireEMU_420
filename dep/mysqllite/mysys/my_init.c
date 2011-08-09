@@ -115,7 +115,6 @@ my_bool my_basic_init(void)
   return 0;
 }
 
-
 /*
   Init my_sys functions and my_sys variabels
 
@@ -151,7 +150,6 @@ my_bool my_init(void)
     DBUG_RETURN(0);
   }
 } /* my_init */
-
 
 	/* End my_sys */
 
@@ -259,13 +257,11 @@ Voluntary context switches %ld, Involuntary context switches %ld\n",
   my_basic_init_done= 0;
 } /* my_end */
 
-
 #ifdef __WIN__
-
 
 /*
   my_parameter_handler
-  
+
   Invalid parameter handler we will use instead of the one "baked"
   into the CRT for MSC v8.  This one just prints out what invalid
   parameter was encountered.  By providing this routine, routines like
@@ -279,7 +275,6 @@ void my_parameter_handler(const wchar_t * expression, const wchar_t * function,
   DBUG_PRINT("my",("Expression: %s  function: %s  file: %s, line: %d",
 		   expression, function, file, line));
 }
-
 
 #ifdef __MSVC_RUNTIME_CHECKS
 #include <rtcapi.h>
@@ -336,7 +331,6 @@ static void win_init_time(void)
   }
 }
 
-
 /*
   Open HKEY_LOCAL_MACHINE\SOFTWARE\MySQL and set any strings found
   there as environment variables
@@ -391,7 +385,6 @@ static void win_init_registry(void)
   }
 }
 
-
 static void my_win_init(void)
 {
   DBUG_ENTER("my_win_init");
@@ -426,7 +419,6 @@ static void my_win_init(void)
   DBUG_VOID_RETURN;
 }
 
-
 /*------------------------------------------------------------------
   Name: CheckForTcpip| Desc: checks if tcpip has been installed on system
   According to Microsoft Developers documentation the first registry
@@ -456,7 +448,6 @@ static my_bool win32_have_tcpip(void)
   RegCloseKey ( hTcpipRegKey);
   return (TRUE);
 }
-
 
 static my_bool win32_init_tcp_ip()
 {
@@ -604,4 +595,3 @@ void my_init_mysys_psi_keys()
   PSI_server->register_file(category, all_mysys_files, count);
 }
 #endif /* HAVE_PSI_INTERFACE */
-

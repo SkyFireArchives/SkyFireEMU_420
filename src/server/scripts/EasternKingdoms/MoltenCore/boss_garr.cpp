@@ -93,7 +93,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_firesworn : public CreatureScript
@@ -129,10 +128,10 @@ public:
             //Immolate_Timer
             if (Immolate_Timer <= diff)
             {
-                 if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                 if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     DoCast(pTarget, SPELL_IMMOLATE);
 
-                Immolate_Timer = urand(5000,10000);
+                Immolate_Timer = urand(5000, 10000);
             } else Immolate_Timer -= diff;
 
             //Cast Erruption and let them die
@@ -146,9 +145,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_garr()
 {

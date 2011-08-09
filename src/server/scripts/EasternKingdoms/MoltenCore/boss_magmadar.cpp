@@ -93,7 +93,7 @@ public:
             //Lavabomb_Timer
             if (Lavabomb_Timer <= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     DoCast(pTarget, SPELL_LAVABOMB_ALT);
 
                 Lavabomb_Timer = 12000;
@@ -102,7 +102,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_magmadar()

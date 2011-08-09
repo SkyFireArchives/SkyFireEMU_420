@@ -213,7 +213,6 @@ public:
             } else uiIntroTimer -= diff;
         }
     };
-
 };
 
 class mob_ritual_channeler : public CreatureScript
@@ -252,7 +251,6 @@ public:
         {
         }
     };
-
 };
 
 class boss_svala_sorrowgrave : public CreatureScript
@@ -304,7 +302,7 @@ public:
             if (pInstance)
             {
                 pInstance->SetData(DATA_SVALA_SORROWGRAVE_EVENT, NOT_STARTED);
-                pInstance->SetData64(DATA_SACRIFICED_PLAYER,0);
+                pInstance->SetData64(DATA_SACRIFICED_PLAYER, 0);
             }
         }
 
@@ -364,7 +362,7 @@ public:
                             Phase = SACRIFICING;
                             if (pInstance)
                             {
-                                pInstance->SetData64(DATA_SACRIFICED_PLAYER,pSacrificeTarget->GetGUID());
+                                pInstance->SetData64(DATA_SACRIFICED_PLAYER, pSacrificeTarget->GetGUID());
 
                                 for (uint8 i = 0; i < 3; ++i)
                                     if (Creature* pSummon = me->SummonCreature(CREATURE_RITUAL_CHANNELER, RitualChannelerPos[i], TEMPSUMMON_TIMED_OR_CORPSE_DESPAWN, 360000))
@@ -417,7 +415,6 @@ public:
             DoScriptText(SAY_DEATH, me);
         }
     };
-
 };
 
 void AddSC_boss_svala()

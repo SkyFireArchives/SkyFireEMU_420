@@ -54,7 +54,7 @@ void Transaction::Append(PreparedStatement* stmt)
 
 void Transaction::Cleanup()
 {
-     if (_cleanedUp) 
+     if (_cleanedUp)
         return;
 
     while (!m_queries.empty())

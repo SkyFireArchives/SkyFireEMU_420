@@ -217,7 +217,7 @@ class achievement_bg_ic_mowed_down : public AchievementCriteriaScript
 //
 //        enum AchievementData
 //        {
-//            SPELL_CARRYING_SEAFORIUM = 52418,            
+//            SPELL_CARRYING_SEAFORIUM = 52418,
 //        };
 //
 //        bool OnCheck(Player* /*source*/, Unit* target)

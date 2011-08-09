@@ -193,7 +193,7 @@ public:
         if (uiAction == GOSSIP_ACTION_INFO_DEF+1)
         {
             pPlayer->CLOSE_GOSSIP_MENU();
-            pCreature->SummonCreature(NPC_ARGENT_VALIANT,8575.451f,952.472f,547.554f,0.38f);
+            pCreature->SummonCreature(NPC_ARGENT_VALIANT, 8575.451f, 952.472f, 547.554f, 0.38f);
         }
         return true;
     }
@@ -220,7 +220,7 @@ public:
     {
         npc_argent_valiantAI(Creature* pCreature) : ScriptedAI(pCreature)
         {
-            pCreature->GetMotionMaster()->MovePoint(0,8599.258f,963.951f,547.553f);
+            pCreature->GetMotionMaster()->MovePoint(0, 8599.258f, 963.951f, 547.553f);
             pCreature->setFaction(35); //wrong faction in db?
         }
 
@@ -246,10 +246,10 @@ public:
             if (uiDamage > me->GetHealth() && pDoneBy->GetTypeId() == TYPEID_PLAYER)
             {
                 uiDamage = 0;
-                CAST_PLR(pDoneBy)->KilledMonsterCredit(NPC_ARGENT_VALIANT_CREDIT,0);
+                CAST_PLR(pDoneBy)->KilledMonsterCredit(NPC_ARGENT_VALIANT_CREDIT, 0);
                 me->setFaction(35);
                 me->ForcedDespawn(5000);
-                me->SetHomePosition(me->GetPositionX(),me->GetPositionY(),me->GetPositionZ(),me->GetOrientation());
+                me->SetHomePosition(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), me->GetOrientation());
                 EnterEvadeMode();
             }
         }
@@ -419,7 +419,6 @@ public:
                 pWho->CastSpell(pWho, SPELL_TRESPASSER_H, true);
             else
                 pWho->CastSpell(pWho, SPELL_TRESPASSER_A, true);
-
         }
     };
 

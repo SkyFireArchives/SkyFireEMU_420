@@ -53,7 +53,7 @@
 #if defined(__GNUC__)
 #pragma pack(1)
 #else
-#pragma pack(push,1)
+#pragma pack(push, 1)
 #endif
 
 struct ServerPktHeader
@@ -157,7 +157,7 @@ const std::string& WorldSocket::GetRemoteAddress (void) const
 }
 
 int WorldSocket::SendPacket (const WorldPacket& pct)
-{    
+{
     ACE_GUARD_RETURN (LockType, Guard, m_OutBufferLock, -1);
 
     if (closing_)
@@ -167,7 +167,7 @@ int WorldSocket::SendPacket (const WorldPacket& pct)
     if (sWorldLog->LogWorld())
     {
         std::string error = "";
-        if(pct.GetOpcode() == 0)
+        if (pct.GetOpcode() == 0)
             error = " NOT SENT";
         sWorldLog->outTimestampLog ("SERVER:%s\nSOCKET: %u\nLENGTH: %u\nOPCODE: %s (0x%.4X)\nDATA:\n",
                      error.c_str(),
@@ -188,7 +188,7 @@ int WorldSocket::SendPacket (const WorldPacket& pct)
     }
     //sLog->outString("S: %s (0x%.4X)", LookupOpcodeName (pct.GetOpcode()), pct.GetOpcode());
 
-    if(pct.GetOpcode() > OPCODE_NOT_FOUND)
+    if (pct.GetOpcode() > OPCODE_NOT_FOUND)
     {
         sLog->outDebug(LOG_FILTER_NETWORKIO, "Packet %s (%X) not send.\n", LookupOpcodeName (pct.GetOpcode()), pct.GetOpcode());
         return 0;
@@ -196,7 +196,7 @@ int WorldSocket::SendPacket (const WorldPacket& pct)
     // Prevent spamming client with non-existant opcodes
     if (pct.GetOpcode() == 0)
         return 0;
-    
+
     // Create a copy of the original packet; this is to avoid issues if a hook modifies it.
     sScriptMgr->OnPacketSend(this, WorldPacket(pct));
 
@@ -225,7 +225,7 @@ int WorldSocket::SendPacket (const WorldPacket& pct)
         if (!pct.empty())
             mb->copy((const char*)pct.contents(), pct.size());
 
-        if (msg_queue()->enqueue_tail(mb,(ACE_Time_Value*)&ACE_Time_Value::zero) == -1)
+        if (msg_queue()->enqueue_tail(mb, (ACE_Time_Value*)&ACE_Time_Value::zero) == -1)
         {
             sLog->outError("WorldSocket::SendPacket enqueue_tail failed");
             mb->release();
@@ -283,18 +283,18 @@ int WorldSocket::open (void *a)
 
     // Send startup packet.
     packet.Initialize(SMSG_AUTH_CHALLENGE, 37);
-    
+
     BigNumber seed1;
     seed1.SetRand(16 * 8);
     packet.append(seed1.AsByteArray(16), 16);               // new encryption seeds
-    
+
     packet << uint32(m_Seed);
     packet << uint8(1);
 
     BigNumber seed2;
     seed2.SetRand(16 * 8);
     packet.append(seed2.AsByteArray(16), 16);               // new encryption seeds
-    
+
     if (SendPacket(packet) == -1)
         return -1;
 
@@ -334,7 +334,7 @@ int WorldSocket::handle_input (ACE_HANDLE)
             if ((errno == EWOULDBLOCK) ||
                 (errno == EAGAIN))
             {
-                return Update();                           // interesting line ,isn't it ?
+                return Update();                           // interesting line , isn't it ?
             }
 
             sLog->outStaticDebug("WorldSocket::handle_input: Peer error closing connection errno = %s", ACE_OS::strerror (errno));
@@ -523,7 +523,7 @@ int WorldSocket::handle_input_header (void)
         sLog->outError ("WorldSocket::handle_input_header(): client (account: %u, char [GUID: %u, name: %s]) sent malformed packet (size: %d , cmd: %d)",
             m_Session ? m_Session->GetAccountId() : 0,
             _player ? _player->GetGUIDLow() : 0,
-            _player ? _player->GetName() : "<none>", 
+            _player ? _player->GetName() : "<none>",
             header.size, header.cmd);
 
         errno = EINVAL;
@@ -623,7 +623,7 @@ int WorldSocket::handle_input_missing_data (void)
 
         // Its possible on some error situations that this happens
         // for example on closing when epoll receives more chunked data and stuff
-        // hope this is not hack ,as proper m_RecvWPct is asserted around
+        // hope this is not hack , as proper m_RecvWPct is asserted around
         if (!m_RecvWPct)
         {
             sLog->outError ("Forcing close on input m_RecvWPct = NULL");
@@ -747,7 +747,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
                 sScriptMgr->OnPacketReceive(this, WorldPacket(*new_pct));
                 return HandleAuthSession (*new_pct);
             case CMSG_KEEP_ALIVE:
-                sLog->outStaticDebug ("CMSG_KEEP_ALIVE ,size: " UI64FMTD, uint64(new_pct->size()));
+                sLog->outStaticDebug ("CMSG_KEEP_ALIVE , size: " UI64FMTD, uint64(new_pct->size()));
                 sScriptMgr->OnPacketReceive(this, WorldPacket(*new_pct));
                 return 0;
             default:
@@ -760,7 +760,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
                     // Catches people idling on the login screen and any lingering ingame connections.
                     m_Session->ResetTimeOutTime();
 
-                    // OK ,give the packet to WorldSession
+                    // OK , give the packet to WorldSession
                     aptr.release();
                     // WARNINIG here we call it with locks held.
                     // Its possible to cause deadlock if QueuePacket calls back
@@ -769,7 +769,7 @@ int WorldSocket::ProcessIncoming (WorldPacket* new_pct)
                 }
                 else
                 {
-                    if(opcode == 1280462679) // opcode is "WORL"
+                    if (opcode == 1280462679) // opcode is "WORL"
                     {
                         // 4.1+ plaintext init message BS
                         // content should be "D OF WARCRAFT CONNECTION - CLIENT TO SERVER"
@@ -845,7 +845,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
         packetAddon << ByteSize;
     }
     delete tableauAddon;
-   
+
     if (sWorld->IsClosed())
     {
         packet.Initialize(SMSG_AUTH_RESPONSE, 1);
@@ -911,7 +911,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     const char* sStr = s.AsHexStr();                       //Must be freed by OPENSSL_free()
     const char* vStr = v.AsHexStr();                       //Must be freed by OPENSSL_free()
 
-    sLog->outStaticDebug ("WorldSocket::HandleAuthSession: (s,v) check s: %s v: %s",
+    sLog->outStaticDebug ("WorldSocket::HandleAuthSession: (s, v) check s: %s v: %s",
                 sStr,
                 vStr);
 
@@ -1009,7 +1009,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     sha.UpdateData((uint8 *) & seed, 4);
     sha.UpdateBigNumbers(&K, NULL);
     sha.Finalize();
-    
+
     /*if (memcmp (sha.GetDigest(), digest, 20))
     {
         packet.Initialize (SMSG_AUTH_RESPONSE, 1);
@@ -1046,7 +1046,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     m_Session->LoadTutorialsData();
     packetAddon.rpos(0);
     m_Session->ReadAddonsInfo(packetAddon);
-    
+
     // Sleep this Network thread for
     uint32 sleepTime = sWorld->getIntConfig(CONFIG_SESSION_ADD_DELAY);
     ACE_OS::sleep (ACE_Time_Value (0, sleepTime));

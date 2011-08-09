@@ -80,7 +80,7 @@ public:
                 if (InstanceScript* pInstance = pCreature->GetInstanceScript())
                 {
                     //are 5 minutes expected? go template may have data to despawn when used at quest
-                    pInstance->DoRespawnGameObject(pInstance->GetData64(DATA_GO_CHALICE),MINUTE*5);
+                    pInstance->DoRespawnGameObject(pInstance->GetData64(DATA_GO_CHALICE), MINUTE*5);
                 }
                 break;
         }
@@ -98,9 +98,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 enum DoomrelSpells
 {
@@ -136,7 +134,7 @@ public:
                 pCreature->AI()->AttackStart(pPlayer);
                 InstanceScript* pInstance = pCreature->GetInstanceScript();
                 if (pInstance)
-                    pInstance->SetData64(DATA_EVENSTARTER,pPlayer->GetGUID());
+                    pInstance->SetData64(DATA_EVENSTARTER, pPlayer->GetGUID());
                 break;
         }
         return true;
@@ -259,7 +257,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_tomb_of_seven()

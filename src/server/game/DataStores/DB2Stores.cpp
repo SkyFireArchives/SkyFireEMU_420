@@ -41,7 +41,7 @@ typedef std::list<std::string> StoreProblemList1;
 
 uint32 DB2FileCount = 0;
 
-static bool LoadDB2_assert_print(uint32 fsize,uint32 rsize, const std::string& filename)
+static bool LoadDB2_assert_print(uint32 fsize, uint32 rsize, const std::string& filename)
 {
     sLog->outError("Size of '%s' setted by format string (%u) not equal size of C++ structure (%u).", filename.c_str(), fsize, rsize);
 
@@ -78,7 +78,7 @@ inline void LoadDB2(uint32& availableDb2Locales, StoreProblemList1& errlist, DB2
         if (f)
         {
             char buf[100];
-            snprintf(buf, 100,"(exist, but have %d fields instead " SIZEFMTD ") Wrong client version DBC file?", storage.GetFieldCount(), strlen(storage.GetFormat()));
+            snprintf(buf, 100, "(exist, but have %d fields instead " SIZEFMTD ") Wrong client version DBC file?", storage.GetFieldCount(), strlen(storage.GetFormat()));
             errlist.push_back(db2_filename + buf);
             fclose(f);
         }
@@ -92,13 +92,13 @@ void LoadDB2Stores(const std::string& dataPath)
     uint32 oldMSTime = getMSTime();
 
     std::string db2Path = dataPath + "dbc/";
-    
+
     StoreProblemList1 bad_db2_files;
     uint32 availableDb2Locales = 0xFFFFFFFF;
 
     LoadDB2(availableDb2Locales, bad_db2_files, sItemStore, db2Path, "Item.db2");
-    LoadDB2(availableDb2Locales ,bad_db2_files, sItemCurrencyCostStore, db2Path, "ItemCurrencyCost.db2");
-    LoadDB2(availableDb2Locales ,bad_db2_files, sItemExtendedCostStore, db2Path, "ItemExtendedCost.db2");
+    LoadDB2(availableDb2Locales , bad_db2_files, sItemCurrencyCostStore, db2Path, "ItemCurrencyCost.db2");
+    LoadDB2(availableDb2Locales , bad_db2_files, sItemExtendedCostStore, db2Path, "ItemExtendedCost.db2");
     // error checks
     if (bad_db2_files.size() >= DB2FileCount)
     {
@@ -111,7 +111,7 @@ void LoadDB2Stores(const std::string& dataPath)
         for (std::list<std::string>::iterator i = bad_db2_files.begin(); i != bad_db2_files.end(); ++i)
             str += *i + "\n";
 
-        sLog->outError("\nSome required *.db2 files (%u from %d) not found or not compatible:\n%s", (uint32)bad_db2_files.size(), DB2FileCount,str.c_str());
+        sLog->outError("\nSome required *.db2 files (%u from %d) not found or not compatible:\n%s", (uint32)bad_db2_files.size(), DB2FileCount, str.c_str());
         exit(1);
     }
 

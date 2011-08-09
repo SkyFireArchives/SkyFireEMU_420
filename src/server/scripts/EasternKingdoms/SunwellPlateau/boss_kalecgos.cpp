@@ -177,7 +177,7 @@ public:
             FrostBreathTimer = 15000;
             WildMagicTimer = 10000;
             TailLashTimer = 25000;
-            SpectralBlastTimer = urand(20000,25000);
+            SpectralBlastTimer = urand(20000, 25000);
             CheckTimer = 1000;
             ResetTimer = 30000;
 
@@ -326,7 +326,7 @@ public:
                     advance(i, rand()%targetList.size());
                     if ((*i))
                     {
-                        (*i)->CastSpell((*i), SPELL_SPECTRAL_BLAST,true);
+                        (*i)->CastSpell((*i), SPELL_SPECTRAL_BLAST, true);
                         SpectralBlastTimer = 20000+rand()%5000;
                     } else SpectralBlastTimer = 1000;
                 } else SpectralBlastTimer -= diff;
@@ -366,10 +366,10 @@ public:
 
         void KilledUnit(Unit * /*victim*/)
         {
-            DoScriptText(RAND(SAY_EVIL_SLAY1,SAY_EVIL_SLAY2), me);
+            DoScriptText(RAND(SAY_EVIL_SLAY1, SAY_EVIL_SLAY2), me);
         }
 
-        void MovementInform(uint32 type,uint32 /*id*/)
+        void MovementInform(uint32 type, uint32 /*id*/)
         {
             if (type != POINT_MOTION_TYPE)
                 return;
@@ -410,7 +410,7 @@ public:
                 break;
             case 3:
                 me->AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
-                me->GetMotionMaster()->MovePoint(0,FLY_X,FLY_Y,FLY_Z);
+                me->GetMotionMaster()->MovePoint(0, FLY_X, FLY_Y, FLY_Z);
                 TalkTimer = 600000;
                 break;
             default:
@@ -428,7 +428,7 @@ public:
                 break;
             case 2:
                 me->AddUnitMovementFlag(MOVEMENTFLAG_LEVITATING);
-                me->GetMotionMaster()->MovePoint(0,FLY_X,FLY_Y,FLY_Z);
+                me->GetMotionMaster()->MovePoint(0, FLY_X, FLY_Y, FLY_Z);
                 TalkTimer = 15000;
                 break;
             case 3:
@@ -439,7 +439,6 @@ public:
             }
         }
     };
-
 };
 
 class boss_kalec : public CreatureScript
@@ -541,7 +540,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class kalecgos_teleporter : public GameObjectScript
@@ -569,7 +567,6 @@ public:
             pPlayer->CastSpell(pPlayer, SPELL_TELEPORT_SPECTRAL, true);
         return true;
     }
-
 };
 
 class boss_sathrovarr : public CreatureScript
@@ -664,7 +661,7 @@ public:
                 EnterEvadeMode();
                 return;
             }
-            DoScriptText(RAND(SAY_SATH_SLAY1,SAY_SATH_SLAY2), me);
+            DoScriptText(RAND(SAY_SATH_SLAY1, SAY_SATH_SLAY2), me);
         }
 
         void JustDied(Unit * /*killer*/)
@@ -692,7 +689,7 @@ public:
                 if (i->getSource()->GetPositionZ() <= DRAGON_REALM_Z-5)
                 {
                     i->getSource()->RemoveAura(AURA_SPECTRAL_REALM);
-                    i->getSource()->TeleportTo(me->GetMap()->GetId(),i->getSource()->GetPositionX(),i->getSource()->GetPositionY(),DRAGON_REALM_Z+5,i->getSource()->GetOrientation());
+                    i->getSource()->TeleportTo(me->GetMap()->GetId(), i->getSource()->GetPositionX(), i->getSource()->GetPositionY(), DRAGON_REALM_Z+5, i->getSource()->GetOrientation());
                 }
             }
         }
@@ -773,7 +770,7 @@ public:
                     {
                         if (pUnit->GetPositionZ() > me->GetPositionZ()+5)
                         {
-                            me->getThreatManager().modifyThreatPercent(pUnit,-100);
+                            me->getThreatManager().modifyThreatPercent(pUnit, -100);
                         }
                     }
                 }
@@ -805,9 +802,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_kalecgos()
 {

@@ -134,7 +134,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_core_rager : public CreatureScript
@@ -200,10 +199,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
 
 void AddSC_boss_golemagg()
 {

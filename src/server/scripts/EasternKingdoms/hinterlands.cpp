@@ -152,10 +152,7 @@ public:
             pSummoned->GetMotionMaster()->MovePoint(0, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ());
         }
     };
-
 };
-
-
 
 /*######
 ## npc_rinji
@@ -258,7 +255,7 @@ public:
                     return;
 
                 //only if attacked and escorter is not in combat?
-                DoScriptText(RAND(SAY_RIN_HELP_1,SAY_RIN_HELP_2), me);
+                DoScriptText(RAND(SAY_RIN_HELP_1, SAY_RIN_HELP_2), me);
             }
         }
 
@@ -353,10 +350,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
 
 void AddSC_hinterlands()
 {

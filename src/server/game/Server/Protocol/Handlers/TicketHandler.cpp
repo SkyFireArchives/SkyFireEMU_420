@@ -251,7 +251,7 @@ void WorldSession::HandleGMSurveySubmit(WorldPacket& recv_data)
         os << "INSERT INTO gm_subsurveys (surveyid, subsurveyid, rank, comment) VALUES (";
         uint32 subSurveyId; // ref to i'th GMSurveySurveys.dbc field (all fields in that dbc point to fields in GMSurveyQuestions.dbc)
         recv_data >> subSurveyId;
-        if(!subSurveyId)
+        if (!subSurveyId)
             break;
 
         uint8 rank; // probably some sort of ref to GMSurveyAnswers.dbc

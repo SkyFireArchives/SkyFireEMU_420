@@ -74,7 +74,6 @@ enum CreatureIds
     NPC_VALIONA                 = 40320,
     NPC_BALEFLAME               = 50387,
     NPC_FARSEER_TOORANU         = 50385,
-
 };
 
 enum GameObjectIds

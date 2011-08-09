@@ -40,7 +40,7 @@ enum Data64
 enum CreatureIds
 {
     // Dungeon Bosses
-    
+
     BOSS_ROMOGG_BONECRUSHER      = 39665,
     BOSS_CORLA                   = 39679,
     BOSS_KARSH_STEELBENDER       = 39698,

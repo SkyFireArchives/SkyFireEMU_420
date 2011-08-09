@@ -91,4 +91,3 @@ class WorldPacket : public ByteBuffer
         Opcodes m_opcodeEnum;
 };
 #endif
-

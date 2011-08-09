@@ -52,12 +52,11 @@ public:
         {
              for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                  uiEncounter[i] = NOT_STARTED;
- 
+
              uiCorborus = 0;
              uiSlabhide = 0;
              uiOzruk = 0;
              uiHighPriestessAzil = 0;
-
         }
 
         bool IsEncounterInProgress() const
@@ -65,7 +64,7 @@ public:
             for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                 if (uiEncounter[i] == IN_PROGRESS)
                     return true;
- 
+
              return false;
         }
 
@@ -185,15 +184,13 @@ public:
                 for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                     if (uiEncounter[i] == IN_PROGRESS)
                         uiEncounter[i] = NOT_STARTED;
-
-            } 
+            }
             else OUT_LOAD_INST_DATA_FAIL;
 
             OUT_LOAD_INST_DATA_COMPLETE;
         }
     };
 };
-
 
 void AddSC_instance_the_stonecore()
 {

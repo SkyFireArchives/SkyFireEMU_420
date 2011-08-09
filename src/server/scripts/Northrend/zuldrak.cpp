@@ -92,7 +92,7 @@ public:
                     if (Creature* pRageclaw = Unit::GetCreature(*me, RageclawGUID))
                     {
                         UnlockRageclaw(pCaster);
-                        pCaster->ToPlayer()->KilledMonster(pRageclaw->GetCreatureInfo(),RageclawGUID);
+                        pCaster->ToPlayer()->KilledMonster(pRageclaw->GetCreatureInfo(), RageclawGUID);
                         me->DisappearAndDie();
                     }
                     else
@@ -101,7 +101,6 @@ public:
             }
         }
     };
-
 
     CreatureAI *GetAI(Creature *creature) const
     {
@@ -123,7 +122,7 @@ const char * SAY_RAGECLAW_1 =      "I poop on you, trollses!";
 const char * SAY_RAGECLAW_2 =      "ARRRROOOOGGGGAAAA!";
 const char * SAY_RAGECLAW_3 =      "No more mister nice wolvar!";
 
-#define SAY_RAGECLAW RAND(SAY_RAGECLAW_1,SAY_RAGECLAW_2,SAY_RAGECLAW_3)
+#define SAY_RAGECLAW RAND(SAY_RAGECLAW_1, SAY_RAGECLAW_2, SAY_RAGECLAW_3)
 
 class npc_captured_rageclaw : public CreatureScript
 {
@@ -293,10 +292,10 @@ struct BossAndAdd
 
 static BossAndAdd Boss[]=
 {
-    {NPC_GARGORAL,NPC_FIEND_WATER,SPELL_CRASHING_WAVE,SPELL_ORB_OF_WATER},
-    {NPC_AZ_BARIN,NPC_FIEND_AIR,SPELL_BLAST_OF_AIR,SPELL_ORB_OF_STORMS},
-    {NPC_DUKE_SINGEN,NPC_FIEND_FIRE,SPELL_MAGMA_WAVE,SPELL_ORB_OF_FLAME},
-    {NPC_ERATHIUS,NPC_FIEND_EARTH,SPELL_SHOCKWAVE,SPELL_BOULDER},
+    {NPC_GARGORAL, NPC_FIEND_WATER, SPELL_CRASHING_WAVE, SPELL_ORB_OF_WATER},
+    {NPC_AZ_BARIN, NPC_FIEND_AIR, SPELL_BLAST_OF_AIR, SPELL_ORB_OF_STORMS},
+    {NPC_DUKE_SINGEN, NPC_FIEND_FIRE, SPELL_MAGMA_WAVE, SPELL_ORB_OF_FLAME},
+    {NPC_ERATHIUS, NPC_FIEND_EARTH, SPELL_SHOCKWAVE, SPELL_BOULDER},
 };
 
 const Position SpawnPosition[] =
@@ -458,7 +457,7 @@ public:
 
                                 std::string sText = ("The grand Amphitheater of Anguish awaits, " + std::string(pPlayer->GetName()) + ". Remember, once a battle starts you have to stay in the area. WIN OR DIE!");
 
-                                me->MonsterSay(sText.c_str(),LANG_UNIVERSAL,0);
+                                me->MonsterSay(sText.c_str(), LANG_UNIVERSAL, 0);
                                 uiTimer = 5000;
                                 uiPhase = 9;
                             }
@@ -469,7 +468,7 @@ public:
                                    return;
 
                                 std::string sText = ("Prepare to make you stand, " + std::string(pPlayer->GetName()) + "! Get in the Amphitheater and stand ready! Remember, you and your opponent must stay in the arena at all times or you will be disqualified!");
-                                me->MonsterSay(sText.c_str(),LANG_UNIVERSAL,0);
+                                me->MonsterSay(sText.c_str(), LANG_UNIVERSAL, 0);
                                 uiTimer = 3000;
                                 uiPhase = 8;
                             }
@@ -485,19 +484,19 @@ public:
                                     return;
 
                                 std::string sText = ("Here we are once again, ladies and gentlemen. The epic struggle between life and death in the Amphitheater of Anguish! For this round we have " + std::string(pPlayer->GetName()) + " versus the hulking jormungar, Yg... Yggd? Yggdoze? Who comes up with these names?! " + std::string(pPlayer->GetName()) + " versus big worm!");
-                                me->MonsterYell(sText.c_str(),LANG_UNIVERSAL,0);
+                                me->MonsterYell(sText.c_str(), LANG_UNIVERSAL, 0);
                                 uiTimer = 10000;
                                 uiPhase = 10;
                             }
                             break;
                         case 10:
                             me->SummonCreature(NPC_YGGDRAS, SpawnPosition[1], TEMPSUMMON_CORPSE_DESPAWN, 1000);
-                            DoScriptText(EMOTE_YGGDRAS_SPAWN,me);
+                            DoScriptText(EMOTE_YGGDRAS_SPAWN, me);
                             uiPhase = 0;
                             break;
                         case 11:
                             if (Creature* pCreature = me->SummonCreature(NPC_STINKBEARD, SpawnPosition[0], TEMPSUMMON_CORPSE_DESPAWN, 1000))
-                                DoScriptText(SAY_STINKBEARD_SPAWN,pCreature);
+                                DoScriptText(SAY_STINKBEARD_SPAWN, pCreature);
                             uiPhase = 0;
                             break;
                         case 12:
@@ -506,20 +505,20 @@ public:
                                 return;
 
                             std::string sText = ("Prepare to make you stand, " + std::string(pPlayer->GetName()) + "! Get in the Amphitheater and stand ready! Remember, you and your opponent must stay in the arena at all times or you will be disqualified!");
-                            me->MonsterSay(sText.c_str(),LANG_UNIVERSAL,0);
+                            me->MonsterSay(sText.c_str(), LANG_UNIVERSAL, 0);
                             uiTimer = 5000;
                             uiPhase = 13;
                         }
                         break;
                         case 13:
-                            DoScriptText(SAY_GURGTHOCK_ELEMENTAL_SPAWN,me);
+                            DoScriptText(SAY_GURGTHOCK_ELEMENTAL_SPAWN, me);
                             uiTimer = 3000;
                             uiPhase = 14;
                             break;
                         case 14:
-                            uiBossRandom = urand(0,3);
-                            if (Creature* pCreature = me->SummonCreature(Boss[uiBossRandom].uiBoss,SpawnPosition[2],TEMPSUMMON_CORPSE_DESPAWN, 1000))
-                                pCreature->AI()->SetData(1,uiBossRandom);
+                            uiBossRandom = urand(0, 3);
+                            if (Creature* pCreature = me->SummonCreature(Boss[uiBossRandom].uiBoss, SpawnPosition[2], TEMPSUMMON_CORPSE_DESPAWN, 1000))
+                                pCreature->AI()->SetData(1, uiBossRandom);
                             uiPhase = 0;
                             break;
                     }
@@ -625,7 +624,7 @@ public:
 
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
             me->SetReactState(REACT_AGGRESSIVE);
-            me->SetHomePosition(me->GetPositionX(),me->GetPositionY(),me->GetPositionZ(),me->GetOrientation());
+            me->SetHomePosition(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), me->GetOrientation());
             uiBattleShoutTimer  = 7000;
         }
 
@@ -647,7 +646,7 @@ public:
 
             if (uiFishyScentTimer <= uiDiff)
             {
-                if (Unit *pAffected = SelectUnit(SELECT_TARGET_RANDOM,0))
+                if (Unit *pAffected = SelectUnit(SELECT_TARGET_RANDOM, 0))
                 {
                     DoCast(pAffected, SPELL_FISHY_SCENT);
                     AffectedGUID = pAffected->GetGUID();
@@ -657,7 +656,7 @@ public:
 
             if (!bSummoned && !HealthAbovePct(50))
             {
-                DoScriptText(SAY_CALL_FOR_HELP ,me);
+                DoScriptText(SAY_CALL_FOR_HELP , me);
                 //DoCast(me->getVictim(), SPELL_SUMMON_WHISKER); petai is not working correctly???
 
                 if (Creature *pWhisker = me->SummonCreature(NPC_WHISKER, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 0))
@@ -693,7 +692,6 @@ public:
 
             if (pKiller->GetTypeId() == TYPEID_PLAYER)
                 pKiller->GetCharmerOrOwnerPlayerOrPlayerItself()->GroupEventHappens(QUEST_AMPHITHEATER_ANGUISH_TUSKARRMAGEDDON, pKiller);
-
         }
     };
 
@@ -724,7 +722,7 @@ public:
     {
         npc_korrak_bloodragerAI(Creature* pCreature) : npc_escortAI(pCreature)
         {
-            Start(true,true, 0, NULL);
+            Start(true, true, 0, NULL);
             SetDespawnAtEnd(false);
         }
 
@@ -747,7 +745,7 @@ public:
             switch(uiI)
             {
                 case 6:
-                    me->SetHomePosition(me->GetPositionX(),me->GetPositionY(),me->GetPositionZ(), 0);
+                    me->SetHomePosition(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ(), 0);
                     me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
                     me->SetReactState(REACT_AGGRESSIVE);
                     break;
@@ -845,7 +843,7 @@ public:
                         if (pUnit->GetPositionZ() <= 286.276f)
                         {
                             me->getThreatManager().resetAllAggro();
-                            me->AddThreat(pUnit,5.0f);
+                            me->AddThreat(pUnit, 5.0f);
                             break;
                         }
                         EnterEvadeMode();
@@ -873,9 +871,8 @@ public:
             if (Unit* pSummoner = me->ToTempSummon()->GetSummoner())
             {
                 std::string sText = (std::string(pKiller->GetName()) + " has defeated Yg.. Yggg-really big worm!");
-                pSummoner->MonsterYell(sText.c_str(),LANG_UNIVERSAL,0);
+                pSummoner->MonsterYell(sText.c_str(), LANG_UNIVERSAL, 0);
             }
-
 
             if (Player* pPlayer = pKiller->GetCharmerOrOwnerPlayerOrPlayerItself())
             {
@@ -918,7 +915,7 @@ public:
         {
             me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
             me->SetReactState(REACT_PASSIVE);
-            Start(true,true, 0, NULL);
+            Start(true, true, 0, NULL);
             SetDespawnAtEnd(false);
         }
 
@@ -930,7 +927,7 @@ public:
 
         void Reset()
         {
-            me->AddAura(SPELL_THUNDERBLADE,me);
+            me->AddAura(SPELL_THUNDERBLADE, me);
             uiKnockAwayTimer   = 10000;
             uiStinkyBeardTimer = 15000;
             bEnrage = false;
@@ -968,7 +965,7 @@ public:
                             if (pUnit->GetPositionZ() <= 286.276f)
                             {
                                 me->getThreatManager().resetAllAggro();
-                                me->AddThreat(pUnit,5.0f);
+                                me->AddThreat(pUnit, 5.0f);
                                 break;
                             }
                             EnterEvadeMode();
@@ -1017,7 +1014,7 @@ public:
                 pPlayer->GetCharmerOrOwnerPlayerOrPlayerItself()->GroupEventHappens(QUEST_AMPHITHEATER_ANGUISH_MAGNATAUR, pKiller);
 
             std::string sText = ("And with AUTHORITY, " + std::string(pKiller->GetName()) + " dominates the magnataur lord! Stinkbeard's clan is gonna miss him back home in the Dragonblight!");
-            me->MonsterYell(sText.c_str(),LANG_UNIVERSAL,0);
+            me->MonsterYell(sText.c_str(), LANG_UNIVERSAL, 0);
         }
     };
 
@@ -1053,7 +1050,7 @@ public:
         {
             uiBossRandom = 0;
             uiSpellEntry = 0;
-            uiElementalSpellTimer = urand(5000,8000);
+            uiElementalSpellTimer = urand(5000, 8000);
 
             bAddAttack = false;
         }
@@ -1076,13 +1073,12 @@ public:
 
             for (uint8 uiI = 0; uiI < 16 ; uiI++)
             {
-                if (Creature* pSummon = me->SummonCreature(Boss[uiBossRandom].uiAdd,AddSpawnPosition[uiI]))
+                if (Creature* pSummon = me->SummonCreature(Boss[uiBossRandom].uiAdd, AddSpawnPosition[uiI]))
                 {
-                    pSummon->AI()->SetData(1,uiBossRandom);
+                    pSummon->AI()->SetData(1, uiBossRandom);
                     SummonList.push_back(pSummon->GetGUID());
                 }
             }
-
         }
 
         void EnterCombat(Unit* pUnit)
@@ -1113,7 +1109,7 @@ public:
                         if (pUnit->GetPositionZ() <= 286.276f)
                         {
                             me->getThreatManager().resetAllAggro();
-                            me->AddThreat(pUnit,5.0f);
+                            me->AddThreat(pUnit, 5.0f);
                             break;
                         }
                         EnterEvadeMode();
@@ -1125,7 +1121,7 @@ public:
             {
                 DoCastVictim(Boss[uiBossRandom].uiSpell);
 
-                uiElementalSpellTimer = urand(5000,8000);
+                uiElementalSpellTimer = urand(5000, 8000);
             } else uiElementalSpellTimer -= uiDiff;
 
             if (!bAddAttack && !HealthAbovePct(20))
@@ -1164,7 +1160,7 @@ public:
             std::string sText = (std::string(pKiller->GetName()) + " is victorious once more!");
 
             if (Unit* pSummoner = me->ToTempSummon()->GetSummoner())
-                pSummoner->MonsterYell(sText.c_str(),LANG_UNIVERSAL,0);
+                pSummoner->MonsterYell(sText.c_str(), LANG_UNIVERSAL, 0);
         }
     };
 
@@ -1196,7 +1192,7 @@ public:
                 me->GetMotionMaster()->MoveIdle();
 
             uiSpell = 0;
-            uiMissleTimer = urand(2000,7000);
+            uiMissleTimer = urand(2000, 7000);
         }
 
         void AttackStart(Unit* pWho)
@@ -1211,7 +1207,6 @@ public:
         {
             if (uiData == 1)
                 uiSpell = Boss[uiValue].uiAddSpell;
-
         }
 
         void UpdateAI(const uint32 uiDiff)
@@ -1223,9 +1218,8 @@ public:
             {
                 if (uiMissleTimer <= uiDiff)
                 {
-                    DoCast(me,uiSpell); // this spell is not supported ... YET!
-                    uiMissleTimer = urand(2000,7000);
-
+                    DoCast(me, uiSpell); // this spell is not supported ... YET!
+                    uiMissleTimer = urand(2000, 7000);
                 } else uiMissleTimer -= uiDiff;
             }
 
@@ -1326,14 +1320,14 @@ public:
                             // say random text
                             me->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
                             me->SetUInt32Value(UNIT_NPC_EMOTESTATE, EMOTE_ONESHOT_NONE);
-                            DoScriptText(RAND(SAY_RECRUIT_1,SAY_RECRUIT_2,SAY_RECRUIT_3), me);
+                            DoScriptText(RAND(SAY_RECRUIT_1, SAY_RECRUIT_2, SAY_RECRUIT_3), me);
                             m_uiTimer = 3000;
                             m_uiPhase = 2;
                             break;
                         case 2:
                             // walk forward
                             me->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                            me->GetMotionMaster()->MovePoint(0,me->GetPositionX() + (cos(m_heading) * 10), me->GetPositionY() + (sin(m_heading) * 10), me->GetPositionZ());
+                            me->GetMotionMaster()->MovePoint(0, me->GetPositionX() + (cos(m_heading) * 10), me->GetPositionY() + (sin(m_heading) * 10), me->GetPositionZ());
                             m_uiTimer = 5000;
                             m_uiPhase = 3;
                             break;
@@ -1405,11 +1399,11 @@ public:
     {
         if (pPlayer->GetQuestStatus(QUEST_OUR_ONLY_HOPE) == QUEST_STATUS_INCOMPLETE)
         {
-            Creature* pGymerDummy = pGO->FindNearestCreature(NPC_GYMER_DUMMY,20.0f);
+            Creature* pGymerDummy = pGO->FindNearestCreature(NPC_GYMER_DUMMY, 20.0f);
             if (pGymerDummy)
             {
                 pGO->UseDoorOrButton();
-                pPlayer->KilledMonsterCredit(pGymerDummy->GetEntry(),pGymerDummy->GetGUID());
+                pPlayer->KilledMonsterCredit(pGymerDummy->GetEntry(), pGymerDummy->GetGUID());
                 pGymerDummy->CastSpell(pGymerDummy, 55529, true);
                 pGymerDummy->DisappearAndDie();
             }

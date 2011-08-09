@@ -181,10 +181,10 @@ public:
 
             if (pInstance)
             {
-                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK),false);
-                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK),false);
-                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM),false);
-                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR),false);
+                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK), false);
+                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK), false);
+                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM), false);
+                pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR), false);
             }
 
             KaddrakGUIDList.clear();
@@ -269,7 +269,6 @@ public:
             }
         }
     };
-
 };
 
 class npc_brann_hos : public CreatureScript
@@ -376,7 +375,7 @@ public:
                 case 17:
                     DoScriptText(SAY_EVENT_INTRO_2, me);
                     if (pInstance)
-                        pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_TRIBUNAL_CONSOLE),true);
+                        pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_TRIBUNAL_CONSOLE), true);
                     me->SetStandState(UNIT_STAND_STATE_KNEEL);
                     SetEscortPaused(true);
                     JumpToNextStep(8500);
@@ -393,7 +392,7 @@ public:
            {
                case 1:
                {
-                   uint32 uiSpawnNumber = DUNGEON_MODE(2,3);
+                   uint32 uiSpawnNumber = DUNGEON_MODE(2, 3);
                    for (uint8 i = 0; i < uiSpawnNumber; ++i)
                        me->SummonCreature(CREATURE_DARK_RUNE_PROTECTOR, SpawnLocations[0], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 30000);
                    me->SummonCreature(CREATURE_DARK_RUNE_STORMCALLER, SpawnLocations[0], TEMPSUMMON_CORPSE_TIMED_DESPAWN, 30000);
@@ -477,7 +476,7 @@ public:
                     case 8:
                         DoScriptText(SAY_EVENT_A_3, me);
                         if (pInstance)
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK),true);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK), true);
                         if (Creature* pTemp = Unit::GetCreature(*me, uiControllerGUID))
                             CAST_AI(mob_tribuna_controller::mob_tribuna_controllerAI, pTemp->AI())->bKaddrakActivated = true;
                         JumpToNextStep(5000);
@@ -501,7 +500,7 @@ public:
                     case 12:
                         DoScriptText(SAY_EVENT_B_3, me);
                         if (pInstance)
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK),true);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK), true);
                         if (Creature* pTemp = Unit::GetCreature(*me, uiControllerGUID))
                             CAST_AI(mob_tribuna_controller::mob_tribuna_controllerAI, pTemp->AI())->bMarnakActivated = true;
                         JumpToNextStep(10000);
@@ -533,7 +532,7 @@ public:
                     case 18:
                         DoScriptText(SAY_EVENT_C_3, me);
                         if (pInstance)
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM),true);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM), true);
                         if (Creature* pTemp = Unit::GetCreature(*me, uiControllerGUID))
                             CAST_AI(mob_tribuna_controller::mob_tribuna_controllerAI, pTemp->AI())->bAbedneumActivated = true;
                         JumpToNextStep(5000);
@@ -587,7 +586,7 @@ public:
                         DoScriptText(SAY_EVENT_END_01, me);
                         me->SetStandState(UNIT_STAND_STATE_STAND);
                         if (pInstance)
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR),true);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR), true);
                         if (Creature* pTemp = Unit::GetCreature(*me, uiControllerGUID))
                             pTemp->DealDamage(pTemp, pTemp->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
                         bIsBattle = true;
@@ -710,10 +709,10 @@ public:
                     {
                         if (pInstance)
                         {
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK),false);
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK),false);
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM),false);
-                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR),false);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_KADDRAK), false);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_MARNAK), false);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_ABEDNEUM), false);
+                            pInstance->HandleGameObject(pInstance->GetData64(DATA_GO_SKY_FLOOR), false);
                         }
                         Player* pPlayer = GetPlayerForEscort();
                         if (pPlayer)
@@ -742,12 +741,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
-
-
 
 void AddSC_halls_of_stone()
 {

@@ -104,7 +104,7 @@ bool ChatHandler::HandleServerInfoCommand(const char* /*args*/)
     PSendSysMessage(LANG_UPTIME, uptime.c_str());
     //PSendSysMessage("Update time diff: %u.", updateTime); // This is useless
 
-    return true; 
+    return true;
 }
 
 bool ChatHandler::HandleDismountCommand(const char* /*args*/)
@@ -183,4 +183,3 @@ bool ChatHandler::HandleServerMotdCommand(const char* /*args*/)
     PSendSysMessage(LANG_MOTD_CURRENT, sWorld->GetMotd());
     return true;
 }
-

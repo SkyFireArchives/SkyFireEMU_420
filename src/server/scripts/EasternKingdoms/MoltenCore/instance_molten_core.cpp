@@ -131,7 +131,7 @@ public:
                 RuneMohn = pGo->GetGUID();
                 break;
             case 179703:
-                m_uiFirelordCacheGUID = pGo->GetGUID();      //when majordomo event == DONE DoRespawnGameObject(m_uiFirelordCacheGUID,);
+                m_uiFirelordCacheGUID = pGo->GetGUID();      //when majordomo event == DONE DoRespawnGameObject(m_uiFirelordCacheGUID, );
                 break;
             }
         }
@@ -261,9 +261,7 @@ public:
                 IsBossDied[7] = true;
         }
     };
-
 };
-
 
 void AddSC_instance_molten_core()
 {

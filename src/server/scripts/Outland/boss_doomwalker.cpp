@@ -84,12 +84,12 @@ public:
 
         void KilledUnit(Unit* Victim)
         {
-            Victim->CastSpell(Victim,SPELL_MARK_DEATH,0);
+            Victim->CastSpell(Victim, SPELL_MARK_DEATH, 0);
 
             if (rand()%5)
                 return;
 
-            DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2,SAY_SLAY_3), me);
+            DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2, SAY_SLAY_3), me);
         }
 
         void JustDied(Unit* /*Killer*/)
@@ -106,9 +106,9 @@ public:
         {
             if (who && who->GetTypeId() == TYPEID_PLAYER && me->IsHostileTo(who))
             {
-                if (who->HasAura(SPELL_MARK_DEATH,0))
+                if (who->HasAura(SPELL_MARK_DEATH, 0))
                 {
-                    who->CastSpell(who,SPELL_AURA_DEATH,1);
+                    who->CastSpell(who, SPELL_AURA_DEATH, 1);
                 }
             }
         }
@@ -132,7 +132,7 @@ public:
             //Spell Overrun
             if (Overrun_Timer <= diff)
             {
-                DoScriptText(RAND(SAY_OVERRUN_1,SAY_OVERRUN_2), me);
+                DoScriptText(RAND(SAY_OVERRUN_1, SAY_OVERRUN_2), me);
 
                 DoCast(me->getVictim(), SPELL_OVERRUN);
                 Overrun_Timer = 25000 + rand()%15000;
@@ -144,7 +144,7 @@ public:
                 if (rand()%2)
                     return;
 
-                DoScriptText(RAND(SAY_EARTHQUAKE_1,SAY_EARTHQUAKE_2), me);
+                DoScriptText(RAND(SAY_EARTHQUAKE_1, SAY_EARTHQUAKE_2), me);
 
                 //remove enrage before casting earthquake because enrage + earthquake = 16000dmg over 8sec and all dead
                 if (InEnrage)
@@ -158,7 +158,7 @@ public:
             if (Chain_Timer <= diff)
             {
                 Unit *pTarget = NULL;
-                pTarget = SelectUnit(SELECT_TARGET_RANDOM,1);
+                pTarget = SelectUnit(SELECT_TARGET_RANDOM, 1);
 
                 if (!pTarget)
                     pTarget = me->getVictim();
@@ -179,9 +179,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_doomwalker()
 {

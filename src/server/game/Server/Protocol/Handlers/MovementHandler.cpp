@@ -148,7 +148,7 @@ void WorldSession::HandleMoveWorldportAckOpcode()
     {
         if (mEntry->IsDungeon())
         {
-            GetPlayer()->ResurrectPlayer(0.5f,false);
+            GetPlayer()->ResurrectPlayer(0.5f, false);
             GetPlayer()->SpawnCorpseBones();
         }
     }
@@ -185,7 +185,7 @@ void WorldSession::HandleMoveWorldportAckOpcode()
         GetPlayer()->CastSpell(GetPlayer(), 2479, true);
 
     // in friendly area
-    else if (GetPlayer()->IsPvP() && !GetPlayer()->HasFlag(PLAYER_FLAGS,PLAYER_FLAGS_IN_PVP))
+    else if (GetPlayer()->IsPvP() && !GetPlayer()->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
         GetPlayer()->UpdatePvP(false, false);
 
     // resummon pet
@@ -222,7 +222,7 @@ void WorldSession::HandleMoveTeleportAck(WorldPacket& recv_data)
 
     WorldLocation const& dest = plMover->GetTeleportDest();
 
-    plMover->SetPosition(dest,true);
+    plMover->SetPosition(dest, true);
 
     uint32 newzone, newarea;
     plMover->GetZoneAndAreaId(newzone, newarea);
@@ -236,7 +236,7 @@ void WorldSession::HandleMoveTeleportAck(WorldPacket& recv_data)
             plMover->CastSpell(plMover, 2479, true);
 
         // in friendly area
-        else if (plMover->IsPvP() && !plMover->HasFlag(PLAYER_FLAGS,PLAYER_FLAGS_IN_PVP))
+        else if (plMover->IsPvP() && !plMover->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_IN_PVP))
             plMover->UpdatePvP(false, false);
     }
 
@@ -362,7 +362,7 @@ void WorldSession::HandleMovementOpcodes(WorldPacket & recv_data)
     mover->SetPosition(movementInfo.pos);
 
     if (plMover)                                            // nothing is charmed, or player charmed
-    {    
+    {
         if (plMover->GetEmoteState() != 0 && opcode == MSG_MOVE_START_FORWARD && opcode != MSG_MOVE_SET_FACING &&
             opcode != MSG_MOVE_START_TURN_LEFT && opcode != MSG_MOVE_START_TURN_RIGHT &&
             opcode != MSG_MOVE_STOP_TURN)
@@ -467,12 +467,12 @@ void WorldSession::HandleForceSpeedChangeAck(WorldPacket &recv_data)
         {
             sLog->outError("%sSpeedChange player %s is NOT correct (must be %f instead %f), force set to correct value",
                 move_type_name[move_type], _player->GetName(), _player->GetSpeed(move_type), newspeed);
-            _player->SetSpeed(move_type,_player->GetSpeedRate(move_type),true);
+            _player->SetSpeed(move_type, _player->GetSpeedRate(move_type), true);
         }
         else                                                // must be lesser - cheating
         {
             sLog->outBasic("Player %s from account id %u kicked for incorrect speed (must be %f instead %f)",
-                _player->GetName(),_player->GetSession()->GetAccountId(),_player->GetSpeed(move_type), newspeed);
+                _player->GetName(), _player->GetSession()->GetAccountId(), _player->GetSpeed(move_type), newspeed);
             _player->GetSession()->KickPlayer();
         }
     }
@@ -633,7 +633,7 @@ void WorldSession::HandleEnterPlayerVehicle(WorldPacket &data)
             return;
         if (!pl->IsInRaidWith(_player))
             return;
-        if (!pl->IsWithinDistInMap(_player,INTERACTION_DISTANCE))
+        if (!pl->IsWithinDistInMap(_player, INTERACTION_DISTANCE))
             return;
         _player->EnterVehicle(pl);
     }
@@ -738,7 +738,7 @@ void WorldSession::ReadMovementInfo(WorldPacket &data, MovementInfo *mi)
         HaveSpline = false;
 
     MovementStatusElements *sequence = GetMovementStatusElementsSequence(data.GetOpcodeEnum());
-    if(sequence == NULL)
+    if (sequence == NULL)
         return;
     uint8 guid[8];
     uint8 tguid[8];
@@ -747,7 +747,7 @@ void WorldSession::ReadMovementInfo(WorldPacket &data, MovementInfo *mi)
     for(uint32 i=0; i < MSE_COUNT; i++)
     {
         MovementStatusElements element = sequence[i];
-        
+
         if (element >= MSEGuidByte0 && element <= MSEGuidByte7)
         {
             data.ReadByteMask(guid[element - MSEGuidByte0]);
@@ -882,7 +882,7 @@ void WorldSession::ReadMovementInfo(WorldPacket &data, MovementInfo *mi)
                 WPError(false, "Incorrect sequence element detected at ReadMovementInfo");
         }
     }
-    
+
     mi->guid = *(uint64*)guid;
     mi->t_guid = *(uint64*)tguid;
 
@@ -891,13 +891,12 @@ void WorldSession::ReadMovementInfo(WorldPacket &data, MovementInfo *mi)
             GetPlayer()->GetTransport()->UpdatePosition(mi);
 }
 
-
 void WorldSession::WriteMovementInfo(WorldPacket &data, MovementInfo *mi)
 {
         bool HaveTransportData = mi->HasMovementFlag(MOVEMENTFLAG_ONTRANSPORT),
         HaveTransportTime2 = (mi->flags2 & MOVEMENTFLAG2_INTERPOLATED_MOVEMENT) != 0,
         HaveTransportTime3 = false,
-        HavePitch = (mi->HasMovementFlag(MovementFlags(MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING))) 
+        HavePitch = (mi->HasMovementFlag(MovementFlags(MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)))
             || (mi->flags2 & MOVEMENTFLAG2_ALWAYS_ALLOW_PITCHING),
         HaveFallData = mi->HasExtraMovementFlag(MOVEMENTFLAG2_INTERPOLATED_TURNING),
         HaveFallDirection = mi->HasMovementFlag(MOVEMENTFLAG_JUMPING),
@@ -905,14 +904,14 @@ void WorldSession::WriteMovementInfo(WorldPacket &data, MovementInfo *mi)
         HaveSpline = false;
 
     MovementStatusElements *sequence = GetMovementStatusElementsSequence(data.GetOpcodeEnum());
-    if(!sequence)
+    if (!sequence)
         return;
     uint8 *guid = (uint8 *)&mi->guid;
     uint8 *tguid = (uint8 *)&mi->t_guid;
     for(uint32 i=0; i < MSE_COUNT; i++)
     {
         MovementStatusElements element = sequence[i];
-        
+
         if (element >= MSEGuidByte0 && element <= MSEGuidByte7)
         {
             data.WriteByteMask(guid[element - MSEGuidByte0]);

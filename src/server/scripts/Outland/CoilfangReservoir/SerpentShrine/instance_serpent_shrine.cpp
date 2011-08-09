@@ -70,7 +70,6 @@ public:
 
         return true;
     }
-
 };
 
 class instance_serpent_shrine : public InstanceMapScript
@@ -142,7 +141,6 @@ public:
             FrenzySpawnTimer = 2000;
             DoSpawnFrenzy = false;
             TrashCount = 0;
-
         }
 
         bool IsEncounterInProgress() const
@@ -183,19 +181,18 @@ public:
                         {
                             if (Water == WATERSTATE_SCALDING)
                             {
-
                                 if (!pPlayer->HasAura(SPELL_SCALDINGWATER))
                                 {
-                                    pPlayer->CastSpell(pPlayer, SPELL_SCALDINGWATER,true);
+                                    pPlayer->CastSpell(pPlayer, SPELL_SCALDINGWATER, true);
                                 }
                             } else if (Water == WATERSTATE_FRENZY)
                             {
                                 //spawn frenzy
                                 if (DoSpawnFrenzy)
                                 {
-                                    if (Creature* frenzy = pPlayer->SummonCreature(MOB_COILFANG_FRENZY,pPlayer->GetPositionX(),pPlayer->GetPositionY(),pPlayer->GetPositionZ(),pPlayer->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT,2000))
+                                    if (Creature* frenzy = pPlayer->SummonCreature(MOB_COILFANG_FRENZY, pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 2000))
                                     {
-                                        frenzy->Attack(pPlayer,false);
+                                        frenzy->Attack(pPlayer, false);
                                         frenzy->AddUnitMovementFlag(MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_LEVITATING);
                                     }
                                     DoSpawnFrenzy = false;
@@ -205,7 +202,6 @@ public:
                         if (!pPlayer->IsInWater())
                             pPlayer->RemoveAurasDueToSpell(SPELL_SCALDINGWATER);
                     }
-
                 }
                 WaterCheckTimer = 500;//remove stress from core
             } else WaterCheckTimer -= diff;
@@ -400,9 +396,7 @@ public:
             OUT_LOAD_INST_DATA_COMPLETE;
         }
     };
-
 };
-
 
 void AddSC_instance_serpentshrine_cavern()
 {

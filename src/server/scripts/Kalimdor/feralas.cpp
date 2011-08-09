@@ -67,9 +67,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(2433, pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 /*######
 ## npc_oox22fe
@@ -117,7 +115,6 @@ public:
 
             if (npc_escortAI* pEscortAI = CAST_AI(npc_oox22fe::npc_oox22feAI, pCreature->AI()))
                 pEscortAI->Start(true, false, pPlayer->GetGUID());
-
         }
         return true;
     }
@@ -177,8 +174,8 @@ public:
         void EnterCombat(Unit* /*who*/)
         {
             //For an small probability the npc says something when he get aggro
-            if (urand(0,9) > 7)
-                DoScriptText(RAND(SAY_OOX_AGGRO1,SAY_OOX_AGGRO2), me);
+            if (urand(0, 9) > 7)
+                DoScriptText(RAND(SAY_OOX_AGGRO1, SAY_OOX_AGGRO2), me);
         }
 
         void JustSummoned(Creature* summoned)
@@ -186,10 +183,7 @@ public:
             summoned->AI()->AttackStart(me);
         }
     };
-
 };
-
-
 
 /*######
 ## npc_screecher_spirit
@@ -208,7 +202,6 @@ public:
 
         return true;
     }
-
 };
 
 /*######

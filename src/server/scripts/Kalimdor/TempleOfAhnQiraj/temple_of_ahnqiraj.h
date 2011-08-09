@@ -40,4 +40,3 @@
 
 #define DATA_CTHUN_PHASE        20
 #endif
-

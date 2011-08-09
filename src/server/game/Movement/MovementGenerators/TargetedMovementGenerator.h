@@ -58,7 +58,7 @@ class TargetedMovementGenerator
         bool GetDestination(float &x, float &y, float &z) const
         {
             if (i_destinationHolder.HasArrived() || !i_destinationHolder.HasDestination()) return false;
-            i_destinationHolder.GetDestination(x,y,z);
+            i_destinationHolder.GetDestination(x, y, z);
             return true;
         }
 
@@ -74,5 +74,3 @@ class TargetedMovementGenerator
         float i_targetX, i_targetY, i_targetZ;
 };
 #endif
-
-

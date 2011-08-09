@@ -22,8 +22,6 @@
 #include <paths.h>
 #endif
 
-
-
 /*
   @brief
   Create a temporary file with unique name in a given directory
@@ -69,13 +67,13 @@ File create_temp_file(char *to, const char *dir, const char *prefix,
 
    /*
      Use GetTempPath to determine path for temporary files.
-     This is because the documentation for GetTempFileName 
+     This is because the documentation for GetTempFileName
      has the following to say about this parameter:
      "If this parameter is NULL, the function fails."
    */
    if (!dir)
    {
-     if(GetTempPath(sizeof(path_buf), path_buf) > 0) 
+     if(GetTempPath(sizeof(path_buf), path_buf) > 0)
        dir = path_buf;
    }
    /*
@@ -159,7 +157,6 @@ File create_temp_file(char *to, const char *dir, const char *prefix,
 		     (int) (O_RDWR | O_BINARY | O_TRUNC | O_EXCL | O_NOFOLLOW |
 			    O_TEMPORARY | O_SHORT_LIVED),
 		     MYF(MY_WME));
-
     }
     else
     {

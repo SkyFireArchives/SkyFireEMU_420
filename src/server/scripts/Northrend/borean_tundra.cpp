@@ -106,13 +106,13 @@ public:
                     case 1:
                         DoCast(me, SPELL_EXPLODE_CART, true);
                         DoCast(me, SPELL_SUMMON_CART, true);
-                        if (GameObject* cart = me->FindNearestGameObject(188160,3))
+                        if (GameObject* cart = me->FindNearestGameObject(188160, 3))
                             cart->SetUInt32Value(GAMEOBJECT_FACTION, 14);
                         uiPhaseTimer = 3000;
                         Phase = 2;
                         break;
                     case 2:
-                        if (GameObject* cart = me->FindNearestGameObject(188160,3))
+                        if (GameObject* cart = me->FindNearestGameObject(188160, 3))
                             cart->UseDoorOrButton();
                         DoCast(me, SPELL_EXPLODE_CART, true);
                         uiPhaseTimer = 3000;
@@ -145,7 +145,7 @@ public:
                     case 7:
                         DoCast(me, SPELL_EXPLODE_CART, true);
                         if (Player *caster = Unit::GetPlayer(*me, casterGuid))
-                            caster->KilledMonster(me->GetCreatureInfo(),me->GetGUID());
+                            caster->KilledMonster(me->GetCreatureInfo(), me->GetGUID());
                         uiPhaseTimer = 5000;
                         Phase = 8;
                         break;
@@ -154,9 +154,7 @@ public:
                         break;
                 }
             } else uiPhaseTimer -= diff;
-
         }
-
     };
 
     CreatureAI *GetAI(Creature *creature) const
@@ -288,7 +286,6 @@ public:
 
             pPlayer->CastSpell(pPlayer, SPELL_SUMMON_WYRMREST_SKYTALON, true);
             pPlayer->CastSpell(pPlayer, SPELL_WYRMREST_SKYTALON_RIDE_PERIODIC, true);
-
         }
 
         return true;
@@ -315,7 +312,6 @@ public:
 
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
-
         if (pPlayer->GetQuestStatus(QUEST_SPIRITS_WATCH_OVER_US) == QUEST_STATUS_INCOMPLETE)
             pPlayer->ADD_GOSSIP_ITEM(GOSSIP_ICON_CHAT, GOSSIP_ITEM_I, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
 
@@ -332,7 +328,6 @@ public:
                 pPlayer->CastSpell(pPlayer, SPELL_CREATURE_TOTEM_OF_ISSLIRUK, true);
                 pPlayer->CLOSE_GOSSIP_MENU();
                 break;
-
         }
         return true;
     }
@@ -368,14 +363,14 @@ public:
             {
                 if (CAST_PLR(Killer)->GetQuestStatus(11611) == QUEST_STATUS_INCOMPLETE)
                 {
-                    uint8 uiRand = urand(0,99);
+                    uint8 uiRand = urand(0, 99);
                     if (uiRand < 25)
                     {
-                        Killer->CastSpell(me,45532,true);
+                        Killer->CastSpell(me, 45532, true);
                         CAST_PLR(Killer)->KilledMonsterCredit(WARSONG_PEON, 0);
                     }
                     else if (uiRand < 75)
-                        Killer->CastSpell(me, nerubarVictims[urand(0,2)], true);
+                        Killer->CastSpell(me, nerubarVictims[urand(0, 2)], true);
                 }
             }
         }
@@ -409,11 +404,10 @@ public:
         {
             me->SetReactState(REACT_PASSIVE);
 
-            if (GameObject* pGO = me->FindNearestGameObject(GO_SCOURGE_CAGE,5.0f))
+            if (GameObject* pGO = me->FindNearestGameObject(GO_SCOURGE_CAGE, 5.0f))
                 if (pGO->GetGoState() == GO_STATE_ACTIVE)
                     pGO->SetGoState(GO_STATE_READY);
         }
-
     };
 
     CreatureAI *GetAI(Creature *creature) const
@@ -477,7 +471,7 @@ public:
         {
             if (setCrateNumber)
             {
-                me->AddAura(SPELL_CRATES_CARRIED,me);
+                me->AddAura(SPELL_CRATES_CARRIED, me);
                 setCrateNumber = false;
             }
 
@@ -606,7 +600,7 @@ public:
                 if (summon->isSummon())
                     if (Unit *pTemp = summon->GetSummoner())
                         if (pTemp->GetTypeId() == TYPEID_PLAYER)
-                            CAST_PLR(pTemp)->KilledMonsterCredit(me->GetEntry(),0);
+                            CAST_PLR(pTemp)->KilledMonsterCredit(me->GetEntry(), 0);
 
             if (GameObject *go_caribou = me->GetMap()->GetGameObject(go_caribouGUID))
                 go_caribou->SetGoState(GO_STATE_READY);
@@ -748,12 +742,12 @@ public:
                     switch(IntroPhase)
                     {
                         case 1:
-                            //DoScriptText(SAY_WP_1_LUR_START,me);
+                            //DoScriptText(SAY_WP_1_LUR_START, me);
                             IntroPhase = 2;
                             IntroTimer = 7500;
                             break;
                         case 2:
-                            //DoScriptText(SAY_WP_1_LUR_END,me);
+                            //DoScriptText(SAY_WP_1_LUR_END, me);
                             IntroPhase = 3;
                             IntroTimer = 7500;
                             break;
@@ -763,12 +757,12 @@ public:
                             IntroTimer = 0;
                             break;
                         case 4:
-                            //DoScriptText(SAY_WP_41_LUR_START,me);
+                            //DoScriptText(SAY_WP_41_LUR_START, me);
                             IntroPhase = 5;
                             IntroTimer = 8000;
                             break;
                         case 5:
-                            //DoScriptText(SAY_WP_41_LUR_END,me);
+                            //DoScriptText(SAY_WP_41_LUR_END, me);
                             IntroPhase = 6;
                             IntroTimer = 2500;
                             break;
@@ -895,7 +889,7 @@ public:
                 {
                     if (Player *pHarpooner = Unit::GetPlayer(*me, HarpoonerGUID))
                     {
-                        pHarpooner->KilledMonsterCredit(26175,0);
+                        pHarpooner->KilledMonsterCredit(26175, 0);
                         pHarpooner->RemoveAura(SPELL_DRAKE_HATCHLING_SUBDUED);
                         SetFollowComplete();
                         HarpoonerGUID = 0;
@@ -1037,13 +1031,13 @@ public:
                         pArthas->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                         pArthas->SetReactState(REACT_PASSIVE);
                         pArthas->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                        pArthas->GetMotionMaster()->MovePoint(0, 3737.374756f,3564.841309f,477.433014f);
+                        pArthas->GetMotionMaster()->MovePoint(0, 3737.374756f, 3564.841309f, 477.433014f);
                     }
-                    if (Creature *pTalbot = me->SummonCreature(NPC_COUNSELOR_TALBOT, 3747.23f, 3614.936f, 473.321f, 4.462012f, TEMPSUMMON_CORPSE_TIMED_DESPAWN,120000))
+                    if (Creature *pTalbot = me->SummonCreature(NPC_COUNSELOR_TALBOT, 3747.23f, 3614.936f, 473.321f, 4.462012f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 120000))
                     {
                         uiTalbot = pTalbot->GetGUID();
                         pTalbot->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
-                        pTalbot->GetMotionMaster()->MovePoint(0, 3738.000977f,3568.882080f,477.433014f);
+                        pTalbot->GetMotionMaster()->MovePoint(0, 3738.000977f, 3568.882080f, 477.433014f);
                     }
                     me->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
                     break;
@@ -1090,7 +1084,7 @@ public:
                     case 2:
                         if (pTalbot)
                         {
-                            pTalbot->UpdateEntry(NPC_PRINCE_VALANAR,ALLIANCE);
+                            pTalbot->UpdateEntry(NPC_PRINCE_VALANAR, ALLIANCE);
                             pTalbot->setFaction(14);
                             pTalbot->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
                             pTalbot->SetReactState(REACT_PASSIVE);
@@ -1121,13 +1115,13 @@ public:
                         break;
 
                     case 6:
-                        if (Creature* pArlos = me->SummonCreature(NPC_GENERAL_ARLOS, 3745.527100f, 3615.655029f, 473.321533f, 4.447805f, TEMPSUMMON_CORPSE_TIMED_DESPAWN,120000))
+                        if (Creature* pArlos = me->SummonCreature(NPC_GENERAL_ARLOS, 3745.527100f, 3615.655029f, 473.321533f, 4.447805f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 120000))
                         {
                             uiArlos = pArlos->GetGUID();
                             pArlos->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
                             pArlos->GetMotionMaster()->MovePoint(0, 3735.570068f, 3572.419922f, 477.441010f);
                         }
-                        if (Creature *pLeryssa = me->SummonCreature(NPC_LERYSSA, 3749.654541f, 3614.959717f, 473.323486f, 4.524959f, TEMPSUMMON_CORPSE_TIMED_DESPAWN,120000))
+                        if (Creature *pLeryssa = me->SummonCreature(NPC_LERYSSA, 3749.654541f, 3614.959717f, 473.323486f, 4.524959f, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 120000))
                         {
                             uiLeryssa = pLeryssa->GetGUID();
                             pLeryssa->AddUnitMovementFlag(MOVEMENTFLAG_WALKING);
@@ -1306,7 +1300,7 @@ public:
 
             if (me->isSummon())
                 if (Unit* pSummoner = CAST_SUM(me)->GetSummoner())
-                    CAST_AI(npc_thassarian::npc_thassarianAI,CAST_CRE(pSummoner)->AI())->bArthasInPosition = true;
+                    CAST_AI(npc_thassarian::npc_thassarianAI, CAST_CRE(pSummoner)->AI())->bArthasInPosition = true;
         }
     };
 
@@ -1338,7 +1332,7 @@ public:
             me->CastSpell(me, SPELL_STUN, true);
             if (me->isSummon())
                 if (Unit* pSummoner = CAST_SUM(me)->GetSummoner())
-                    CAST_AI(npc_thassarian::npc_thassarianAI,CAST_CRE(pSummoner)->AI())->bArlosInPosition = true;
+                    CAST_AI(npc_thassarian::npc_thassarianAI, CAST_CRE(pSummoner)->AI())->bArlosInPosition = true;
         }
     };
 
@@ -1384,9 +1378,9 @@ public:
             LeryssaGUID         = 0;
             ArlosGUID           = 0;
             bCheck              = false;
-            uiShadowBoltTimer   = urand(5000,12000);
-            uiDeflectionTimer   = urand(20000,25000);
-            uiSoulBlastTimer    = urand (12000,18000);
+            uiShadowBoltTimer   = urand(5000, 12000);
+            uiDeflectionTimer   = urand(20000, 25000);
+            uiSoulBlastTimer    = urand (12000, 18000);
         }
         void MovementInform(uint32 uiType, uint32 /*uiId*/)
         {
@@ -1395,7 +1389,7 @@ public:
 
             if (me->isSummon())
                 if (Unit* pSummoner = CAST_SUM(me)->GetSummoner())
-                    CAST_AI(npc_thassarian::npc_thassarianAI,CAST_CRE(pSummoner)->AI())->bTalbotInPosition = true;
+                    CAST_AI(npc_thassarian::npc_thassarianAI, CAST_CRE(pSummoner)->AI())->bTalbotInPosition = true;
         }
 
         void UpdateAI(const uint32 uiDiff)
@@ -1417,19 +1411,19 @@ public:
                 if (uiShadowBoltTimer <= uiDiff)
                 {
                     DoCast(me->getVictim(), SPELL_SHADOW_BOLT);
-                    uiShadowBoltTimer = urand(5000,12000);
+                    uiShadowBoltTimer = urand(5000, 12000);
                 } else uiShadowBoltTimer -= uiDiff;
 
                 if (uiDeflectionTimer <= uiDiff)
                 {
                     DoCast(me->getVictim(), SPELL_DEFLECTION);
-                    uiDeflectionTimer = urand(20000,25000);
+                    uiDeflectionTimer = urand(20000, 25000);
                 } else uiDeflectionTimer -= uiDiff;
 
                 if (uiSoulBlastTimer <= uiDiff)
                 {
                     DoCast(me->getVictim(), SPELL_SOUL_BLAST);
-                    uiSoulBlastTimer  = urand (12000,18000);
+                    uiSoulBlastTimer  = urand (12000, 18000);
                 } else uiSoulBlastTimer -= uiDiff;
             }
 
@@ -1453,7 +1447,7 @@ public:
             pLeryssa->RemoveAura(SPELL_STUN);
             pLeryssa->ClearUnitState(UNIT_STAT_STUNNED);
             pLeryssa->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
-            pLeryssa->GetMotionMaster()->MovePoint(0,3722.114502f, 3564.201660f, 477.441437f);
+            pLeryssa->GetMotionMaster()->MovePoint(0, 3722.114502f, 3564.201660f, 477.441437f);
 
             if (pKiller->GetTypeId() == TYPEID_PLAYER)
                 CAST_PLR(pKiller)->RewardPlayerAndGroupAtEvent(NPC_PRINCE_VALANAR, 0);
@@ -1506,7 +1500,7 @@ public:
 
                 if (me->isSummon())
                     if (Unit* pSummoner = CAST_SUM(me)->GetSummoner())
-                        CAST_AI(npc_thassarian::npc_thassarianAI,CAST_CRE(pSummoner)->AI())->bLeryssaInPosition = true;
+                        CAST_AI(npc_thassarian::npc_thassarianAI, CAST_CRE(pSummoner)->AI())->bLeryssaInPosition = true;
                 bDone = true;
             }
             else
@@ -1570,7 +1564,7 @@ public:
                             if (Unit* pThassarian = CAST_SUM(me)->GetSummoner())
                             {
                                 DoScriptText(SAY_THASSARIAN_7, pThassarian);
-                                CAST_AI(npc_thassarian::npc_thassarianAI,CAST_CRE(pThassarian)->AI())->uiPhase = 16;
+                                CAST_AI(npc_thassarian::npc_thassarianAI, CAST_CRE(pThassarian)->AI())->uiPhase = 16;
                             }
                         uiPhaseTimer = 5000;
                         Phase = 0;
@@ -1771,7 +1765,7 @@ public:
                         if (Player *pCaster = Unit::GetPlayer(*me, CasterGUID))
                         {
                             DoScriptText(SAY_IMPRISIONED_BERYL_5, me);
-                            pCaster->KilledMonsterCredit(25478,0);
+                            pCaster->KilledMonsterCredit(25478, 0);
                             uiStep = 6;
                         }
                     }
@@ -1881,7 +1875,7 @@ public:
                 me->HandleEmoteCommand(EMOTE_ONESHOT_EXCLAMATION);
                 break;
             case 20:
-                me->SetPhaseMask(1,true);
+                me->SetPhaseMask(1, true);
                 DoScriptText(SAY_5, me);
                 me->HandleEmoteCommand(EMOTE_ONESHOT_EXCLAMATION);
                 if (pPlayer)
@@ -1960,7 +1954,7 @@ public:
             {
                 if (Bonker_agro == 0)
                 {
-                    DoScriptText(SAY_bonker_1,me);
+                    DoScriptText(SAY_bonker_1, me);
                     Bonker_agro++;
                 }
                 DoMeleeAttackIfReady();
@@ -2052,7 +2046,7 @@ public:
             GameObject* pTrap;
             for (uint8 i = 0; i < MammothTrapsNum; ++i)
             {
-                pTrap = me->FindNearestGameObject(MammothTraps[i],11.0f);
+                pTrap = me->FindNearestGameObject(MammothTraps[i], 11.0f);
                 if (pTrap)
                 {
                     pTrap->SetGoState(GO_STATE_ACTIVE);
@@ -2069,7 +2063,7 @@ public:
                 {
                     Position pos;
                     me->GetRandomNearPosition(pos, 10.0f);
-                    me->GetMotionMaster()->MovePoint(0,pos);
+                    me->GetMotionMaster()->MovePoint(0, pos);
                     bStarted = false;
                 }
                 else uiTimer -= diff;
@@ -2084,14 +2078,13 @@ public:
 
         void MovementInform(uint32 uiType, uint32 /*uiId*/)
         {
-
             if (uiType != POINT_MOTION_TYPE)
                 return;
             me->DisappearAndDie();
             GameObject* pTrap;
             for (uint8 i = 0; i < MammothTrapsNum; ++i)
             {
-                pTrap = me->FindNearestGameObject(MammothTraps[i],11.0f);
+                pTrap = me->FindNearestGameObject(MammothTraps[i], 11.0f);
                 if (pTrap)
                 {
                     pTrap->SetLootState(GO_JUST_DEACTIVATED);
@@ -2138,7 +2131,7 @@ public:
             {
                 Quest const* qInfo = sObjectMgr->GetQuestTemplate(QUEST_YOU_RE_NOT_SO_BIG_NOW);
                 if (qInfo)
-                    CAST_PLR(pKiller)->KilledMonsterCredit(qInfo->ReqCreatureOrGOId[0],0);
+                    CAST_PLR(pKiller)->KilledMonsterCredit(qInfo->ReqCreatureOrGOId[0], 0);
             }
         }
     };
@@ -2168,7 +2161,7 @@ public:
         uint32 uiExplosionTimer;
         void Reset()
         {
-            uiExplosionTimer = urand(5000,10000);
+            uiExplosionTimer = urand(5000, 10000);
         }
         void UpdateAI(const uint32 diff)
         {
@@ -2183,7 +2176,7 @@ public:
                         {
                             Player* pOwner = uOwner->ToPlayer();
                             if (pOwner && pOwner->GetQuestStatus(QUEST_BURY_THOSE_COCKROACHES) == QUEST_STATUS_INCOMPLETE)
-                                pOwner->KilledMonsterCredit(cCredit->GetEntry(),cCredit->GetGUID());
+                                pOwner->KilledMonsterCredit(cCredit->GetEntry(), cCredit->GetGUID());
                         }
                     }
                 }
@@ -2222,7 +2215,7 @@ public:
 
         void Reset()
         {
-            uiTimer = urand(13000,18000);
+            uiTimer = urand(13000, 18000);
         }
 
         void UpdateAI(const uint32 diff)
@@ -2230,19 +2223,18 @@ public:
             if (uiTimer <= diff)
             {
                 me->HandleEmoteCommand(EMOTE_ONESHOT_KNEEL);
-                GameObject* pCannon = me->FindNearestGameObject(GO_VALIANCE_KEEP_CANNON_1,10);
+                GameObject* pCannon = me->FindNearestGameObject(GO_VALIANCE_KEEP_CANNON_1, 10);
                 if (!pCannon)
-                    pCannon = me->FindNearestGameObject(GO_VALIANCE_KEEP_CANNON_2,10);
+                    pCannon = me->FindNearestGameObject(GO_VALIANCE_KEEP_CANNON_2, 10);
                 if (pCannon)
                     pCannon->Use(me);
-                uiTimer = urand(13000,18000);
+                uiTimer = urand(13000, 18000);
             }
             else uiTimer -= diff;
 
             if (!UpdateVictim())
                 return;
         }
-
     };
 
     CreatureAI *GetAI(Creature *creature) const
@@ -2305,10 +2297,10 @@ public:
                             {
                                 if (Creature* pOrb = *itr)
                                     if (pOrb->GetPositionY() > 6680)
-                                        DoCast(pOrb,SPELL_TRANSITUS_SHIELD_BEAM);
+                                        DoCast(pOrb, SPELL_TRANSITUS_SHIELD_BEAM);
                             }
                         }
-                        m_uiTimer = urand(90000,120000);
+                        m_uiTimer = urand(90000, 120000);
                     }
                         break;
                     case NPC_WARMAGE_CALANDRA:
@@ -2319,10 +2311,10 @@ public:
                             {
                                 if (Creature* pOrb = *itr)
                                     if ((pOrb->GetPositionY() < 6680) && (pOrb->GetPositionY() > 6630))
-                                        DoCast(pOrb,SPELL_TRANSITUS_SHIELD_BEAM);
+                                        DoCast(pOrb, SPELL_TRANSITUS_SHIELD_BEAM);
                             }
                         }
-                        m_uiTimer = urand(90000,120000);
+                        m_uiTimer = urand(90000, 120000);
                     }
                         break;
                     case NPC_WARMAGE_WATKINS:
@@ -2333,10 +2325,10 @@ public:
                             {
                                 if (Creature* pOrb = *itr)
                                     if (pOrb->GetPositionY() < 6630)
-                                        DoCast(pOrb,SPELL_TRANSITUS_SHIELD_BEAM);
+                                        DoCast(pOrb, SPELL_TRANSITUS_SHIELD_BEAM);
                             }
                         }
-                        m_uiTimer = urand(90000,120000);
+                        m_uiTimer = urand(90000, 120000);
                     }
                         break;
                 }
@@ -2409,10 +2401,10 @@ public:
         void Reset()
         {
             if (uiEmoteState)
-                me->SetUInt32Value(UNIT_NPC_EMOTESTATE,uiEmoteState);
+                me->SetUInt32Value(UNIT_NPC_EMOTESTATE, uiEmoteState);
 
             if (uiNpcFlags)
-                me->SetUInt32Value(UNIT_NPC_FLAGS,uiNpcFlags);
+                me->SetUInt32Value(UNIT_NPC_FLAGS, uiNpcFlags);
 
             uiEventTimer = 0;
             uiEventPhase = 0;
@@ -2427,8 +2419,8 @@ public:
         void DoAction(const int32 iParam)
         {
             me->StopMoving();
-            me->SetUInt32Value(UNIT_NPC_FLAGS,0);
-            if (Player* pPlayer = me->GetPlayer(*me,uiPlayerGUID))
+            me->SetUInt32Value(UNIT_NPC_FLAGS, 0);
+            if (Player* pPlayer = me->GetPlayer(*me, uiPlayerGUID))
             {
                 me->SetInFront(pPlayer);
                 me->SendMovementFlagUpdate();
@@ -2445,7 +2437,7 @@ public:
         void AttackPlayer()
         {
             me->setFaction(14);
-            if (Player* pPlayer = me->GetPlayer(*me,uiPlayerGUID))
+            if (Player* pPlayer = me->GetPlayer(*me, uiPlayerGUID))
                 me->AI()->AttackStart(pPlayer);
         }
 
@@ -2459,18 +2451,18 @@ public:
                         switch(me->GetEntry())
                         {
                             case NPC_SALTY_JOHN_THORPE:
-                                me->SetUInt32Value(UNIT_NPC_EMOTESTATE,0);
-                                DoScriptText(SAY_HIDDEN_CULTIST_1,me);
+                                me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0);
+                                DoScriptText(SAY_HIDDEN_CULTIST_1, me);
                                 uiEventTimer = 5000;
                                 uiEventPhase = 2;
                                 break;
                             case NPC_GUARD_MITCHELLS:
-                                DoScriptText(SAY_HIDDEN_CULTIST_2,me);
+                                DoScriptText(SAY_HIDDEN_CULTIST_2, me);
                                 uiEventTimer = 5000;
                                 uiEventPhase = 2;
                                 break;
                             case NPC_TOM_HEGGER:
-                                DoScriptText(SAY_HIDDEN_CULTIST_3,me);
+                                DoScriptText(SAY_HIDDEN_CULTIST_3, me);
                                 uiEventTimer = 5000;
                                 uiEventPhase = 2;
                                 break;
@@ -2480,8 +2472,8 @@ public:
                         switch(me->GetEntry())
                         {
                             case NPC_SALTY_JOHN_THORPE:
-                                DoScriptText(SAY_HIDDEN_CULTIST_4,me);
-                                if (Player* pPlayer = me->GetPlayer(*me,uiPlayerGUID))
+                                DoScriptText(SAY_HIDDEN_CULTIST_4, me);
+                                if (Player* pPlayer = me->GetPlayer(*me, uiPlayerGUID))
                                 {
                                     me->SetInFront(pPlayer);
                                     me->SendMovementFlagUpdate();
@@ -2503,7 +2495,7 @@ public:
                             uiEventPhase = 0;
                         }
                         break;
-                }                       
+                }
             }else uiEventTimer -= uiDiff;
 
             if (!UpdateVictim())
@@ -2565,12 +2557,11 @@ public:
 
         if (uiAction == GOSSIP_ACTION_TRADE)
             pPlayer->SEND_VENDORLIST(pCreature->GetGUID());
-    
+
         return true;
     }
-
 };
-    
+
 void AddSC_borean_tundra()
 {
     new npc_sinkhole_kill_credit;

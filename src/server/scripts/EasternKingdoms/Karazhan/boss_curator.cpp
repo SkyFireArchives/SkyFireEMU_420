@@ -83,7 +83,7 @@ public:
 
         void KilledUnit(Unit * /*victim*/)
         {
-            DoScriptText(RAND(SAY_KILL1,SAY_KILL2), me);
+            DoScriptText(RAND(SAY_KILL1, SAY_KILL2), me);
         }
 
         void JustDied(Unit * /*victim*/)
@@ -165,9 +165,9 @@ public:
                         }
                         else
                         {
-                            if (urand(0,1) == 0)
+                            if (urand(0, 1) == 0)
                             {
-                                DoScriptText(RAND(SAY_SUMMON1,SAY_SUMMON2), me);
+                                DoScriptText(RAND(SAY_SUMMON1, SAY_SUMMON2), me);
                             }
                         }
                     }
@@ -192,15 +192,12 @@ public:
 
                 if (Unit *pTarget = SelectUnit(SELECT_TARGET_TOPAGGRO, 1))
                     DoCast(pTarget, SPELL_HATEFUL_BOLT);
-
             } else HatefulBoltTimer -= diff;
 
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_curator()
 {

@@ -110,7 +110,7 @@ class boss_high_botanist_freywinn : public CreatureScript
 
             void KilledUnit(Unit* /*victim*/)
             {
-                DoScriptText(RAND(SAY_KILL_1,SAY_KILL_2), me);
+                DoScriptText(RAND(SAY_KILL_1, SAY_KILL_2), me);
             }
 
             void JustDied(Unit* /*Killer*/)
@@ -125,7 +125,7 @@ class boss_high_botanist_freywinn : public CreatureScript
 
                 if (TreeForm_Timer <= diff)
                 {
-                    DoScriptText(RAND(SAY_TREE_1,SAY_TREE_2), me);
+                    DoScriptText(RAND(SAY_TREE_1, SAY_TREE_2), me);
 
                     if (me->IsNonMeleeSpellCasted(false))
                         me->InterruptNonMeleeSpells(true);
@@ -152,7 +152,7 @@ class boss_high_botanist_freywinn : public CreatureScript
                         {
                             for (std::list<uint64>::iterator itr = Adds_List.begin(); itr != Adds_List.end(); ++itr)
                             {
-                                if (Unit *temp = Unit::GetUnit(*me,*itr))
+                                if (Unit *temp = Unit::GetUnit(*me, *itr))
                                 {
                                     if (!temp->isAlive())
                                     {
@@ -185,7 +185,7 @@ class boss_high_botanist_freywinn : public CreatureScript
                     return;
                 }
 
-                /*if (me->HasAura(SPELL_TREE_FORM,0) || me->HasAura(SPELL_TRANQUILITY,0))
+                /*if (me->HasAura(SPELL_TREE_FORM, 0) || me->HasAura(SPELL_TRANQUILITY, 0))
                     return;*/
 
                 //one random seedling every 5 secs, but not in tree form
@@ -211,4 +211,3 @@ void AddSC_boss_high_botanist_freywinn()
 {
     new boss_high_botanist_freywinn();
 }
-

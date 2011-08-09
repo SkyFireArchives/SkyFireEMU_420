@@ -125,9 +125,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_bloodmage_thalnos()
 {

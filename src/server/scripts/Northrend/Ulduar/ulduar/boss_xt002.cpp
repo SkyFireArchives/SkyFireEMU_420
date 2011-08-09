@@ -147,7 +147,6 @@ enum
 //#define VOID_ZONE_DMG_25                      7500
 //#define VOID_ZONE_RADIUS
 
-
 /************************************************
 -----------------SPAWN LOCATIONS-----------------
 ************************************************/
@@ -282,7 +281,7 @@ public:
 
         void KilledUnit(Unit* /*victim*/)
         {
-            DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2), me);
+            DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2), me);
         }
 
         void JustDied(Unit * /*victim*/)
@@ -322,7 +321,7 @@ public:
                 {
                     if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     {
-                        DoCast(pTarget, RAID_MODE(SPELL_GRAVITY_BOMB_10,SPELL_GRAVITY_BOMB_25));
+                        DoCast(pTarget, RAID_MODE(SPELL_GRAVITY_BOMB_10, SPELL_GRAVITY_BOMB_25));
                         uiGravityBombTarget = pTarget->GetGUID();
                     }
                     uiGravityBombTimer = TIMER_GRAVITY_BOMB;
@@ -433,7 +432,7 @@ public:
                 {
                     if (Unit *pGravityBombTarget = me->GetUnit(*me, uiGravityBombTarget))
                     {
-                        pGravityBombTarget->RemoveAurasDueToSpell(RAID_MODE(SPELL_GRAVITY_BOMB_10,SPELL_GRAVITY_BOMB_25));
+                        pGravityBombTarget->RemoveAurasDueToSpell(RAID_MODE(SPELL_GRAVITY_BOMB_10, SPELL_GRAVITY_BOMB_25));
                         if (hardMode)
                         {
                             //Remains spawned for 3 minutes
@@ -576,7 +575,6 @@ public:
                 }
         }
     };
-
 };
 
 /*-------------------------------------------------------
@@ -628,9 +626,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*-------------------------------------------------------
  *
@@ -695,9 +691,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*-------------------------------------------------------
  *
@@ -751,9 +745,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*-------------------------------------------------------
  *
@@ -815,9 +807,7 @@ public:
         //    }
         //}
     };
-
 };
-
 
 /*-------------------------------------------------------
  *
@@ -866,7 +856,6 @@ public:
             else uiShockTimer -= diff;
         }
     };
-
 };
 
 void AddSC_boss_xt002()

@@ -74,7 +74,7 @@ public:
         void JustDied(Unit* /*Killer*/)
         {
             if (pInstance)
-                pInstance->SetData(TYPE_PALLID,IN_PROGRESS);
+                pInstance->SetData(TYPE_PALLID, IN_PROGRESS);
         }
 
         void UpdateAI(const uint32 diff)
@@ -110,7 +110,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_maleki_the_pallid()

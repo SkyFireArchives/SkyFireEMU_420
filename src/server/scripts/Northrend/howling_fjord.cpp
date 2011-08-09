@@ -121,22 +121,22 @@ public:
                     me->ForcedDespawn();
                     break;
                 case 5:
-                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER,10.0f))
+                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER, 10.0f))
                         Trigger->CastSpell(Trigger, SPELL_COSMETIC_LOW_POLY_FIRE, false);
                     SetRun(false);
                     break;
                 case 6:
-                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER,10.0f))
+                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER, 10.0f))
                         Trigger->CastSpell(Trigger, SPELL_COSMETIC_LOW_POLY_FIRE, false);
                     SetRun(true);
                     break;
                 case 8:
-                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER,10.0f))
+                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER, 10.0f))
                         Trigger->CastSpell(Trigger, SPELL_COSMETIC_LOW_POLY_FIRE, false);
                     SetRun(false);
                     break;
                 case 9:
-                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER,10.0f))
+                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER, 10.0f))
                         Trigger->CastSpell(Trigger, SPELL_COSMETIC_LOW_POLY_FIRE, false);
                     break;
                 case 10:
@@ -146,7 +146,7 @@ public:
                     SetRun(false);
                     break;
                 case 14:
-                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER,10.0f))
+                    if (Unit* Trigger = me->FindNearestCreature(NPC_HANES_FIRE_TRIGGER, 10.0f))
                         Trigger->CastSpell(Trigger, SPELL_COSMETIC_LOW_POLY_FIRE, false);
                     SetRun(true);
                     break;
@@ -363,13 +363,13 @@ enum eDaegarnn
 };
 
 static float afSummon[] = {838.81f, -4678.06f, -94.182f};
-static float afCenter[] = {801.88f, -4721.87f, -96.143f}; 
+static float afCenter[] = {801.88f, -4721.87f, -96.143f};
 
 class npc_daegarn : public CreatureScript
 {
 public:
     npc_daegarn() : CreatureScript("npc_daegarn") { }
-        
+
     bool OnQuestAccept(Player* pPlayer, Creature* pCreature, const Quest* pQuest)
     {
         if (pQuest->GetQuestId() == QUEST_DEFEAT_AT_RING)
@@ -380,10 +380,10 @@ public:
 
         return true;
     }
-        
+
     // TODO: make prisoners help (unclear if summoned or using npc's from surrounding cages (summon inside small cages?))
-    struct npc_daegarnAI : public ScriptedAI 
-    {  
+    struct npc_daegarnAI : public ScriptedAI
+    {
         npc_daegarnAI(Creature *pCreature) : ScriptedAI(pCreature) { }
 
         bool bEventInProgress;
@@ -407,7 +407,7 @@ public:
 
         void JustSummoned(Creature* pSummon)
         {
-            if (Player* pPlayer = me->GetPlayer(*me,uiPlayerGUID))
+            if (Player* pPlayer = me->GetPlayer(*me, uiPlayerGUID))
             {
                 if (pPlayer->isAlive())
                 {

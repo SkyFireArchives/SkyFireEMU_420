@@ -107,7 +107,7 @@ class boss_archaedas : public CreatureScript
                 if (pMinion && pMinion->isAlive())
                 {
                     DoCast(pMinion, SPELL_AWAKEN_VAULT_WALKER, bFlag);
-                    pMinion->CastSpell(pMinion, SPELL_ARCHAEDAS_AWAKEN,true);
+                    pMinion->CastSpell(pMinion, SPELL_ARCHAEDAS_AWAKEN, true);
                 }
             }
 
@@ -115,7 +115,7 @@ class boss_archaedas : public CreatureScript
             {
                 me->setFaction(14);
                 me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
-                me->RemoveFlag(UNIT_FIELD_FLAGS,UNIT_FLAG_DISABLE_MOVE);
+                me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);
             }
 
             void SpellHit(Unit* /*caster*/, const SpellEntry *spell)
@@ -123,8 +123,8 @@ class boss_archaedas : public CreatureScript
                 // Being woken up from the altar, start the awaken sequence
                 if (spell == GetSpellStore()->LookupEntry(SPELL_ARCHAEDAS_AWAKEN))
                 {
-                    me->MonsterYell(SAY_AGGRO,LANG_UNIVERSAL,NULL);
-                    DoPlaySoundToSet(me,SOUND_AGGRO);
+                    me->MonsterYell(SAY_AGGRO, LANG_UNIVERSAL, NULL);
+                    DoPlaySoundToSet(me, SOUND_AGGRO);
                     iAwakenTimer = 4000;
                     bWakingUp = true;
                 }
@@ -132,7 +132,7 @@ class boss_archaedas : public CreatureScript
 
             void KilledUnit(Unit * /*victim*/)
             {
-                me->MonsterYell(SAY_KILL,LANG_UNIVERSAL, NULL);
+                me->MonsterYell(SAY_KILL, LANG_UNIVERSAL, NULL);
                 DoPlaySoundToSet(me, SOUND_KILL);
             }
 
@@ -157,7 +157,7 @@ class boss_archaedas : public CreatureScript
                     return;
 
                 // wake a wall minion
-                if (uiWallMinionTimer <= uiDiff) 
+                if (uiWallMinionTimer <= uiDiff)
                 {
                     pInstance->SetData (DATA_MINIONS, IN_PROGRESS);
 
@@ -165,15 +165,15 @@ class boss_archaedas : public CreatureScript
                 } else uiWallMinionTimer -= uiDiff;
 
                 //If we are <66 summon the guardians
-                if (!bGuardiansAwake && !HealthAbovePct(66)) 
+                if (!bGuardiansAwake && !HealthAbovePct(66))
                 {
-                    ActivateMinion(pInstance->GetData64(5),true);   // EarthenGuardian1
-                    ActivateMinion(pInstance->GetData64(6),true);   // EarthenGuardian2
-                    ActivateMinion(pInstance->GetData64(7),true);   // EarthenGuardian3
-                    ActivateMinion(pInstance->GetData64(8),true);   // EarthenGuardian4
-                    ActivateMinion(pInstance->GetData64(9),true);   // EarthenGuardian5
-                    ActivateMinion(pInstance->GetData64(10),false); // EarthenGuardian6
-                    me->MonsterYell(SAY_SUMMON,LANG_UNIVERSAL, NULL);
+                    ActivateMinion(pInstance->GetData64(5), true);   // EarthenGuardian1
+                    ActivateMinion(pInstance->GetData64(6), true);   // EarthenGuardian2
+                    ActivateMinion(pInstance->GetData64(7), true);   // EarthenGuardian3
+                    ActivateMinion(pInstance->GetData64(8), true);   // EarthenGuardian4
+                    ActivateMinion(pInstance->GetData64(9), true);   // EarthenGuardian5
+                    ActivateMinion(pInstance->GetData64(10), false); // EarthenGuardian6
+                    me->MonsterYell(SAY_SUMMON, LANG_UNIVERSAL, NULL);
                     DoPlaySoundToSet(me, SOUND_SUMMON);
                     bGuardiansAwake = true;
                 }
@@ -181,10 +181,10 @@ class boss_archaedas : public CreatureScript
                 //If we are <33 summon the vault walkers
                 if (!bVaultWalkersAwake && !HealthAbovePct(33))
                 {
-                    ActivateMinion(pInstance->GetData64(1),true);    // VaultWalker1
-                    ActivateMinion(pInstance->GetData64(2),true);    // VaultWalker2
-                    ActivateMinion(pInstance->GetData64(3),true);    // VaultWalker3
-                    ActivateMinion(pInstance->GetData64(4),false);    // VaultWalker4
+                    ActivateMinion(pInstance->GetData64(1), true);    // VaultWalker1
+                    ActivateMinion(pInstance->GetData64(2), true);    // VaultWalker2
+                    ActivateMinion(pInstance->GetData64(3), true);    // VaultWalker3
+                    ActivateMinion(pInstance->GetData64(4), false);    // VaultWalker4
                     me->MonsterYell(SAY_SUMMON2, LANG_UNIVERSAL, NULL);
                     DoPlaySoundToSet(me, SOUND_SUMMON2);
                     bVaultWalkersAwake = true;
@@ -202,7 +202,7 @@ class boss_archaedas : public CreatureScript
                 DoMeleeAttackIfReady();
             }
 
-            void JustDied (Unit * /*pKiller*/) 
+            void JustDied (Unit * /*pKiller*/)
             {
                 if (pInstance)
                 {
@@ -370,7 +370,7 @@ class mob_stonekeepers : public CreatureScript
 
             void JustDied(Unit * /*attacker*/)
             {
-                DoCast (me, SPELL_SELF_DESTRUCT,true);
+                DoCast (me, SPELL_SELF_DESTRUCT, true);
                 if (pInstance)
                     pInstance->SetData(DATA_STONE_KEEPERS, IN_PROGRESS);    // activate next stonekeeper
             }
@@ -408,7 +408,7 @@ class go_altar_of_archaedas : public GameObjectScript
 
             pPlayer->CastSpell (pPlayer, SPELL_BOSS_OBJECT_VISUAL, false);
 
-            pInstance->SetData64(0,pPlayer->GetGUID());     // activate archaedas
+            pInstance->SetData64(0, pPlayer->GetGUID());     // activate archaedas
             return false;
         }
 };
@@ -454,4 +454,3 @@ void AddSC_boss_archaedas()
     new go_altar_of_archaedas();
     new go_altar_of_the_keepers();
 }
-

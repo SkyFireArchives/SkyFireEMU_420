@@ -1343,8 +1343,6 @@ extern OpcodeHandler opcodeTable[MAX_MSG_TYPES];
 extern uint16 opcodesEnumToNumber[NUM_OPCODES];
 extern char const* opcodesEnumToName[NUM_OPCODES];
 
-
-
 /// Lookup opcode name for human understandable logging
 inline const char* LookupOpcodeName(uint32 id)
 {

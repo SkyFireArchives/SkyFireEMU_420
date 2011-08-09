@@ -87,7 +87,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_gorosh_the_dervish()

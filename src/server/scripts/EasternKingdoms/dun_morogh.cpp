@@ -105,9 +105,7 @@ public:
                 spellHit = true;
             }
         }
-
     };
-
 };
 
 void AddSC_dun_morogh()

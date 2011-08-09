@@ -41,4 +41,3 @@ class AddonHandler
 };
 #define sAddOnHandler ACE_Singleton<AddonHandler, ACE_Null_Mutex>::instance()
 #endif
-

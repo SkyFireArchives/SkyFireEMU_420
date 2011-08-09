@@ -96,9 +96,7 @@ public:
         }
         return true;
     }
-
 };
-
 
 /*######
 ## npc_great_bear_spirit
@@ -155,9 +153,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_silva_filnaveth
@@ -213,9 +209,7 @@ public:
         }
         return true;
     }
-
 };
-
 
 /*######
 ## npc_clintar_spirit
@@ -369,7 +363,7 @@ public:
                     AddWaypoint(i, Clintar_spirit_WP[i][0], Clintar_spirit_WP[i][1], Clintar_spirit_WP[i][2], (uint32)Clintar_spirit_WP[i][4]);
                 }
                 PlayerGUID = pPlayer->GetGUID();
-                Start(true,false,PlayerGUID);
+                Start(true, false, PlayerGUID);
             }
             return;
         }
@@ -397,7 +391,6 @@ public:
 
             if (Event_onWait && Event_Timer <= diff)
             {
-
                 Player* pPlayer = Unit::GetPlayer(*me, PlayerGUID);
                 if (!pPlayer || (pPlayer && pPlayer->GetQuestStatus(10965) == QUEST_STATUS_NONE))
                 {
@@ -411,7 +404,7 @@ public:
                         switch(Step)
                         {
                             case 0:
-                                me->Say(CLINTAR_SPIRIT_SAY_START,0,PlayerGUID);
+                                me->Say(CLINTAR_SPIRIT_SAY_START, 0, PlayerGUID);
                                 Event_Timer = 8000;
                                 Step = 1;
                                 break;
@@ -470,7 +463,7 @@ public:
                                 Creature *mob = me->SummonCreature(ASPECT_RAVEN, ASPECT_RAVEN_SUMMON_X, ASPECT_RAVEN_SUMMON_Y, ASPECT_RAVEN_SUMMON_Z, 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 2000);
                                 if (mob)
                                 {
-                                    mob->AddThreat(me,10000.0f);
+                                    mob->AddThreat(me, 10000.0f);
                                     mob->AI()->AttackStart(me);
                                 }
                                 Event_Timer = 2000;
@@ -536,7 +529,6 @@ public:
                         Event_onWait = false;
                         break;
                 }
-
             } else if (Event_onWait) Event_Timer -= diff;
         }
 
@@ -548,9 +540,7 @@ public:
             Event_onWait = true;
         }
     };
-
 };
-
 
 /*####
 # npc_clintar_dreamwalker
@@ -573,7 +563,6 @@ public:
         }
         return true;
     }
-
 };
 
 /*####

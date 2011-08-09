@@ -247,7 +247,7 @@ public:
         void SpawnEyeTentacle(float x, float y)
         {
             if (Creature* Spawned = DoSpawnCreature(MOB_EYE_TENTACLE, x, y, 0, 0, TEMPSUMMON_CORPSE_DESPAWN, 500))
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     if (Spawned->AI())
                         Spawned->AI()->AttackStart(pTarget);
         }
@@ -290,7 +290,7 @@ public:
                     if (BeamTimer <= diff)
                     {
                         //SPELL_GREEN_BEAM
-                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         {
                             me->InterruptNonMeleeSpells(false);
                             DoCast(pTarget, SPELL_GREEN_BEAM);
@@ -306,7 +306,7 @@ public:
                     //ClawTentacleTimer
                     if (ClawTentacleTimer <= diff)
                     {
-                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                        if (Unit* pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         {
                             Creature* Spawned = NULL;
 
@@ -334,7 +334,7 @@ public:
                         me->SetUInt64Value(UNIT_FIELD_TARGET, 0);
 
                         //Select random target for dark beam to start on
-                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                        if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                         {
                             //Face our target
                             DarkGlareAngle = me->GetAngle(pTarget);
@@ -471,7 +471,6 @@ public:
             }
         }
     };
-
 };
 
 class boss_cthun : public CreatureScript
@@ -623,12 +622,12 @@ public:
                         for (Map::PlayerList::const_iterator itr = PlayerList.begin(); itr != PlayerList.end(); ++itr)
                         {
                             if (Player* pPlr = itr->getSource())
-                                pPlr->PlayDirectSound(RANDOM_SOUND_WHISPER,pPlr);
+                                pPlr->PlayDirectSound(RANDOM_SOUND_WHISPER, pPlr);
                         }
                     }
 
                     //One random wisper every 90 - 300 seconds
-                    WisperTimer = urand(90000,300000);
+                    WisperTimer = urand(90000, 300000);
                 } else WisperTimer -= diff;
 
                 return;
@@ -930,7 +929,6 @@ public:
             }
         }
     };
-
 };
 
 class mob_eye_tentacle : public CreatureScript
@@ -994,7 +992,7 @@ public:
             //MindflayTimer
             if (MindflayTimer <= diff)
             {
-                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget && !pTarget->HasAura(SPELL_DIGESTIVE_ACID))
                     DoCast(pTarget, SPELL_MIND_FLAY);
 
@@ -1003,7 +1001,6 @@ public:
             } else MindflayTimer -= diff;
         }
     };
-
 };
 
 class mob_claw_tentacle : public CreatureScript
@@ -1070,7 +1067,7 @@ public:
                     //Dissapear and reappear at new position
                     me->SetVisible(false);
 
-                    Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                    Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                     if (!pTarget)
                     {
                         me->Kill(me);
@@ -1113,7 +1110,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_giant_claw_tentacle : public CreatureScript
@@ -1232,7 +1228,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_giant_eye_tentacle : public CreatureScript
@@ -1287,7 +1282,7 @@ public:
             //BeamTimer
             if (BeamTimer <= diff)
             {
-                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0);
+                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0);
                 if (pTarget && !pTarget->HasAura(SPELL_DIGESTIVE_ACID))
                     DoCast(pTarget, SPELL_GREEN_BEAM);
 
@@ -1296,7 +1291,6 @@ public:
             } else BeamTimer -= diff;
         }
     };
-
 };
 
 class mob_giant_flesh_tentacle : public CreatureScript
@@ -1324,16 +1318,9 @@ public:
                         pSummoner->AI()->DoAction(ACTION_FLESH_TENTACLE_KILLED);
         }
     };
-
 };
 
 //GetAIs
-
-
-
-
-
-
 
 void AddSC_boss_cthun()
 {

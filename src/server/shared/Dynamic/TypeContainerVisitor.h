@@ -118,4 +118,3 @@ class TypeContainerVisitor
         VISITOR &i_visitor;
 };
 #endif
-

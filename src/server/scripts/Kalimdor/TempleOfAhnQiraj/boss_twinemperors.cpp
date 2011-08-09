@@ -200,7 +200,7 @@ struct boss_twinemperorsAI : public ScriptedAI
         if (Heal_Timer <= diff)
         {
             Unit *pOtherBoss = GetOtherBoss();
-            if (pOtherBoss && pOtherBoss->IsWithinDist(me,60))
+            if (pOtherBoss && pOtherBoss->IsWithinDist(me, 60))
             {
                 DoCast(pOtherBoss, SPELL_HEAL_BROTHER);
                 Heal_Timer = 1000;
@@ -317,8 +317,8 @@ struct boss_twinemperorsAI : public ScriptedAI
     Creature *RespawnNearbyBugsAndGetOne()
     {
         std::list<Creature*> lUnitList;
-        me->GetCreatureListWithEntryInGrid(lUnitList,15316,150.0f);
-        me->GetCreatureListWithEntryInGrid(lUnitList,15317,150.0f);
+        me->GetCreatureListWithEntryInGrid(lUnitList, 15316, 150.0f);
+        me->GetCreatureListWithEntryInGrid(lUnitList, 15317, 150.0f);
 
         if (lUnitList.empty())
             return NULL;
@@ -472,7 +472,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_veklor : public CreatureScript
@@ -598,10 +597,7 @@ public:
             }
         }
     };
-
 };
-
-
 
 void AddSC_boss_twinemperors()
 {

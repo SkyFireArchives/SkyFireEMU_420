@@ -170,7 +170,7 @@ public:
                 break;
             case GO_GAUNTLET_GATE1:
                 //weird, but unless flag is set, client will not respond as expected. DB bug?
-                pGo->SetFlag(GAMEOBJECT_FLAGS,GO_FLAG_LOCKED);
+                pGo->SetFlag(GAMEOBJECT_FLAGS, GO_FLAG_LOCKED);
                 gauntletGate1GUID = pGo->GetGUID();
                 break;
             case GO_ZIGGURAT1:
@@ -236,8 +236,8 @@ public:
                     Encounter[0] = data;
                     if (Creature* pYsidaT = instance->GetCreature(ysidaTriggerGUID))
                         pYsidaT->SummonCreature(C_YSIDA,
-                        pYsidaT->GetPositionX(),pYsidaT->GetPositionY(),pYsidaT->GetPositionZ(),pYsidaT->GetOrientation(),
-                        TEMPSUMMON_TIMED_DESPAWN,1800000);
+                        pYsidaT->GetPositionX(), pYsidaT->GetPositionY(), pYsidaT->GetPositionZ(), pYsidaT->GetOrientation(),
+                        TEMPSUMMON_TIMED_DESPAWN, 1800000);
                     BaronRun_Timer = 0;
                     break;
                 }
@@ -281,13 +281,13 @@ public:
                     if (!count)
                     {
                         //a bit itchy, it should close the door after 10 secs, but it doesn't. skipping it for now.
-                        //UpdateGoState(ziggurat4GUID,0,true);
+                        //UpdateGoState(ziggurat4GUID, 0, true);
                         if (Creature* pBaron = instance->GetCreature(baronGUID))
-                            pBaron->SummonCreature(C_RAMSTEIN,4032.84f,-3390.24f,119.73f,4.71f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,1800000);
+                            pBaron->SummonCreature(C_RAMSTEIN, 4032.84f, -3390.24f, 119.73f, 4.71f, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 1800000);
                         sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Stratholme: Ramstein spawned.");
                     }
                     else
-                        sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Stratholme: %u Abomnation left to kill.",count);
+                        sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Stratholme: %u Abomnation left to kill.", count);
                 }
 
                 if (data == NOT_STARTED)
@@ -324,7 +324,7 @@ public:
                             }
                         }
 
-                        SetData(TYPE_BARON_RUN,DONE);
+                        SetData(TYPE_BARON_RUN, DONE);
                     }
                 }
                 if (data == DONE || data == NOT_STARTED)
@@ -437,7 +437,7 @@ public:
                     if (GetData(TYPE_BARON_RUN) != DONE)
                         SetData(TYPE_BARON_RUN, FAIL);
                     BaronRun_Timer = 0;
-                    sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Stratholme: Baron run event reached end. Event has state %u.",GetData(TYPE_BARON_RUN));
+                    sLog->outDebug(LOG_FILTER_TSCR, "TSCR: Instance Stratholme: Baron run event reached end. Event has state %u.", GetData(TYPE_BARON_RUN));
                 } else BaronRun_Timer -= diff;
             }
 
@@ -448,7 +448,7 @@ public:
                     if (Creature* pBaron = instance->GetCreature(baronGUID))
                     {
                         for (uint8 i = 0; i < 4; ++i)
-                            pBaron->SummonCreature(C_BLACK_GUARD,4032.84f,-3390.24f,119.73f,4.71f,TEMPSUMMON_TIMED_OR_DEAD_DESPAWN,1800000);
+                            pBaron->SummonCreature(C_BLACK_GUARD, 4032.84f, -3390.24f, 119.73f, 4.71f, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 1800000);
 
                         HandleGameObject(ziggurat4GUID, true);
                         HandleGameObject(ziggurat5GUID, true);
@@ -459,9 +459,7 @@ public:
             }
         }
     };
-
 };
-
 
 void AddSC_instance_stratholme()
 {

@@ -258,4 +258,3 @@ void AddSC_boss_taerar()
     new boss_taerar;
     new boss_shadeoftaerar;
 }
-

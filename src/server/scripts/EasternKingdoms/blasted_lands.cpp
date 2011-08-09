@@ -72,9 +72,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_fallen_hero_of_horde
@@ -165,9 +163,7 @@ public:
 
         return true;
     }
-
 };
-
 
 void AddSC_blasted_lands()
 {

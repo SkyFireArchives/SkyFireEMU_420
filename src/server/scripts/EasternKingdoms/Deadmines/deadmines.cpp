@@ -62,7 +62,6 @@ public:
         player->DestroyItemCount(item->GetEntry(), 1, true);
         return true;
     }
-
 };
 
 void AddSC_deadmines()

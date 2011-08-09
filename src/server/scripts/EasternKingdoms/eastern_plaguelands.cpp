@@ -66,9 +66,7 @@ public:
                 me->SummonCreature(11064, 0.0f, 0.0f, 0.0f, 0.0f, TEMPSUMMON_TIMED_DESPAWN, 60000);
         }
     };
-
 };
-
 
 /*######
 ## npc_augustus_the_touched
@@ -98,9 +96,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 /*######
 ## npc_darrowshire_spirit
@@ -137,11 +133,8 @@ public:
         }
 
         void EnterCombat(Unit * /*who*/) {}
-
     };
-
 };
-
 
 /*######
 ## npc_tirion_fordring
@@ -194,9 +187,7 @@ public:
 
         return true;
     }
-
 };
-
 
 void AddSC_eastern_plaguelands()
 {

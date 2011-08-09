@@ -55,9 +55,9 @@ class SQLStorage
         template<class T>
             T const* LookupEntry(uint32 id) const
         {
-            if( id == 0 )
+            if ( id == 0 )
                 return NULL;
-            if(id >= MaxEntry)
+            if (id >= MaxEntry)
                 return NULL;
             return reinterpret_cast<T const*>(pIndex[id]);
         }
@@ -117,4 +117,3 @@ struct SQLStorageLoader : public SQLStorageLoaderBase<SQLStorageLoader>
 };
 
 #endif
-

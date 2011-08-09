@@ -387,7 +387,7 @@ class spell_bronjahm_soulstorm_targeting : public SpellScriptLoader
 
             void FilterTargetsInitial(std::list<Unit*>& unitList)
             {
-                unitList.remove_if(DistanceCheck(GetCaster()));
+                unitList.remove_if (DistanceCheck(GetCaster()));
                 sharedUnitList = unitList;
             }
 

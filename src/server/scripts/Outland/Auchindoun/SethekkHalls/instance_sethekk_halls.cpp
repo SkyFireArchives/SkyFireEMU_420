@@ -91,7 +91,7 @@ public:
             {
                 case DATA_IKISSDOOREVENT:
                     if (data == DONE)
-                        DoUseDoorOrButton(m_uiIkissDoorGUID,DAY*IN_MILLISECONDS);
+                        DoUseDoorOrButton(m_uiIkissDoorGUID, DAY*IN_MILLISECONDS);
                     break;
                 case TYPE_ANZU_ENCOUNTER:
                     AnzuEncounter = data;
@@ -99,9 +99,7 @@ public:
             }
         }
     };
-
 };
-
 
 void AddSC_instance_sethekk_halls()
 {

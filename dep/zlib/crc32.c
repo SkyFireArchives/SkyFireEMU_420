@@ -70,7 +70,6 @@ local unsigned long gf2_matrix_times OF((unsigned long *mat,
 local void gf2_matrix_square OF((unsigned long *square, unsigned long *mat));
 local uLong crc32_combine_(uLong crc1, uLong crc2, z_off64_t len2);
 
-
 #ifdef DYNAMIC_CRC_TABLE
 
 local volatile int crc_table_empty = 1;

@@ -193,7 +193,7 @@ void AuraApplication::ClientUpdate(bool remove)
     {
         ASSERT(!m_target->GetVisibleAura(m_slot));
         data << uint32(0);
-        sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "Aura %u removed slot %u",GetBase()->GetId(), m_slot);
+        sLog->outDebug(LOG_FILTER_SPELLS_AURAS, "Aura %u removed slot %u", GetBase()->GetId(), m_slot);
         m_target->SendMessageToSet(&data, true);
         return;
     }
@@ -251,7 +251,7 @@ Aura * Aura::TryCreate(SpellEntry const* spellproto, uint8 tryEffMask, WorldObje
             break;
     }
     if (uint8 realMask = effMask & tryEffMask)
-        return Create(spellproto,realMask,owner,caster,baseAmount,castItem,casterGUID);
+        return Create(spellproto, realMask, owner, caster, baseAmount, castItem, casterGUID);
     return NULL;
 }
 
@@ -282,7 +282,7 @@ Aura * Aura::TryCreate(SpellEntry const* spellproto, WorldObject * owner, Unit *
             break;
     }
     if (effMask)
-        return Create(spellproto,effMask,owner,caster,baseAmount,castItem,casterGUID);
+        return Create(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
     return NULL;
 }
 
@@ -321,10 +321,10 @@ Aura * Aura::Create(SpellEntry const* spellproto, uint8 effMask, WorldObject * o
     {
         case TYPEID_UNIT:
         case TYPEID_PLAYER:
-            aura = new UnitAura(spellproto,effMask,owner,caster,baseAmount,castItem, casterGUID);
+            aura = new UnitAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
             break;
         case TYPEID_DYNAMICOBJECT:
-            aura = new DynObjAura(spellproto,effMask,owner,caster,baseAmount,castItem, casterGUID);
+            aura = new DynObjAura(spellproto, effMask, owner, caster, baseAmount, castItem, casterGUID);
             break;
         default:
             ASSERT(false);
@@ -429,7 +429,7 @@ void Aura::_ApplyForTarget(Unit * target, Unit * caster, AuraApplication * auraA
         if (m_spellProto->Attributes & SPELL_ATTR0_DISABLED_WHILE_ACTIVE)
         {
             Item* castItem = m_castItemGuid ? caster->ToPlayer()->GetItemByGuid(m_castItemGuid) : NULL;
-            caster->ToPlayer()->AddSpellAndCategoryCooldowns(m_spellProto,castItem ? castItem->GetEntry() : 0, NULL,true);
+            caster->ToPlayer()->AddSpellAndCategoryCooldowns(m_spellProto, castItem ? castItem->GetEntry() : 0, NULL, true);
         }
     }
 }
@@ -788,7 +788,6 @@ bool Aura::ModStackAmount(int32 num)
     return false;
 }
 
-
 bool Aura::IsPassive() const
 {
     return IsPassiveSpell(GetSpellProto());
@@ -897,18 +896,18 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
     if (saBounds.first != saBounds.second)
     {
         uint32 zone, area;
-        target->GetZoneAndAreaId(zone,area);
+        target->GetZoneAndAreaId(zone, area);
 
         for (SpellAreaForAreaMap::const_iterator itr = saBounds.first; itr != saBounds.second; ++itr)
         {
             // some auras remove at aura remove
-            if (!itr->second->IsFitToRequirements((Player*)target,zone,area))
+            if (!itr->second->IsFitToRequirements((Player*)target, zone, area))
                 target->RemoveAurasDueToSpell(itr->second->spellId);
             // some auras applied at aura apply
             else if (itr->second->autocast)
             {
                 if (!target->HasAura(itr->second->spellId))
-                    target->CastSpell(target,itr->second->spellId,true);
+                    target->CastSpell(target, itr->second->spellId, true);
             }
         }
     }
@@ -973,9 +972,9 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     {
                         // Glyph of the Penguin
                         if (caster->HasAura(52648))
-                            caster->CastSpell(target,61635,true);
+                            caster->CastSpell(target, 61635, true);
                         else
-                            caster->CastSpell(target,61634,true);
+                            caster->CastSpell(target, 61634, true);
                     }
                 }
                 switch(GetId())
@@ -1011,10 +1010,10 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                             target->AddAura(74396, target);
                     }
                     case 83301: // Improved Cone of Cold r1 freeze
-                        if(!caster->HasAura(11190)) // r1 talent
+                        if (!caster->HasAura(11190)) // r1 talent
                             target->RemoveAura(83301);
                     case 83302: // Improved Cone of Cold r2 freeze
-                        if(!caster->HasAura(12489)) // r2 talent
+                        if (!caster->HasAura(12489)) // r2 talent
                             target->RemoveAura(83302);
 
                     default:
@@ -1060,18 +1059,18 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 else if (GetId() == 15407)
                 {
                     // Pain and Suffering: Rank 1
-                    if (Aura* pain = caster->GetAura(47580)) 
+                    if (Aura* pain = caster->GetAura(47580))
                     {
-                        if (Aura* swp = target->GetAura(589)) 
+                        if (Aura* swp = target->GetAura(589))
                         {
                             if (roll_chance_i(30))
                                 swp->RefreshDuration();
                         }
                     }
                     // Pain and Suffering: Rank 2
-                    if (Aura* pain = caster->GetAura(47581)) 
+                    if (Aura* pain = caster->GetAura(47581))
                     {
-                        if (Aura* swp = target->GetAura(589)) 
+                        if (Aura* swp = target->GetAura(589))
                         {
                             if (roll_chance_i(60))
                                 swp->RefreshDuration();
@@ -1092,7 +1091,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 else if (m_spellProto->SpellFamilyFlags[0] & 0x1 && m_spellProto->SpellFamilyFlags[2] & 0x400 && GetEffect(0))
                 {
                     // Glyph of Power Word: Shield
-                    if (AuraEffect* glyph = caster->GetAuraEffect(55672,0))
+                    if (AuraEffect* glyph = caster->GetAuraEffect(55672, 0))
                     {
                         // instantly heal m_amount% of the absorb-value
                         int32 heal = glyph->GetAmount() * GetEffect(0)->GetAmount()/100;
@@ -1117,19 +1116,19 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 }
                 break;
             case SPELLFAMILY_PALADIN: // Speed of Light (talent)
-                if(GetId() == 82327)
+                if (GetId() == 82327)
                 {
-                    if(target->HasAura(85495)) // r1
+                    if (target->HasAura(85495)) // r1
                     {
                         target->CastSpell(target, 85497, true);
                         target->SetSpeed(MOVE_RUN, 1.2f, true);
                     }
-                    if(target->HasAura(85498)) // r2
+                    if (target->HasAura(85498)) // r2
                     {
                         target->CastSpell(target, 85497, true);
                         target->SetSpeed(MOVE_RUN, 1.4f, true);
                     }
-                    if(target->HasAura(85499)) // r3
+                    if (target->HasAura(85499)) // r3
                     {
                         target->CastSpell(target, 85497, true);
                         target->SetSpeed(MOVE_RUN, 1.6f, true);
@@ -1285,7 +1284,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     if (removeMode != AURA_REMOVE_BY_DEFAULT)
                     {
                         // Improved Spell Reflection
-                        if (caster->GetDummyAuraEffect(SPELLFAMILY_WARRIOR,1935, 1))
+                        if (caster->GetDummyAuraEffect(SPELLFAMILY_WARRIOR, 1935, 1))
                         {
                             // aura remove - remove auras from all party members
                             std::list<Unit*> PartyMembers;
@@ -1438,7 +1437,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 if (GetId() == 1784)
                     target->RemoveAurasWithFamily(SPELLFAMILY_ROGUE, 0x0000800, 0, 0, target->GetGUID());
                 else if (GetId() == 6770) // On-sap removal - blackjack talent
-                {    
+                {
                     if (caster->HasAura(79125)) // rank 2
                         caster->CastSpell(target, 79126, true);
                     else if (caster->HasAura(79123)) // rank 1
@@ -1512,7 +1511,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     if (apply)
                         target->CastSpell(caster, 59665, true, 0, 0, caster->GetGUID());
                     else
-                        target->SetReducedThreatPercent(0,0);
+                        target->SetReducedThreatPercent(0, 0);
                     break;
             }
             break;
@@ -1550,20 +1549,20 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                 if (AuraEffect const * aurEff = target->GetAuraEffect(31223, 0))
                 {
                     if (!apply)
-                        target->CastSpell(target,31666,true);
+                        target->CastSpell(target, 31666, true);
                     else
                     {
                         int32 basepoints0 = aurEff->GetAmount();
-                        target->CastCustomSpell(target,31665, &basepoints0, NULL, NULL ,true);
+                        target->CastCustomSpell(target, 31665, &basepoints0, NULL, NULL , true);
                     }
                 }
                 // Overkill
                 if (target->HasAura(58426))
                 {
                     if (!apply)
-                        target->CastSpell(target,58428,true);
+                        target->CastSpell(target, 58428, true);
                     else
-                        target->CastSpell(target,58427,true);
+                        target->CastSpell(target, 58427, true);
                 }
                 break;
             }
@@ -1602,7 +1601,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     if (apply)
                     {
                         if ((GetSpellProto()->Id == 31821 && target->HasAura(19746, GetCasterGUID())) || (GetSpellProto()->Id == 19746 && target->HasAura(31821)))
-                            target->CastSpell(target,64364,true);
+                            target->CastSpell(target, 64364, true);
                     }
                     else
                         target->RemoveAurasDueToSpell(64364, GetCasterGUID());
@@ -1655,7 +1654,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     else if (bloodPresenceAura)
                     {
                         int32 basePoints1=bloodPresenceAura->GetAmount();
-                        target->CastCustomSpell(target,63611,NULL,&basePoints1,NULL,true,0,bloodPresenceAura);
+                        target->CastCustomSpell(target, 63611, NULL, &basePoints1, NULL, true, 0, bloodPresenceAura);
                     }
                     // Frost Presence bonus
                     if (presence == 48263)
@@ -1663,7 +1662,7 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                     else if (frostPresenceAura)
                     {
                         int32 basePoints0=frostPresenceAura->GetAmount();
-                        target->CastCustomSpell(target,61261,&basePoints0,NULL,NULL,true,0,frostPresenceAura);
+                        target->CastCustomSpell(target, 61261, &basePoints0, NULL, NULL, true, 0, frostPresenceAura);
                     }
                     // Unholy Presence bonus
                     if (presence == 48265)
@@ -1672,15 +1671,15 @@ void Aura::HandleAuraSpecificMods(AuraApplication const * aurApp, Unit * caster,
                         {
                             // Not listed as any effect, only base points set
                             int32 basePoints0 = SpellMgr::CalculateSpellEffectAmount(unholyPresenceAura->GetSpellProto(), 1);
-                            target->CastCustomSpell(target,63622,&basePoints0 ,&basePoints0,&basePoints0,true,0,unholyPresenceAura);
-                            target->CastCustomSpell(target,65095,&basePoints0 ,NULL,NULL,true,0,unholyPresenceAura);
+                            target->CastCustomSpell(target, 63622, &basePoints0 , &basePoints0, &basePoints0, true, 0, unholyPresenceAura);
+                            target->CastCustomSpell(target, 65095, &basePoints0 , NULL, NULL, true, 0, unholyPresenceAura);
                         }
-                        target->CastSpell(target,49772, true);
+                        target->CastSpell(target, 49772, true);
                     }
                     else if (unholyPresenceAura)
                     {
                         int32 basePoints0=unholyPresenceAura->GetAmount();
-                        target->CastCustomSpell(target,49772,&basePoints0,NULL,NULL,true,0,unholyPresenceAura);
+                        target->CastCustomSpell(target, 49772, &basePoints0, NULL, NULL, true, 0, unholyPresenceAura);
                     }
                 }
                 else
@@ -1958,7 +1957,6 @@ void Aura::CallScriptEffectAfterAbsorbHandlers(AuraEffect * aurEff, AuraApplicat
     }
 }
 
-
 void Aura::CallScriptEffectManaShieldHandlers(AuraEffect * aurEff, AuraApplication const * aurApp, DamageInfo & dmgInfo, uint32 & absorbAmount, bool & defaultPrevented)
 {
     for(std::list<AuraScript *>::iterator scritr = m_loadedScripts.begin(); scritr != m_loadedScripts.end() ; ++scritr)
@@ -2008,7 +2006,7 @@ void UnitAura::_ApplyForTarget(Unit * target, Unit * caster, AuraApplication * a
 
     // register aura diminishing on apply
     if (DiminishingGroup group = GetDiminishGroup())
-        target->ApplyDiminishingAura(group,true);
+        target->ApplyDiminishingAura(group, true);
 }
 
 void UnitAura::_UnapplyForTarget(Unit * target, Unit * caster, AuraApplication * aurApp)
@@ -2017,7 +2015,7 @@ void UnitAura::_UnapplyForTarget(Unit * target, Unit * caster, AuraApplication *
 
     // unregister aura diminishing (and store last time)
     if (DiminishingGroup group = GetDiminishGroup())
-        target->ApplyDiminishingAura(group,false);
+        target->ApplyDiminishingAura(group, false);
 }
 
 void UnitAura::Remove(AuraRemoveMode removeMode)
@@ -2165,4 +2163,3 @@ void DynObjAura::FillTargetMap(std::map<Unit *, uint8> & targets, Unit * /*caste
         }
     }
 }
-

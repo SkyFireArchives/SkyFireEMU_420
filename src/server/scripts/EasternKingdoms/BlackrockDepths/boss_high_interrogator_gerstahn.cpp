@@ -109,7 +109,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_high_interrogator_gerstahn()

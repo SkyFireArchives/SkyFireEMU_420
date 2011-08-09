@@ -96,7 +96,7 @@ public:
                 case 192395:
                     uiKrikthirDoor = pGo->GetGUID();
                     if (auiEncounter[0] == DONE)
-                        HandleGameObject(NULL,true,pGo);
+                        HandleGameObject(NULL, true, pGo);
                     break;
                 case 192396:
                     uiAnubarakDoor[0] = pGo->GetGUID();
@@ -109,7 +109,6 @@ public:
                     break;
             }
         }
-
 
         uint64 GetData64(uint32 identifier)
         {
@@ -133,7 +132,7 @@ public:
             case DATA_KRIKTHIR_THE_GATEWATCHER_EVENT:
                 auiEncounter[0] = data;
                 if (data == DONE)
-                    HandleGameObject(uiKrikthirDoor,true);
+                    HandleGameObject(uiKrikthirDoor, true);
                 break;
             case DATA_HADRONOX_EVENT:
                 auiEncounter[1] = data;
@@ -190,7 +189,7 @@ public:
             OUT_LOAD_INST_DATA(in);
 
             char dataHead1, dataHead2;
-            uint16 data0,data1,data2;
+            uint16 data0, data1, data2;
 
             std::istringstream loadStream(in);
             loadStream >> dataHead1 >> dataHead2 >> data0 >> data1 >> data2;
@@ -204,7 +203,6 @@ public:
                 for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                     if (auiEncounter[i] == IN_PROGRESS)
                         auiEncounter[i] = NOT_STARTED;
-
             } else OUT_LOAD_INST_DATA_FAIL;
 
             OUT_LOAD_INST_DATA_COMPLETE;

@@ -131,7 +131,7 @@ enum CharacterDatabaseStatements
     CHAR_ADD_ACCOUNT_INSTANCE_LOCK_TIMES,
     CHAR_LOAD_PLAYER_NAME_CLASS,
     CHAR_LOAD_MATCH_MAKER_RATING,
-    
+
     // Guild handling
     CHAR_ADD_GUILD,
     CHAR_DEL_GUILD,
@@ -207,7 +207,7 @@ enum CharacterDatabaseStatements
     CHAR_CLEAN_GUILD_BANK_TABS,
     CHAR_CLEAN_GUILD_BANK_RIGHTS,
     CHAR_CLEAN_GUILD_BANK_ITEMS,
-    
+
     // Chat channel handling
     CHAR_LOAD_CHANNEL,
     CHAR_ADD_CHANNEL,
@@ -227,7 +227,7 @@ enum CharacterDatabaseStatements
     // Instance Saves
     CHAR_ADD_INSTANCE_SAVE,
     CHAR_UPDATE_INSTANCE_DATA,
-    
+
     // Currency
     CHAR_LOAD_PLAYER_CURRENCY,
     CHAR_LOAD_PLAYER_CP_WEEK_CAP, // conquest points
@@ -240,7 +240,7 @@ enum CharacterDatabaseStatements
     // Petitions
     CHAR_LOAD_PETITION,
     CHAR_LOAD_PETITION_SIGNATURE,
-    
+
     // Arena Teams
     CHAR_ADD_ARENA_TEAM,
     CHAR_SET_ARENA_TEAM_MEMBER,
@@ -253,8 +253,8 @@ enum CharacterDatabaseStatements
     CHAR_UPDATE_ARENA_TEAM_MEMBER_STATS,
     CHAR_UPDATE_CHARACTER_ARENA_STATS,
     CHAR_LOAD_PLAYER_ARENA_TEAMS,
-    
-    // Corpse    
+
+    // Corpse
     CHAR_LOAD_CORPSES,
     CHAR_ADD_CORPSE,
     CHAR_DEL_CORPSE,
@@ -267,15 +267,14 @@ enum CharacterDatabaseStatements
     CHAR_ADD_CREATURE_RESPAWN,
     CHAR_GET_MAX_CREATURE_RESPAWNS,
     CHAR_DEL_NONEXISTENT_INSTANCE_CREATURE_RESPAWNS,
-    
+
     // Gameobject respawn
     CHAR_DEL_GO_RESPAWN,
     CHAR_ADD_GO_RESPAWN,
     CHAR_DEL_EXPIRED_GO_RESPAWNS,
     CHAR_DEL_NONEXISTENT_INSTANCE_GO_RESPAWNS,
-    
-    MAX_CHARACTERDATABASE_STATEMENTS,
 
+    MAX_CHARACTERDATABASE_STATEMENTS,
 };
 
 #endif

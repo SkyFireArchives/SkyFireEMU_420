@@ -36,7 +36,7 @@ void WorldSession::HandleCalendarGetCalendar(WorldPacket & /*recv_data*/)
 
     time_t cur_time = time(NULL);
 
-    WorldPacket data(SMSG_CALENDAR_SEND_CALENDAR,4+4*0+4+4*0+4+4);
+    WorldPacket data(SMSG_CALENDAR_SEND_CALENDAR, 4+4*0+4+4*0+4+4);
 
     data << uint32(0);                                      // invite count
     /*
@@ -183,7 +183,7 @@ void WorldSession::HandleCalendarAddEvent(WorldPacket &recv_data)
     //    recv_data >> (uint32)count;
     //    if (count)
     //    {
-    //        uint8 unk12,unk13;
+    //        uint8 unk12, unk13;
     //        uint64 guid;
     //        for (int i=0; i<count; i++)
     //        {
@@ -223,7 +223,6 @@ void WorldSession::HandleCalendarRemoveEvent(WorldPacket &recv_data)
     //recv_data >> uint64
     //recv_data >> uint64
     //recv_data >> uint32
-
 }
 
 void WorldSession::HandleCalendarCopyEvent(WorldPacket &recv_data)
@@ -235,7 +234,6 @@ void WorldSession::HandleCalendarCopyEvent(WorldPacket &recv_data)
     //recv_data >> uint64
     //recv_data >> uint64
     //recv_data >> uint32
-
 }
 
 void WorldSession::HandleCalendarEventInvite(WorldPacket &recv_data)
@@ -249,7 +247,6 @@ void WorldSession::HandleCalendarEventInvite(WorldPacket &recv_data)
     //recv_data >> std::string
     //recv_data >> uint8
     //recv_data >> uint8
-
 }
 
 void WorldSession::HandleCalendarEventRsvp(WorldPacket &recv_data)
@@ -261,7 +258,6 @@ void WorldSession::HandleCalendarEventRsvp(WorldPacket &recv_data)
     //recv_data >> uint64
     //recv_data >> uint64
     //recv_data >> uint32
-
 }
 
 void WorldSession::HandleCalendarEventRemoveInvite(WorldPacket &recv_data)

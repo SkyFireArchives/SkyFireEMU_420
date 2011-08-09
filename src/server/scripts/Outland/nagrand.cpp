@@ -73,16 +73,15 @@ public:
                 float y = me->GetPositionY();
                 float z = me->GetPositionZ();
 
-                Hitter->SummonCreature(18181,x+(0.7f * (rand()%30)),y+(rand()%5),z,0,TEMPSUMMON_CORPSE_TIMED_DESPAWN,60000);
-                Hitter->SummonCreature(18181,x+(rand()%5),y-(rand()%5),z,0,TEMPSUMMON_CORPSE_TIMED_DESPAWN,60000);
-                Hitter->SummonCreature(18181,x-(rand()%5),y+(0.5f *(rand()%60)),z,0,TEMPSUMMON_CORPSE_TIMED_DESPAWN,60000);
+                Hitter->SummonCreature(18181, x+(0.7f * (rand()%30)), y+(rand()%5), z, 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
+                Hitter->SummonCreature(18181, x+(rand()%5), y-(rand()%5), z, 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
+                Hitter->SummonCreature(18181, x-(rand()%5), y+(0.5f *(rand()%60)), z, 0, TEMPSUMMON_CORPSE_TIMED_DESPAWN, 60000);
                 me->setDeathState(CORPSE);
                 Spawn = true;
             }
             return;
         }
     };
-
 };
 
 /*######
@@ -208,7 +207,7 @@ public:
             if (!me->IsStandState())
                  me->SetStandState(UNIT_STAND_STATE_STAND);
 
-            DoScriptText(RAND(LUMP_SAY0,LUMP_SAY1), me);
+            DoScriptText(RAND(LUMP_SAY0, LUMP_SAY1), me);
         }
 
         void UpdateAI(const uint32 diff)
@@ -240,11 +239,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
-
 
 /*####
 # mob_sunspring_villager - should be done with ACID
@@ -281,7 +276,6 @@ public:
             }
         }
     };
-
 };
 
 /*######
@@ -381,10 +375,7 @@ public:
 
         return true;
     }
-
 };
-
-
 
 /*######
 ## npc_greatmother_geyah
@@ -494,9 +485,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_lantresor_of_the_blade
@@ -572,9 +561,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*#####
 ## npc_maghar_captive
@@ -694,7 +681,6 @@ public:
             pSummoned->RemoveUnitMovementFlag(MOVEMENTFLAG_WALKING);
             pSummoned->GetMotionMaster()->MovePoint(0, me->GetPositionX(), me->GetPositionY(), me->GetPositionZ());
             pSummoned->AI()->AttackStart(me);
-
         }
 
         void SpellHitTarget(Unit* /*pTarget*/, const SpellEntry* pSpell)
@@ -744,10 +730,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
 
 /*######
 ## npc_creditmarker_visist_with_ancestors
@@ -791,9 +774,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*######
 ## mob_sparrowhawk
@@ -814,7 +795,6 @@ public:
 
     struct mob_sparrowhawkAI : public ScriptedAI
     {
-
         mob_sparrowhawkAI(Creature *c) : ScriptedAI(c) {}
 
         uint32 Check_Timer;
@@ -901,9 +881,7 @@ public:
             return;
         }
     };
-
 };
-
 
 /*####
 #

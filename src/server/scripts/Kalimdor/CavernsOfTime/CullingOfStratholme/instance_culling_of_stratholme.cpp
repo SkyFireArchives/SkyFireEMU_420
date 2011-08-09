@@ -114,13 +114,13 @@ public:
                 case GO_EXIT_GATE:
                     uiExitGate = pGo->GetGUID();
                     if (m_auiEncounter[3] == DONE)
-                        HandleGameObject(uiExitGate,true);
+                        HandleGameObject(uiExitGate, true);
                     break;
                 case GO_MALGANIS_CHEST_N:
                 case GO_MALGANIS_CHEST_H:
                     uiMalGanisChest = pGo->GetGUID();
                     if (m_auiEncounter[3] == DONE)
-                        pGo->RemoveFlag(GAMEOBJECT_FLAGS,GO_FLAG_INTERACT_COND);
+                        pGo->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_INTERACT_COND);
                     break;
             }
         }
@@ -144,15 +144,15 @@ public:
                     switch(m_auiEncounter[3])
                     {
                         case NOT_STARTED:
-                            HandleGameObject(uiMalGanisGate2,true);
+                            HandleGameObject(uiMalGanisGate2, true);
                             break;
                         case IN_PROGRESS:
-                            HandleGameObject(uiMalGanisGate2,false);
+                            HandleGameObject(uiMalGanisGate2, false);
                             break;
                         case DONE:
                             HandleGameObject(uiExitGate, true);
                             if (GameObject *pGo = instance->GetGameObject(uiMalGanisChest))
-                                pGo->RemoveFlag(GAMEOBJECT_FLAGS,GO_FLAG_INTERACT_COND);
+                                pGo->RemoveFlag(GAMEOBJECT_FLAGS, GO_FLAG_INTERACT_COND);
                             break;
                     }
                     break;
@@ -238,15 +238,12 @@ public:
                 for (uint8 i = 0; i < MAX_ENCOUNTER; ++i)
                     if (m_auiEncounter[i] == IN_PROGRESS)
                         m_auiEncounter[i] = NOT_STARTED;
-
             } else OUT_LOAD_INST_DATA_FAIL;
 
             OUT_LOAD_INST_DATA_COMPLETE;
         }
     };
-
 };
-
 
 void AddSC_instance_culling_of_stratholme()
 {

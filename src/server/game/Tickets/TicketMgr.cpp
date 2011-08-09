@@ -56,7 +56,7 @@ void TicketMgr::LoadGMTickets()
     m_GMticketid = 0;
     m_openTickets = 0;
 
-    QueryResult result = CharacterDatabase.Query("SELECT guid, playerGuid, name, message, createtime, map, posX, posY, posZ, timestamp, closed,"
+    QueryResult result = CharacterDatabase.Query("SELECT guid, playerGuid, name, message, createtime, map, posX, posY, posZ, timestamp, closed, "
                                                  "assignedto, comment, completed, escalated, viewed FROM gm_tickets");
 
     if (!result)
@@ -92,7 +92,6 @@ void TicketMgr::LoadGMTickets()
         ticket->escalated = fields[14].GetUInt8();
         ticket->viewed = fields[15].GetBool();
         ++count;
-        
 
         m_GMTicketList.push_back(ticket);
     }

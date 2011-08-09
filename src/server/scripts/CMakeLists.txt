@@ -13,7 +13,7 @@ if( USE_SCRIPTPCH )
   include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
   )
-endif()
+endif ()
 
 if( USE_SCRIPTPCH AND MSVC )
   set(scripts_STAT_SRCS
@@ -37,7 +37,7 @@ set(scripts_STAT_SRCS
   ../game/AI/ScriptedAI/ScriptedSimpleAI.cpp
 )
 
-if(SCRIPTS)
+if (SCRIPTS)
   include(Custom/CMakeLists.txt)
   include(World/CMakeLists.txt)
   include(OutdoorPvP/CMakeLists.txt)

@@ -79,7 +79,6 @@ void create_last_word_mask(MY_BITMAP *map)
   }
 }
 
-
 static inline void bitmap_lock(MY_BITMAP *map __attribute__((unused)))
 {
   if (map->mutex)
@@ -91,7 +90,6 @@ static inline void bitmap_unlock(MY_BITMAP *map __attribute__((unused)))
   if (map->mutex)
     mysql_mutex_unlock(map->mutex);
 }
-
 
 my_bool bitmap_init(MY_BITMAP *map, my_bitmap_map *buf, uint n_bits,
 		    my_bool thread_safe __attribute__((unused)))
@@ -117,7 +115,6 @@ my_bool bitmap_init(MY_BITMAP *map, my_bitmap_map *buf, uint n_bits,
       map->mutex= (mysql_mutex_t *) ((char*) buf + size_in_bytes);
       mysql_mutex_init(key_BITMAP_mutex, map->mutex, MY_MUTEX_INIT_FAST);
     }
-
   }
 
   else
@@ -125,14 +122,12 @@ my_bool bitmap_init(MY_BITMAP *map, my_bitmap_map *buf, uint n_bits,
     DBUG_ASSERT(thread_safe == 0);
   }
 
-
   map->bitmap= buf;
   map->n_bits= n_bits;
   create_last_word_mask(map);
   bitmap_clear_all(map);
   DBUG_RETURN(0);
 }
-
 
 void bitmap_free(MY_BITMAP *map)
 {
@@ -147,7 +142,6 @@ void bitmap_free(MY_BITMAP *map)
   }
   DBUG_VOID_RETURN;
 }
-
 
 /*
   test if bit already set and set it if it was not (thread unsafe method)
@@ -170,7 +164,6 @@ my_bool bitmap_fast_test_and_set(MY_BITMAP *map, uint bitmap_bit)
   *value|= bit;
   return res;
 }
-
 
 /*
   test if bit already set and set it if it was not (thread safe method)
@@ -217,7 +210,6 @@ my_bool bitmap_fast_test_and_clear(MY_BITMAP *map, uint bitmap_bit)
   return res;
 }
 
-
 my_bool bitmap_test_and_clear(MY_BITMAP *map, uint bitmap_bit)
 {
   my_bool res;
@@ -228,7 +220,6 @@ my_bool bitmap_test_and_clear(MY_BITMAP *map, uint bitmap_bit)
   return res;
 }
 
-
 uint bitmap_set_next(MY_BITMAP *map)
 {
   uint bit_found;
@@ -237,7 +228,6 @@ uint bitmap_set_next(MY_BITMAP *map)
     bitmap_set_bit(map, bit_found);
   return bit_found;
 }
-
 
 void bitmap_set_prefix(MY_BITMAP *map, uint prefix_size)
 {
@@ -255,7 +245,6 @@ void bitmap_set_prefix(MY_BITMAP *map, uint prefix_size)
   if ((d= no_bytes_in_map(map)-prefix_bytes))
     bzero(m, d);
 }
-
 
 my_bool bitmap_is_prefix(const MY_BITMAP *map, uint prefix_size)
 {
@@ -280,9 +269,8 @@ my_bool bitmap_is_prefix(const MY_BITMAP *map, uint prefix_size)
       goto ret;
   res= 1;
 ret:
-  return res; 
+  return res;
 }
-
 
 my_bool bitmap_is_set_all(const MY_BITMAP *map)
 {
@@ -294,7 +282,6 @@ my_bool bitmap_is_set_all(const MY_BITMAP *map)
       return FALSE;
   return TRUE;
 }
-
 
 my_bool bitmap_is_clear_all(const MY_BITMAP *map)
 {
@@ -349,7 +336,6 @@ my_bool bitmap_is_overlapping(const MY_BITMAP *map1, const MY_BITMAP *map2)
   return 0;
 }
 
-
 void bitmap_intersect(MY_BITMAP *map, const MY_BITMAP *map2)
 {
   my_bitmap_map *to= map->bitmap, *from= map2->bitmap, *end;
@@ -369,7 +355,6 @@ void bitmap_intersect(MY_BITMAP *map, const MY_BITMAP *map2)
       *to++=0;
   }
 }
-
 
 /*
   Set/clear all bits above a bit.
@@ -401,7 +386,6 @@ void bitmap_set_above(MY_BITMAP *map, uint from_byte, uint use_bit)
     *to++= use_byte;
 }
 
-
 void bitmap_subtract(MY_BITMAP *map, const MY_BITMAP *map2)
 {
   my_bitmap_map *to= map->bitmap, *from= map2->bitmap, *end;
@@ -413,7 +397,6 @@ void bitmap_subtract(MY_BITMAP *map, const MY_BITMAP *map2)
   while (to <= end)
     *to++ &= ~(*from++);
 }
-
 
 void bitmap_union(MY_BITMAP *map, const MY_BITMAP *map2)
 {
@@ -427,7 +410,6 @@ void bitmap_union(MY_BITMAP *map, const MY_BITMAP *map2)
     *to++ |= *from++;
 }
 
-
 void bitmap_xor(MY_BITMAP *map, const MY_BITMAP *map2)
 {
   my_bitmap_map *to= map->bitmap, *from= map2->bitmap, *end= map->last_word_ptr;
@@ -436,7 +418,6 @@ void bitmap_xor(MY_BITMAP *map, const MY_BITMAP *map2)
   while (to <= end)
     *to++ ^= *from++;
 }
-
 
 void bitmap_invert(MY_BITMAP *map)
 {
@@ -449,9 +430,8 @@ void bitmap_invert(MY_BITMAP *map)
     *to++ ^= 0xFFFFFFFF;
 }
 
-
 uint bitmap_bits_set(const MY_BITMAP *map)
-{  
+{
   uchar *m= (uchar*)map->bitmap;
   uchar *end= m + no_bytes_in_map(map);
   uint res= 0;
@@ -463,7 +443,6 @@ uint bitmap_bits_set(const MY_BITMAP *map)
   return res;
 }
 
-
 void bitmap_copy(MY_BITMAP *map, const MY_BITMAP *map2)
 {
   my_bitmap_map *to= map->bitmap, *from= map2->bitmap, *end;
@@ -474,7 +453,6 @@ void bitmap_copy(MY_BITMAP *map, const MY_BITMAP *map2)
   while (to <= end)
     *to++ = *from++;
 }
-
 
 uint bitmap_get_first_set(const MY_BITMAP *map)
 {
@@ -507,7 +485,6 @@ uint bitmap_get_first_set(const MY_BITMAP *map)
   return MY_BIT_NONE;
 }
 
-
 uint bitmap_get_first(const MY_BITMAP *map)
 {
   uchar *byte_ptr;
@@ -539,7 +516,6 @@ uint bitmap_get_first(const MY_BITMAP *map)
   return MY_BIT_NONE;
 }
 
-
 uint bitmap_lock_set_next(MY_BITMAP *map)
 {
   uint bit_found;
@@ -548,7 +524,6 @@ uint bitmap_lock_set_next(MY_BITMAP *map)
   bitmap_unlock(map);
   return bit_found;
 }
-
 
 void bitmap_lock_clear_bit(MY_BITMAP *map, uint bitmap_bit)
 {
@@ -868,7 +843,6 @@ error3:
   printf("prefix3 error  bitsize = %u, prefix_size = %u", bitsize,test_bit);
   return TRUE;
 }
-
 
 bool do_test(uint bitsize)
 {

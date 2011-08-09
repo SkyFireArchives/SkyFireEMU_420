@@ -64,9 +64,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*#####
 # npc_kyle_frenzied
@@ -161,7 +159,7 @@ public:
                     switch(uiEventPhase)
                     {
                         case 1:
-                            if (Unit* pUnit = Unit::GetUnit(*me,uiPlayerGUID))
+                            if (Unit* pUnit = Unit::GetUnit(*me, uiPlayerGUID))
                             {
                                 if (GameObject* pGo = pUnit->GetGameObject(SPELL_LUNCH))
                                 {
@@ -197,9 +195,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*#####
 # npc_plains_vision
@@ -312,9 +308,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*#####
 #

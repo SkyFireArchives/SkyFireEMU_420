@@ -91,7 +91,7 @@ public:
             //IgniteMana_Timer
             if (IgniteMana_Timer <= diff)
             {
-                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                     DoCast(pTarget, SPELL_IGNITEMANA);
 
                 IgniteMana_Timer = 30000;
@@ -100,7 +100,7 @@ public:
             //LivingBomb_Timer
             if (LivingBomb_Timer <= diff)
             {
-               if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+               if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                    DoCast(pTarget, SPELL_LIVINGBOMB);
 
                 LivingBomb_Timer = 35000;
@@ -109,7 +109,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_baron_geddon()

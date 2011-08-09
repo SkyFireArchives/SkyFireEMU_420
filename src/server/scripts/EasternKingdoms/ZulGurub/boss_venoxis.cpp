@@ -131,7 +131,7 @@ class boss_venoxis : public CreatureScript
                             TargetInRange = 0;
                             for (uint8 i = 0; i < 10; ++i)
                             {
-                                if (Unit *pTarget = SelectUnit(SELECT_TARGET_TOPAGGRO,i))
+                                if (Unit *pTarget = SelectUnit(SELECT_TARGET_TOPAGGRO, i))
                                     if (me->IsWithinMeleeRange(pTarget))
                                         ++TargetInRange;
                             }
@@ -145,12 +145,11 @@ class boss_venoxis : public CreatureScript
                             {
                                 HolyNova_Timer = 2000;
                             }
-
                         } else HolyNova_Timer -= diff;
 
                         if (HolyFire_Timer < diff && TargetInRange < 3)
                         {
-                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                                 DoCast(pTarget, SPELL_HOLY_FIRE);
 
                             HolyFire_Timer = 8000;
@@ -180,7 +179,7 @@ class boss_venoxis : public CreatureScript
 
                         if (PhaseTwo && VenomSpit_Timer <= diff)
                         {
-                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,0))
+                            if (Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 0))
                                 DoCast(pTarget, SPELL_VENOMSPIT);
 
                             VenomSpit_Timer = 15000 + rand()%5000;

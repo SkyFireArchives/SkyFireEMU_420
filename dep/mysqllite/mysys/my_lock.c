@@ -97,7 +97,7 @@ static int win_lock(File fd, int locktype, my_off_t start, my_off_t length,
       DBUG_RETURN(0);
     goto error;
   }
-  
+
   dwFlags|= LOCKFILE_FAIL_IMMEDIATELY;
   timeout_millis= timeout_sec * 1000;
   /* Try lock in a loop, until the lock is acquired or timeout happens */
@@ -124,10 +124,8 @@ error:
 }
 #endif
 
-
-
-/* 
-  Lock a part of a file 
+/*
+  Lock a part of a file
 
   RETURN VALUE
     0   Success

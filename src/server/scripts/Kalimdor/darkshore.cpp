@@ -138,9 +138,9 @@ public:
         {
             SetFollowPaused(true);
 
-            DoScriptText(RAND(EMOTE_KER_SLEEP_1,EMOTE_KER_SLEEP_2,EMOTE_KER_SLEEP_3), me);
+            DoScriptText(RAND(EMOTE_KER_SLEEP_1, EMOTE_KER_SLEEP_2, EMOTE_KER_SLEEP_3), me);
 
-            DoScriptText(RAND(SAY_KER_SLEEP_1,SAY_KER_SLEEP_2,SAY_KER_SLEEP_3,SAY_KER_SLEEP_4), me);
+            DoScriptText(RAND(SAY_KER_SLEEP_1, SAY_KER_SLEEP_2, SAY_KER_SLEEP_3, SAY_KER_SLEEP_4), me);
 
             me->SetStandState(UNIT_STAND_STATE_SLEEP);
             DoCast(me, SPELL_SLEEP_VISUAL, false);
@@ -180,10 +180,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
 
 /*####
 # npc_prospector_remtravel
@@ -316,10 +313,7 @@ public:
             //pSummoned->AI()->AttackStart(me);
         }
     };
-
 };
-
-
 
 /*####
 # npc_threshwackonator
@@ -357,7 +351,6 @@ public:
 
         return true;
     }
-
 
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
@@ -403,11 +396,7 @@ public:
             SetFollowComplete();
         }
     };
-
 };
-
-
-
 
 void AddSC_darkshore()
 {

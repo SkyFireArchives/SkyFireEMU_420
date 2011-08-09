@@ -131,7 +131,7 @@ public:
 
         void KilledUnit(Unit* /*pVictim*/)
         {
-            DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2,SAY_SLAY_3), me);
+            DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2, SAY_SLAY_3), me);
         }
 
         void UpdateAI(const uint32 uiDiff)
@@ -196,7 +196,7 @@ public:
 
             if (m_uiLightningNova_Timer <= uiDiff)
             {
-                DoScriptText(RAND(SAY_NOVA_1,SAY_NOVA_2,SAY_NOVA_3), me);
+                DoScriptText(RAND(SAY_NOVA_1, SAY_NOVA_2, SAY_NOVA_3), me);
                 DoScriptText(EMOTE_NOVA, me);
                 DoCast(me, SPELL_LIGHTNING_NOVA_N);
 
@@ -223,9 +223,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_loken()
 {

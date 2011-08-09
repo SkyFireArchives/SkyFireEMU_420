@@ -80,7 +80,7 @@ class DBCStorage
 
         T const* LookupEntry(uint32 id) const { return (id>=nCount)?NULL:indexTable[id]; }
         T* LookupEntryNoConst(uint32 id) const { return (id>=nCount)?NULL:indexTable[id]; }
-        void SetEntry(uint32 id, T* entry) { if(id>=nCount){ printf("ERROR"); return;} indexTable[id]=entry; }
+        void SetEntry(uint32 id, T* entry) { if (id>=nCount){ printf("ERROR"); return;} indexTable[id]=entry; }
         uint32  GetNumRows() const { return nCount; }
         char const* GetFormat() const { return fmt; }
         uint32 GetFieldCount() const { return fieldCount; }
@@ -104,7 +104,6 @@ class DBCStorage
                     query +=" ORDER BY " + *sql->indexName + " DESC";
                 query += ";";
 
-
                 result = WorldDatabase.Query(query.c_str());
                 if (result)
                 {
@@ -124,9 +123,9 @@ class DBCStorage
             }
             char * sqlDataTable;
             fieldCount = dbc.GetCols();
-            m_dataTable = (T*)dbc.AutoProduceData(fmt,nCount,(char**&)indexTable, sqlRecordCount, sqlHighestIndex, sqlDataTable);
+            m_dataTable = (T*)dbc.AutoProduceData(fmt, nCount, (char**&)indexTable, sqlRecordCount, sqlHighestIndex, sqlDataTable);
 
-            m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt,(char*)m_dataTable));
+            m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt, (char*)m_dataTable));
 
             // Insert sql data into arrays
             if (result)
@@ -140,7 +139,7 @@ class DBCStorage
                         if (!fields)
                             fields = result->Fetch();
 
-                        if(sql->indexPos >= 0)
+                        if (sql->indexPos >= 0)
                         {
                             uint32 id = fields[sql->sqlIndexPos].GetUInt32();
                             if (indexTable[id])
@@ -235,15 +234,15 @@ class DBCStorage
         bool LoadStringsFrom(char const* fn)
         {
             // DBC must be already loaded using Load
-            if(!indexTable)
+            if (!indexTable)
                 return false;
 
             DBCFileLoader dbc;
             // Check if load was successful, only then continue
-            if(!dbc.Load(fn, fmt))
+            if (!dbc.Load(fn, fmt))
                 return false;
 
-            m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt,(char*)m_dataTable));
+            m_stringPoolList.push_back(dbc.AutoProduceStrings(fmt, (char*)m_dataTable));
 
             return true;
         }

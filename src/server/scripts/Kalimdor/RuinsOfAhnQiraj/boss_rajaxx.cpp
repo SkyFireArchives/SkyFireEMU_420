@@ -88,7 +88,6 @@ public:
                 pInstance->SetData(DATA_RAJAXX_EVENT, DONE);
         }
     };
-
 };
 
 void AddSC_boss_rajaxx()

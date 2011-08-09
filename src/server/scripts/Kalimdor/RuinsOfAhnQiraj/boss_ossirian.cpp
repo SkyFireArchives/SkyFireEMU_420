@@ -82,7 +82,6 @@ public:
                 pInstance->SetData(DATA_OSSIRIAN_EVENT, DONE);
         }
     };
-
 };
 
 void AddSC_boss_ossirian()

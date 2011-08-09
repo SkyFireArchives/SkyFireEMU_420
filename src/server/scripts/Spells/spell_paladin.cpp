@@ -27,7 +27,7 @@
 enum PaladinSpells
 {
     PALADIN_SPELL_DIVINE_PLEA                    = 54428,
-    
+
     PALADIN_SPELL_HOLY_SHOCK_R1                  = 20473,
     PALADIN_SPELL_HOLY_SHOCK_R1_DAMAGE           = 25912,
     PALADIN_SPELL_HOLY_SHOCK_R1_HEALING          = 25914,
@@ -213,7 +213,6 @@ public:
                                 int32 bp0 = int32(caster->ToPlayer()->GetHealingDoneInPastSecs(15) * (12.0f + (1.5f * caster->ToPlayer()->GetMasteryPoints())) /100);
                                 caster->CastCustomSpell(caster, 86273, &bp0, NULL, NULL, true);
                                 caster->ToPlayer()->ResetHealingDoneInPastSecs(15);
-
                             }
                         }
                     }

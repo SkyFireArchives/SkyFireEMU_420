@@ -121,9 +121,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 class mob_scarlet_trainee : public CreatureScript
 {
@@ -139,7 +137,7 @@ public:
     {
         mob_scarlet_traineeAI(Creature *c) : npc_escortAI(c)
         {
-            Start_Timer = urand(1000,6000);
+            Start_Timer = urand(1000, 6000);
         }
 
         uint32 Start_Timer;
@@ -154,7 +152,7 @@ public:
             {
                 if (Start_Timer <= diff)
                 {
-                    Start(true,true);
+                    Start(true, true);
                     Start_Timer = 0;
                 } else Start_Timer -= diff;
             }
@@ -162,9 +160,7 @@ public:
             npc_escortAI::UpdateAI(diff);
         }
     };
-
 };
-
 
 void AddSC_boss_herod()
 {

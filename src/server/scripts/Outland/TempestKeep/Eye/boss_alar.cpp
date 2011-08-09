@@ -34,7 +34,7 @@ EndScriptData */
 
 enum eSpells
 {
-    SPELL_FLAME_BUFFET           = 34121, // Flame Buffet - every 1,5 secs in phase 1 if there is no victim in melee range and after Dive Bomb in phase 2 with same conditions
+    SPELL_FLAME_BUFFET           = 34121, // Flame Buffet - every 1, 5 secs in phase 1 if there is no victim in melee range and after Dive Bomb in phase 2 with same conditions
     SPELL_FLAME_QUILLS           = 34229, // Randomly after changing position in phase after watching tonns of movies, set probability 20%
     SPELL_REBIRTH                = 34342, // Rebirth - beginning of second phase(after loose all health in phase 1)
     SPELL_REBIRTH_2              = 35369, // Rebirth(another, without healing to full HP) - after Dive Bomb in phase 2
@@ -238,7 +238,6 @@ class boss_alar : public CreatureScript
                     }
                     else
                         ForceTimer -= diff;
-
                 }
                 if (WaitEvent)
                 {
@@ -297,7 +296,7 @@ class boss_alar : public CreatureScript
                                     if (me->IsWithinDist3d(pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), 5.0f))
                                         dist = 5.0f;
                                     WaitTimer = 1000 + uint32(floor(dist / 80 * 1000.0f));
-                                    me->GetMap()->CreatureRelocation(me, pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(),0.0f);
+                                    me->GetMap()->CreatureRelocation(me, pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), 0.0f);
                                     me->StopMoving();
                                     WaitEvent = WE_LAND;
                                 }
@@ -349,7 +348,7 @@ class boss_alar : public CreatureScript
                         }
                         else
                         {
-                            if (urand(0,4)) // next platform
+                            if (urand(0, 4)) // next platform
                             {
                                 DoSpawnCreature(CREATURE_EMBER_OF_ALAR, 0, 0, 0, 0, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 5000);
                                 if (cur_wp == 3)
@@ -532,7 +531,6 @@ class mob_ember_of_alar : public CreatureScript
 
                 DoMeleeAttackIfReady();
             }
-
         };
 
         CreatureAI* GetAI(Creature* Creature) const
@@ -572,4 +570,3 @@ void AddSC_boss_alar()
     new mob_ember_of_alar();
     new mob_flame_patch_alar();
 }
-

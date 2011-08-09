@@ -50,19 +50,19 @@ public:
     {
         DB2FileLoader db2;
         // Check if load was sucessful, only then continue
-        if(!db2.Load(fn, fmt))
+        if (!db2.Load(fn, fmt))
             return false;
 
         fieldCount = db2.GetCols();
 
         // load raw non-string data
-        m_dataTable = (T*)db2.AutoProduceData(fmt,nCount,(char**&)indexTable);
+        m_dataTable = (T*)db2.AutoProduceData(fmt, nCount, (char**&)indexTable);
 
         // create string holders for loaded string fields
-        m_stringPoolList.push_back(db2.AutoProduceStringsArrayHolders(fmt,(char*)m_dataTable));
+        m_stringPoolList.push_back(db2.AutoProduceStringsArrayHolders(fmt, (char*)m_dataTable));
 
         // load strings from dbc data
-        m_stringPoolList.push_back(db2.AutoProduceStrings(fmt,(char*)m_dataTable));
+        m_stringPoolList.push_back(db2.AutoProduceStrings(fmt, (char*)m_dataTable));
 
         // error in dbc file at loading if NULL
         return indexTable!=NULL;
@@ -80,7 +80,7 @@ public:
             return false;
 
         // load strings from another locale dbc data
-        m_stringPoolList.push_back(db2.AutoProduceStrings(fmt,(char*)m_dataTable));
+        m_stringPoolList.push_back(db2.AutoProduceStrings(fmt, (char*)m_dataTable));
 
         return true;
     }

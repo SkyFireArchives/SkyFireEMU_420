@@ -99,7 +99,7 @@ public:
         {
             _EnterCombat();
             Enraged = false;
-            DoScriptText(RAND(SAY_AGGRO_1,SAY_AGGRO_2), me);
+            DoScriptText(RAND(SAY_AGGRO_1, SAY_AGGRO_2), me);
             events.ScheduleEvent(EVENT_HATEFUL, 1200);
             events.ScheduleEvent(EVENT_BERSERK, 360000);
 
@@ -126,7 +126,7 @@ public:
                         Unit* pMostHPTarget = NULL;
 
                         std::list<HostileReference*>::const_iterator i = me->getThreatManager().getThreatList().begin();
-                        int targetCounter = RAID_MODE(2,3); // Picks 2 (3) highest threat targets as Hateful Strike candidates
+                        int targetCounter = RAID_MODE(2, 3); // Picks 2 (3) highest threat targets as Hateful Strike candidates
                         for (; i != me->getThreatManager().getThreatList().end() && targetCounter > 0; ++i, --targetCounter)
                         {
                             Unit *pTarget = (*i)->getTarget();
@@ -140,7 +140,7 @@ public:
                         if (!pMostHPTarget)
                             pMostHPTarget = me->getVictim();
 
-                        DoCast(pMostHPTarget, RAID_MODE(SPELL_HATEFUL_STRIKE,H_SPELL_HATEFUL_STRIKE), true);
+                        DoCast(pMostHPTarget, RAID_MODE(SPELL_HATEFUL_STRIKE, H_SPELL_HATEFUL_STRIKE), true);
 
                         events.ScheduleEvent(EVENT_HATEFUL, 1200);
                         break;
@@ -167,9 +167,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_patchwerk()
 {

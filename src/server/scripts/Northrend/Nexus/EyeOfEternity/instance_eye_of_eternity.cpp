@@ -39,7 +39,6 @@ public:
     {
         instance_eye_of_eternity_InstanceMapScript(Map* pMap) : InstanceScript(pMap) {Initialize();};
     };
-
 };
 
 void AddSC_instance_eye_of_eternity()

@@ -81,9 +81,7 @@ public:
         pPlayer->SEND_GOSSIP_MENU(pPlayer->GetGossipTextId(pCreature), pCreature->GetGUID());
         return true;
     }
-
 };
-
 
 /*######
 ## go_gong
@@ -101,13 +99,12 @@ public:
 
         if (pInstance)
         {
-            pInstance->SetData(DATA_GONG_WAVES,pInstance->GetData(DATA_GONG_WAVES)+1);
+            pInstance->SetData(DATA_GONG_WAVES, pInstance->GetData(DATA_GONG_WAVES)+1);
             return true;
         }
 
         return false;
     }
-
 };
 
 enum eTombCreature
@@ -138,7 +135,7 @@ public:
 
         void Reset()
         {
-            uiWebTimer = urand(5000,8000);
+            uiWebTimer = urand(5000, 8000);
         }
 
         void UpdateAI(const uint32 uiDiff)
@@ -152,7 +149,7 @@ public:
                 if (uiWebTimer <= uiDiff)
                 {
                     DoCast(me->getVictim(), SPELL_WEB);
-                    uiWebTimer = urand(7000,16000);
+                    uiWebTimer = urand(7000, 16000);
                 } else uiWebTimer -= uiDiff;
             }
 
@@ -162,12 +159,10 @@ public:
         void JustDied(Unit* /*pKiller*/)
         {
             if (pInstance)
-                pInstance->SetData(DATA_GONG_WAVES,pInstance->GetData(DATA_GONG_WAVES)+1);
+                pInstance->SetData(DATA_GONG_WAVES, pInstance->GetData(DATA_GONG_WAVES)+1);
         }
     };
-
 };
-
 
 void AddSC_razorfen_downs()
 {

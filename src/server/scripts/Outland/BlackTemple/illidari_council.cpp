@@ -208,7 +208,6 @@ public:
             }
         }
     };
-
 };
 
 class mob_illidari_council : public CreatureScript
@@ -332,7 +331,7 @@ public:
                             if (Creature* VoiceTrigger = (Unit::GetCreature(*me, pInstance->GetData64(DATA_BLOOD_ELF_COUNCIL_VOICE))))
                                 VoiceTrigger->DealDamage(VoiceTrigger, VoiceTrigger->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
                             pInstance->SetData(DATA_ILLIDARICOUNCILEVENT, DONE);
-                            //me->SummonCreature(AKAMAID,746.466980f,304.394989f,311.90208f,6.272870f,TEMPSUMMON_DEAD_DESPAWN,0);
+                            //me->SummonCreature(AKAMAID, 746.466980f, 304.394989f, 311.90208f, 6.272870f, TEMPSUMMON_DEAD_DESPAWN, 0);
                         }
                         me->DealDamage(me, me->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
                         return;
@@ -376,10 +375,8 @@ public:
                     CheckTimer = 2000;
                 } else CheckTimer -= diff;
             }
-
         }
     };
-
 };
 
 struct boss_illidari_councilAI : public ScriptedAI
@@ -524,7 +521,7 @@ public:
         void CastAuraOnCouncil()
         {
             uint32 spellid = 0;
-            switch (urand(0,1))
+            switch (urand(0, 1))
             {
                 case 0: spellid = SPELL_DEVOTION_AURA;   break;
                 case 1: spellid = SPELL_CHROMATIC_AURA;  break;
@@ -546,7 +543,7 @@ public:
             {
                 if (Unit* pUnit = SelectCouncilMember())
                 {
-                    switch (urand(0,1))
+                    switch (urand(0, 1))
                     {
                         case 0: DoCast(pUnit, SPELL_BLESS_SPELLWARD);  break;
                         case 1: DoCast(pUnit, SPELL_BLESS_PROTECTION); break;
@@ -576,7 +573,7 @@ public:
 
             if (SealTimer <= diff)
             {
-                switch (urand(0,1))
+                switch (urand(0, 1))
                 {
                     case 0: DoCast(me, SPELL_SEAL_OF_COMMAND);  break;
                     case 1: DoCast(me, SPELL_SEAL_OF_BLOOD);    break;
@@ -593,7 +590,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_high_nethermancer_zerevor : public CreatureScript
@@ -656,7 +652,7 @@ public:
             {
                 DoCast(me, SPELL_DAMPEN_MAGIC);
                 Cooldown = 1000;
-                DampenMagicTimer = 67200;                      // almost 1,12 minutes
+                DampenMagicTimer = 67200;                      // almost 1, 12 minutes
                 ArcaneBoltTimer += 1000;                        // Give the Mage some time to spellsteal Dampen.
             } else DampenMagicTimer -= diff;
 
@@ -697,7 +693,6 @@ public:
             } else FlamestrikeTimer -= diff;
         }
     };
-
 };
 
 class boss_lady_malande : public CreatureScript
@@ -775,7 +770,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_veras_darkshadow : public CreatureScript

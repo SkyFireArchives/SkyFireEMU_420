@@ -78,7 +78,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 /*######
@@ -90,8 +89,8 @@ enum eNetherdrake
     SAY_NIHIL_1                 = -1000169, //signed for 5955
     SAY_NIHIL_2                 = -1000170, //signed for 5955
     SAY_NIHIL_3                 = -1000171, //signed for 5955
-    SAY_NIHIL_4                 = -1000172, //signed for 20021, used by 20021,21817,21820,21821,21823
-    SAY_NIHIL_INTERRUPT         = -1000173, //signed for 20021, used by 20021,21817,21820,21821,21823
+    SAY_NIHIL_4                 = -1000172, //signed for 20021, used by 20021, 21817, 21820, 21821, 21823
+    SAY_NIHIL_INTERRUPT         = -1000173, //signed for 20021, used by 20021, 21817, 21820, 21821, 21823
 
     ENTRY_WHELP                 = 20021,
     ENTRY_PROTO                 = 21821,
@@ -258,9 +257,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*######
 ## npc_daranelle
@@ -305,9 +302,7 @@ public:
             ScriptedAI::MoveInLineOfSight(who);
         }
     };
-
 };
-
 
 /*######
 ## npc_overseer_nuaar
@@ -340,9 +335,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_saikkal_the_elder
@@ -382,9 +375,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## go_legion_obelisk
@@ -420,7 +411,7 @@ public:
 
             if (obelisk_one == true && obelisk_two == true && obelisk_three == true && obelisk_four == true && obelisk_five == true)
             {
-                pGo->SummonCreature(19963,2943.40f,4778.20f,284.49f,0.94f,TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT,120000);
+                pGo->SummonCreature(19963, 2943.40f, 4778.20f, 284.49f, 0.94f, TEMPSUMMON_TIMED_DESPAWN_OUT_OF_COMBAT, 120000);
                 //reset global var
                 obelisk_one = false;
                 obelisk_two = false;
@@ -432,14 +423,11 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_bloodmaul_brutebane
 ######*/
-
 
 enum eBloodmaul
 {
@@ -462,7 +450,7 @@ public:
     {
         npc_bloodmaul_brutebaneAI(Creature *c) : ScriptedAI(c)
         {
-           if(Creature* Ogre = me->FindNearestCreature(NPC_OGRE_BRUTE, 50, true))
+           if (Creature* Ogre = me->FindNearestCreature(NPC_OGRE_BRUTE, 50, true))
            {
                Ogre->SetReactState(REACT_DEFENSIVE);
                Ogre->GetMotionMaster()->MovePoint(1, me->GetPositionX()-1, me->GetPositionY()+1, me->GetPositionZ());
@@ -478,9 +466,7 @@ public:
 
         void UpdateAI(const uint32 /*uiDiff*/) {}
     };
-
 };
-
 
 /*######
 ## npc_ogre_brute
@@ -541,9 +527,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 /*######
 ## AddSC

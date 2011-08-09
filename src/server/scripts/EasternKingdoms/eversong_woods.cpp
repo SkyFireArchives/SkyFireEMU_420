@@ -122,11 +122,7 @@ public:
             me->RestoreFaction();
         }
     };
-
 };
-
-
-
 
 /*######
 ## Quest 9686 Second Trial
@@ -218,7 +214,6 @@ public:
 
         void Reset()
         {
-
           timer = 2000;
           questPhase = 0;
           summonerGuid = 0;
@@ -429,16 +424,16 @@ public:
                         switch(paladinPhase)
                         {
                         case 0:
-                            DoScriptText(TEXT_SECOND_TRIAL_1,me);
+                            DoScriptText(TEXT_SECOND_TRIAL_1, me);
                             break;
                         case 1:
-                            DoScriptText(TEXT_SECOND_TRIAL_2,me);
+                            DoScriptText(TEXT_SECOND_TRIAL_2, me);
                             break;
                         case 2:
-                            DoScriptText(TEXT_SECOND_TRIAL_3,me);
+                            DoScriptText(TEXT_SECOND_TRIAL_3, me);
                             break;
                         case 3:
-                            DoScriptText(TEXT_SECOND_TRIAL_4,me);
+                            DoScriptText(TEXT_SECOND_TRIAL_4, me);
                             break;
                         }
                     }
@@ -460,10 +455,8 @@ public:
 
         void StartEvent()
         {
-
             if (questPhase == 1)
             { // no player check, quest can be finished as group, so no complex PlayerGUID/group search code
-
                 for (uint8 i = 0; i < 4; ++i)
                 if (Creature *pSummoned = DoSpawnCreature(PaladinEntry[i], SpawnPosition[i].x, SpawnPosition[i].y, SpawnPosition[i].z, SpawnPosition[i].o, TEMPSUMMON_TIMED_OR_DEAD_DESPAWN, 180000))
                     paladinGuid[i] = pSummoned->GetGUID();
@@ -501,11 +494,10 @@ void npc_second_trial_paladin::npc_secondTrialAI::JustDied(Unit* Killer)
         if (me->GetEntry() == CHAMPION_SUNSTRIKER)
         {
             if (Killer->GetTypeId() == TYPEID_PLAYER)
-                Killer->ToPlayer()->GroupEventHappens(QUEST_SECOND_TRIAL,Killer);
+                Killer->ToPlayer()->GroupEventHappens(QUEST_SECOND_TRIAL, Killer);
         }
     }
 }
-
 
 /*######
 ## go_second_trial
@@ -523,9 +515,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_apprentice_mirveda
@@ -608,9 +598,7 @@ public:
             }
         }
     };
-
 };
-
 
 /*######
 ## npc_infused_crystal
@@ -702,7 +690,7 @@ public:
                     if (Player* pPlayer = Unit::GetPlayer(*me, PlayerGUID))
                         CAST_PLR(pPlayer)->CompleteQuest(QUEST_POWERING_OUR_DEFENSES);
 
-                me->DealDamage(me,me->GetHealth(),NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
+                me->DealDamage(me, me->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);
                 me->RemoveCorpse();
             } else EndTimer -= diff;
 
@@ -718,7 +706,6 @@ public:
             } else WaveTimer -= diff;
         }
     };
-
 };
 
 void AddSC_eversong_woods()

@@ -125,13 +125,12 @@ public:
                 me->InterruptNonMeleeSpells(false);
                 DoCast(me->getVictim(), SPELL_AMPLIFY_FLAMES);
 
-                AmplifyTimer = urand(10000,20000);
+                AmplifyTimer = urand(10000, 20000);
             } else AmplifyTimer -= diff;
 
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class mob_demon_chain : public CreatureScript
@@ -163,13 +162,12 @@ public:
         {
             if (SacrificeGUID)
             {
-                Unit* Sacrifice = Unit::GetUnit((*me),SacrificeGUID);
+                Unit* Sacrifice = Unit::GetUnit((*me), SacrificeGUID);
                 if (Sacrifice)
                     Sacrifice->RemoveAurasDueToSpell(SPELL_SACRIFICE);
             }
         }
     };
-
 };
 
 class mob_fiendish_portal : public CreatureScript
@@ -184,7 +182,7 @@ public:
 
     struct mob_fiendish_portalAI : public PassiveAI
     {
-        mob_fiendish_portalAI(Creature *c) : PassiveAI(c),summons(me){}
+        mob_fiendish_portalAI(Creature *c) : PassiveAI(c), summons(me){}
 
         SummonList summons;
 
@@ -204,7 +202,6 @@ public:
             summons.DespawnAll();
         }
     };
-
 };
 
 #define SPELL_FIREBOLT  30050   // Blasts a target for 181-209 Fire damage.
@@ -249,7 +246,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_terestian_illhoof : public CreatureScript
@@ -339,7 +335,7 @@ public:
 
                 if (pSummoned->GetUInt32Value(UNIT_CREATED_BY_SPELL) == SPELL_FIENDISH_PORTAL_1)
                 {
-                    DoScriptText(RAND(SAY_SUMMON1,SAY_SUMMON2), me);
+                    DoScriptText(RAND(SAY_SUMMON1, SAY_SUMMON2), me);
                     SummonedPortals = true;
                 }
             }
@@ -347,7 +343,7 @@ public:
 
         void KilledUnit(Unit * /*victim*/)
         {
-            DoScriptText(RAND(SAY_SLAY1,SAY_SLAY2), me);
+            DoScriptText(RAND(SAY_SLAY1, SAY_SLAY2), me);
         }
 
         void JustDied(Unit * /*killer*/)
@@ -386,7 +382,7 @@ public:
                     {
                         CAST_AI(mob_demon_chain::mob_demon_chainAI, Chains->AI())->SacrificeGUID = pTarget->GetGUID();
                         Chains->CastSpell(Chains, SPELL_DEMON_CHAINS, true);
-                        DoScriptText(RAND(SAY_SACRIFICE1,SAY_SACRIFICE2), me);
+                        DoScriptText(RAND(SAY_SACRIFICE1, SAY_SACRIFICE2), me);
                         SacrificeTimer = 30000;
                     }
                 }
@@ -408,7 +404,7 @@ public:
 
                 if (PortalGUID[0] && PortalGUID[1])
                 {
-                    if (Creature* pPortal = Unit::GetCreature(*me, PortalGUID[urand(0,1)]))
+                    if (Creature* pPortal = Unit::GetCreature(*me, PortalGUID[urand(0, 1)]))
                         pPortal->CastSpell(me->getVictim(), SPELL_SUMMON_FIENDISIMP, false);
                     SummonTimer = 5000;
                 }
@@ -426,7 +422,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_terestian_illhoof()

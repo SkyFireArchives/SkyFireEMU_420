@@ -146,7 +146,7 @@ public:
 
         void KilledUnit(Unit * /*victim*/)
         {
-            DoScriptText(RAND(SAY_SLAY_1,SAY_SLAY_2), me);
+            DoScriptText(RAND(SAY_SLAY_1, SAY_SLAY_2), me);
         }
 
         void JustDied(Unit* /*killer*/)
@@ -197,7 +197,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 class boss_rimefang : public CreatureScript
@@ -280,7 +279,6 @@ public:
             }
         }
     };
-
 };
 
 class player_overlord_brandAI : public PlayerAI

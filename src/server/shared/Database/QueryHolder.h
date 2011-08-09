@@ -20,7 +20,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-
 #ifndef _QUERYHOLDER_H
 #define _QUERYHOLDER_H
 
@@ -57,7 +56,6 @@ class SQLQueryHolderTask : public SQLOperation
         SQLQueryHolderTask(SQLQueryHolder *holder, QueryResultHolderFuture res)
             : m_holder(holder), m_result(res){};
         bool Execute();
-
 };
 
 #endif

@@ -80,10 +80,10 @@ public:
 
         void SendItem(Unit* receiver)
         {
-            if (CAST_PLR(receiver)->HasItemCount(11169,1,false) &&
-                CAST_PLR(receiver)->HasItemCount(11172,11,false) &&
-                CAST_PLR(receiver)->HasItemCount(11173,1,false) &&
-                !CAST_PLR(receiver)->HasItemCount(11522,1,true))
+            if (CAST_PLR(receiver)->HasItemCount(11169, 1, false) &&
+                CAST_PLR(receiver)->HasItemCount(11172, 11, false) &&
+                CAST_PLR(receiver)->HasItemCount(11173, 1, false) &&
+                !CAST_PLR(receiver)->HasItemCount(11522, 1, true))
             {
                 ItemPosCountVec dest;
                 uint8 msg = CAST_PLR(receiver)->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, 11522, 1, false);
@@ -136,7 +136,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 /*######
@@ -232,9 +231,7 @@ public:
             npc_escortAI::UpdateAI(diff);
         }
     };
-
 };
-
 
 /*######
 ## npc_marin_noggenfogger
@@ -266,9 +263,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_steward_of_time
@@ -284,7 +279,7 @@ public:
     bool OnQuestAccept(Player* pPlayer, Creature* /*pCreature*/, Quest const *quest)
     {
         if (quest->GetQuestId() == 10279)                      //Quest: To The Master's Lair
-            pPlayer->CastSpell(pPlayer,34891,true);               //(Flight through Caverns)
+            pPlayer->CastSpell(pPlayer, 34891, true);               //(Flight through Caverns)
 
         return false;
     }
@@ -293,7 +288,7 @@ public:
     {
         pPlayer->PlayerTalkClass->ClearMenus();
         if (uiAction == GOSSIP_ACTION_INFO_DEF + 1)
-            pPlayer->CastSpell(pPlayer,34891,true);               //(Flight through Caverns)
+            pPlayer->CastSpell(pPlayer, 34891, true);               //(Flight through Caverns)
 
         return true;
     }
@@ -313,10 +308,7 @@ public:
 
         return true;
     }
-
 };
-
-
 
 /*######
 ## npc_stone_watcher_of_norgannon
@@ -379,9 +371,7 @@ public:
 
         return true;
     }
-
 };
-
 
 /*######
 ## npc_OOX17
@@ -414,7 +404,7 @@ public:
         {
             pCreature->setFaction(113);
             pCreature->SetFullHealth();
-            pCreature->SetUInt32Value(UNIT_FIELD_BYTES_1,0);
+            pCreature->SetUInt32Value(UNIT_FIELD_BYTES_1, 0);
             pCreature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_OOC_NOT_ATTACKABLE);
             DoScriptText(SAY_OOX_START, pCreature);
 
@@ -471,7 +461,7 @@ public:
 
         void EnterCombat(Unit* /*who*/)
         {
-            DoScriptText(RAND(SAY_OOX_AGGRO1,SAY_OOX_AGGRO2), me);
+            DoScriptText(RAND(SAY_OOX_AGGRO1, SAY_OOX_AGGRO2), me);
         }
 
         void JustSummoned(Creature* summoned)
@@ -479,10 +469,7 @@ public:
             summoned->AI()->AttackStart(me);
         }
     };
-
 };
-
-
 
 /*####
 # npc_tooga
@@ -633,8 +620,8 @@ public:
                     {
                         m_uiCheckSpeechTimer = 5000;
 
-                        if (urand(0,9) > 8)
-                            DoScriptText(RAND(SAY_TOOG_THIRST,SAY_TOOG_WORRIED), me);
+                        if (urand(0, 9) > 8)
+                            DoScriptText(RAND(SAY_TOOG_THIRST, SAY_TOOG_WORRIED), me);
                     }
                     else
                         m_uiCheckSpeechTimer -= uiDiff;
@@ -646,10 +633,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
-
 
 void AddSC_tanaris()
 {

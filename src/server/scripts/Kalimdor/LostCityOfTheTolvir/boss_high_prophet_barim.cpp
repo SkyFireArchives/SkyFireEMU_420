@@ -134,7 +134,7 @@ public:
             if (pInstance)
                 pInstance->SetData(DATA_HIGH_PROPHET_BARIM_EVENT, IN_PROGRESS);
         }
-        
+
         void EnterPhase1()
         {
             if (Unit* target = SelectUnit(SELECT_TARGET_RANDOM, 0))
@@ -145,7 +145,7 @@ public:
             BlazeOfHeavens->AddThreat(me->getVictim(), 0.0f);
             DoZoneInCombat(BlazeOfHeavens);
         }
-            
+
         void EnterPhase2()
         {
             DoCast(me, SPELL_HALLOWED_GROUND);
@@ -173,7 +173,7 @@ public:
                 uiPhase = PHASE_2;
                 EnterPhase2();
             }
-            
+
             uiPhase = PHASE_1;
 
             while(uint32 eventId = events.ExecuteEvent())
@@ -198,7 +198,7 @@ public:
             DoMeleeAttackIfReady();
         }
      };
-};      
+};
 
 class npc_blaze_of_heavens: public CreatureScript
 {
@@ -232,7 +232,7 @@ public:
         {
             if (!UpdateVictim())
                 return;
-         
+
             events.Update(diff);
 
             if (me->HasUnitState(UNIT_STAT_CASTING))
@@ -248,7 +248,7 @@ public:
                         return;
                 }
             }
-            
+
             DoMeleeAttackIfReady();
         }
     };
@@ -286,7 +286,7 @@ public:
         {
             if (!UpdateVictim())
                 return;
-         
+
             events.Update(diff);
 
             if (me->HasUnitState(UNIT_STAT_CASTING))
@@ -302,7 +302,7 @@ public:
                         return;
                 }
             }
-            
+
             DoMeleeAttackIfReady();
         }
     };

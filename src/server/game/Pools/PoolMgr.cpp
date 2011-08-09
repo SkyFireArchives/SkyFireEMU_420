@@ -200,7 +200,7 @@ void PoolGroup<T>::DespawnObject(ActivePoolData& spawns, uint32 guid)
             if (!guid || EqualChanced[i].guid == guid)
             {
                 Despawn1Object(EqualChanced[i].guid);
-                spawns.RemoveObject<T>(EqualChanced[i].guid,poolId);
+                spawns.RemoveObject<T>(EqualChanced[i].guid, poolId);
             }
         }
     }
@@ -213,7 +213,7 @@ void PoolGroup<T>::DespawnObject(ActivePoolData& spawns, uint32 guid)
             if (!guid || ExplicitlyChanced[i].guid == guid)
             {
                 Despawn1Object(ExplicitlyChanced[i].guid);
-                spawns.RemoveObject<T>(ExplicitlyChanced[i].guid,poolId);
+                spawns.RemoveObject<T>(ExplicitlyChanced[i].guid, poolId);
             }
         }
     }
@@ -373,14 +373,14 @@ void PoolGroup<Creature>::Spawn1Object(PoolObject* obj)
             CreatureInfo const *ci = ObjectMgr::GetCreatureTemplate(data->id);
             if (!ci)
                 return;
-            
+
             Creature* pCreature = NULL;
-            if(ci->ScriptID)
+            if (ci->ScriptID)
                 pCreature = sScriptMgr->GetCreatureScriptedClass(ci->ScriptID);
-            if(pCreature == NULL)
+            if (pCreature == NULL)
                 pCreature = new Creature();
-            
-            //sLog->outDebug(LOG_FILTER_POOLSYS, "Spawning creature %u",guid);
+
+            //sLog->outDebug(LOG_FILTER_POOLSYS, "Spawning creature %u", guid);
             if (!pCreature->LoadFromDB(obj->guid, map))
             {
                 delete pCreature;
@@ -575,7 +575,7 @@ void PoolMgr::LoadFromDB()
 
     mPoolTemplate.resize(max_pool_id + 1);
 
-    result = WorldDatabase.Query("SELECT entry,max_limit FROM pool_template");
+    result = WorldDatabase.Query("SELECT entry, max_limit FROM pool_template");
     if (!result)
     {
         mPoolTemplate.clear();
@@ -595,7 +595,6 @@ void PoolMgr::LoadFromDB()
 
         PoolTemplateData& pPoolTemplate = mPoolTemplate[pool_id];
         pPoolTemplate.MaxLimit  = fields[1].GetUInt32();
-
     }
     while (result->NextRow());
 
@@ -620,7 +619,6 @@ void PoolMgr::LoadFromDB()
     }
     else
     {
-
         do
         {
             Field *fields = result->Fetch();
@@ -637,7 +635,7 @@ void PoolMgr::LoadFromDB()
             }
             if (pool_id > max_pool_id)
             {
-                sLog->outErrorDb("`pool_creature` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.",pool_id);
+                sLog->outErrorDb("`pool_creature` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.", pool_id);
                 continue;
             }
             if (chance < 0 || chance > 100)
@@ -654,7 +652,6 @@ void PoolMgr::LoadFromDB()
             cregroup.AddEntry(plObject, pPoolTemplate->MaxLimit);
             SearchPair p(guid, pool_id);
             mCreatureSearchMap.insert(p);
-
         }
         while (result->NextRow());
 
@@ -703,7 +700,7 @@ void PoolMgr::LoadFromDB()
             }
             if (pool_id > max_pool_id)
             {
-                sLog->outErrorDb("`pool_gameobject` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.",pool_id);
+                sLog->outErrorDb("`pool_gameobject` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.", pool_id);
                 continue;
             }
             if (chance < 0 || chance > 100)
@@ -721,7 +718,6 @@ void PoolMgr::LoadFromDB()
             gogroup.AddEntry(plObject, pPoolTemplate->MaxLimit);
             SearchPair p(guid, pool_id);
             mGameobjectSearchMap.insert(p);
-
         } while (result->NextRow());
 
         sLog->outString(">> Loaded %u gameobject in pools in %u ms", count, GetMSTimeDiffToNow(oldMSTime));
@@ -755,17 +751,17 @@ void PoolMgr::LoadFromDB()
 
             if (mother_pool_id > max_pool_id)
             {
-                sLog->outErrorDb("`pool_pool` mother_pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.",mother_pool_id);
+                sLog->outErrorDb("`pool_pool` mother_pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.", mother_pool_id);
                 continue;
             }
             if (child_pool_id > max_pool_id)
             {
-                sLog->outErrorDb("`pool_pool` included pool_id (%u) is out of range compared to max pool id in `pool_template`, skipped.",child_pool_id);
+                sLog->outErrorDb("`pool_pool` included pool_id (%u) is out of range compared to max pool id in `pool_template`, skipped.", child_pool_id);
                 continue;
             }
             if (mother_pool_id == child_pool_id)
             {
-                sLog->outErrorDb("`pool_pool` pool_id (%u) includes itself, dead-lock detected, skipped.",child_pool_id);
+                sLog->outErrorDb("`pool_pool` pool_id (%u) includes itself, dead-lock detected, skipped.", child_pool_id);
                 continue;
             }
             if (chance < 0 || chance > 100)
@@ -783,7 +779,6 @@ void PoolMgr::LoadFromDB()
             plgroup.AddEntry(plObject, pPoolTemplateMother->MaxLimit);
             SearchPair p(child_pool_id, mother_pool_id);
             mPoolSearchMap.insert(p);
-
         }
         while (result->NextRow());
 
@@ -862,7 +857,7 @@ void PoolMgr::LoadQuestPools()
 
         if (pool_id > max_pool_id)
         {
-            sLog->outErrorDb("`pool_quest` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.",pool_id);
+            sLog->outErrorDb("`pool_quest` pool id (%u) is out of range compared to max pool id in `pool_template`, skipped.", pool_id);
             continue;
         }
 
@@ -901,7 +896,6 @@ void PoolMgr::LoadQuestPools()
         questgroup.AddEntry(plObject, pPoolTemplate->MaxLimit);
         SearchPair p(entry, pool_id);
         mQuestSearchMap.insert(p);
-
     }
     while (result->NextRow());
 

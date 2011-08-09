@@ -153,11 +153,7 @@ public:
 
         void EnterCombat(Unit * /*who*/) {}
     };
-
 };
-
-
-
 
 void AddSC_burning_steppes()
 {

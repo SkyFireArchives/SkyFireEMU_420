@@ -174,9 +174,9 @@ public:
                             break;
                         case 2:
                             me->setFaction(103);
-                            if (PlayerGUID && Unit::GetUnit((*me),PlayerGUID))
+                            if (PlayerGUID && Unit::GetUnit((*me), PlayerGUID))
                             {
-                                AttackStart(Unit::GetUnit((*me),PlayerGUID));
+                                AttackStart(Unit::GetUnit((*me), PlayerGUID));
                                 DoCast(me, SPELL_ESSENCEOFTHERED);
                             }
                             SpeechTimer = 0;
@@ -208,7 +208,7 @@ public:
             if (FlameBreath_Timer <= diff)
             {
                 DoCast(me->getVictim(), SPELL_FLAMEBREATH);
-                FlameBreath_Timer = urand(4000,8000);
+                FlameBreath_Timer = urand(4000, 8000);
             } else FlameBreath_Timer -= diff;
 
             //BurningAdrenalineCaster_Timer
@@ -225,7 +225,7 @@ public:
                             i = 3;
                 }
                 if (pTarget)                                     // cast on self (see below)
-                    pTarget->CastSpell(pTarget,SPELL_BURNINGADRENALINE,1);
+                    pTarget->CastSpell(pTarget, SPELL_BURNINGADRENALINE, 1);
 
                 BurningAdrenalineCaster_Timer = 15000;
             } else BurningAdrenalineCaster_Timer -= diff;
@@ -235,7 +235,7 @@ public:
             {
                 // have the victim cast the spell on himself otherwise the third effect aura will be applied
                 // to Vael instead of the player
-                me->getVictim()->CastSpell(me->getVictim(),SPELL_BURNINGADRENALINE,1);
+                me->getVictim()->CastSpell(me->getVictim(), SPELL_BURNINGADRENALINE, 1);
 
                 BurningAdrenalineTank_Timer = 45000;
             } else BurningAdrenalineTank_Timer -= diff;
@@ -262,7 +262,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_vael()

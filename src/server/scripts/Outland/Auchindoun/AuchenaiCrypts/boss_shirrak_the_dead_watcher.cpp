@@ -85,7 +85,7 @@ public:
         {
             if (summoned && summoned->GetEntry() == ENTRY_FOCUS_FIRE)
             {
-                summoned->CastSpell(summoned,SPELL_FOCUS_FIRE_VISUAL,false);
+                summoned->CastSpell(summoned, SPELL_FOCUS_FIRE_VISUAL, false);
                 summoned->setFaction(me->getFaction());
                 summoned->SetLevel(me->getLevel());
                 summoned->AddUnitState(UNIT_STAT_ROOT);
@@ -142,11 +142,11 @@ public:
             if (FocusFire_Timer <= diff)
             {
                 // Summon Focus Fire & Emote
-                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM,1);
+                Unit *pTarget = SelectUnit(SELECT_TARGET_RANDOM, 1);
                 if (pTarget && pTarget->GetTypeId() == TYPEID_PLAYER && pTarget->isAlive())
                 {
                     FocusedTargetGUID = pTarget->GetGUID();
-                    me->SummonCreature(ENTRY_FOCUS_FIRE,pTarget->GetPositionX(),pTarget->GetPositionY(),pTarget->GetPositionZ(),0,TEMPSUMMON_TIMED_DESPAWN,5500);
+                    me->SummonCreature(ENTRY_FOCUS_FIRE, pTarget->GetPositionX(), pTarget->GetPositionY(), pTarget->GetPositionZ(), 0, TEMPSUMMON_TIMED_DESPAWN, 5500);
 
                     // TODO: Find better way to handle emote
                     // Emote
@@ -163,9 +163,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 class mob_focus_fire : public CreatureScript
 {
@@ -215,9 +213,7 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
-
 
 void AddSC_boss_shirrak_the_dead_watcher()
 {

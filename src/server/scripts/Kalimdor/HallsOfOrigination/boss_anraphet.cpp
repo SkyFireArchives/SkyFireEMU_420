@@ -58,7 +58,7 @@ class boss_anraphet : public CreatureScript
 {
     public:
         boss_anraphet() : CreatureScript("boss_anraphet") { }
-         
+
         CreatureAI* GetAI(Creature* pCreature) const
         {
             return new boss_anraphetAI(pCreature);
@@ -77,8 +77,8 @@ class boss_anraphet : public CreatureScript
             void Reset()
             {
                 events.Reset();
-                
-                if(pInstance && (pInstance->GetData(DATA_ANRAPHET_EVENT) != DONE && !check_in))
+
+                if (pInstance && (pInstance->GetData(DATA_ANRAPHET_EVENT) != DONE && !check_in))
                    pInstance->SetData(DATA_ANRAPHET_EVENT, NOT_STARTED);
                 check_in = false;
             }
@@ -95,7 +95,7 @@ class boss_anraphet : public CreatureScript
                 DoScriptText(SAY_AGGRO, me);
 				if (pInstance)
                     pInstance->SetData(DATA_ANRAPHET_EVENT, IN_PROGRESS);
-                
+
                 DoZoneInCombat();
 			}
 
@@ -106,7 +106,7 @@ class boss_anraphet : public CreatureScript
 
             void UpdateAI(const uint32 uiDiff)
             {
-                if(!UpdateVictim())
+                if (!UpdateVictim())
                    return;
                 events.Update(uiDiff);
 
@@ -138,14 +138,9 @@ class boss_anraphet : public CreatureScript
                 DoMeleeAttackIfReady();
             }
         };
-
 };
 
 void AddSC_boss_anraphet()
 {
     new boss_anraphet();
 }
-
-
-
-

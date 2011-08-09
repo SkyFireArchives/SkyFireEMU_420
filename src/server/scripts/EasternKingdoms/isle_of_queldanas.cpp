@@ -77,7 +77,7 @@ public:
             {
                 if (Timer <= diff)
                 {
-                    uint32 i = urand(1,2);
+                    uint32 i = urand(1, 2);
                     if (i == 1)
                         DoScriptText(SAY_CONVERTED_1, me);
                     else
@@ -91,7 +91,6 @@ public:
             }
         }
     };
-
 };
 
 /*######
@@ -155,7 +154,6 @@ public:
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_isle_of_queldanas()

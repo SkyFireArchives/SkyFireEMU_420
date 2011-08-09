@@ -83,13 +83,12 @@ public:
             if (MothersMilk_Timer <= diff)
             {
                 DoCast(me, SPELL_MOTHERSMILK);
-                MothersMilk_Timer = urand(5000,12500);
+                MothersMilk_Timer = urand(5000, 12500);
             } else MothersMilk_Timer -= diff;
 
             DoMeleeAttackIfReady();
         }
     };
-
 };
 
 void AddSC_boss_mothersmolderweb()
