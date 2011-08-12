@@ -426,3 +426,5 @@ UPDATE emuopcodes SET number = 20257 WHERE name = "SMSG_TIME_SYNC_REQ" and versi
 UPDATE emuopcodes SET number = 49927 WHERE name = "SMSG_UPDATE_CURRENCY_WEEK_LIMIT" and version = @ver;
 UPDATE emuopcodes SET number = 10815 WHERE name = "SMSG_UPDATE_WORLD_STATE" and version = @ver;
 
+
+UPDATE emuopcodes SET number = 58986 WHERE name = "CMSG_SWAP_INV_ITEM" and version = @ver;

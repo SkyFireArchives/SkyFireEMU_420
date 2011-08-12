@@ -12,10 +12,11 @@ Teleporting
 Graveyard resurection
 Battlegrounds/Arenas
 Some map issues. Not sure if it's DB related.
-Bank
 Auctionhouse
 Guild System
-
 -----------------------
 Fixed issues
 -----------------------
+
+Power System
+Bank
