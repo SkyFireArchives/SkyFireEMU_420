@@ -13575,21 +13575,16 @@ void Unit::SetMaxHealth(uint32 val)
 
 void Unit::SetPower(Powers power, uint32 val)
 {
-    if (power > POWER_HAPPINESS)
-        return; // TODO: in 4.1 powers were cut to 5
-    if (GetPower(power) == val)
-        return;
-
     uint32 maxPower = GetMaxPower(power);
     if (maxPower < val)
         val = maxPower;
 
-    SetStatInt32Value(UNIT_FIELD_POWER1 + power, val);
+    SetStatInt32Value(UNIT_FIELD_POWER1 + GetPowerIndexByClass(power, getClass()), val);
 
     WorldPacket data(SMSG_POWER_UPDATE);
     data.append(GetPackGUID());
     data << uint32(1);  // count of updates. uint8 and uint32 for each
-    data << uint8(power);
+    data << uint8(GetPowerIndexByClass(power, getClass()));
     data << uint32(val);
     SendMessageToSet(&data, GetTypeId() == TYPEID_PLAYER ? true : false);
 
@@ -13617,10 +13612,8 @@ void Unit::SetPower(Powers power, uint32 val)
 
 void Unit::SetMaxPower(Powers power, uint32 val)
 {
-    if (power > POWER_HAPPINESS)
-        return; // TODO: in 4.1 powers were cut to 5
     uint32 cur_power = GetPower(power);
-    SetStatInt32Value(UNIT_FIELD_MAXPOWER1 + power, val);
+    SetStatInt32Value(UNIT_FIELD_MAXPOWER1 + GetPowerIndexByClass(power, getClass()), val);
 
     // group update
     if (GetTypeId() == TYPEID_PLAYER)
@@ -13660,7 +13653,7 @@ uint32 Unit::GetCreatePowers(Powers power) const
                 return 100;
             return (GetTypeId() == TYPEID_PLAYER || !((Creature const*)this)->isPet() || ((Pet const*)this)->getPetType() != HUNTER_PET ? 0 : 100);
         case POWER_ENERGY:      return 100;
-        case POWER_HAPPINESS:   return (GetTypeId() == TYPEID_PLAYER || !((Creature const*)this)->isPet() || ((Pet const*)this)->getPetType() != HUNTER_PET ? 0 : 1050000);
+        //case POWER_HAPPINESS:   return (GetTypeId() == TYPEID_PLAYER || !((Creature const*)this)->isPet() || ((Pet const*)this)->getPetType() != HUNTER_PET ? 0 : 1050000);
         case POWER_RUNE:        return (GetTypeId() == TYPEID_PLAYER && ((Player const*)this)->getClass() == CLASS_DEATH_KNIGHT ? 8 : 0);
         case POWER_RUNIC_POWER: return (GetTypeId() == TYPEID_PLAYER && ((Player const*)this)->getClass() == CLASS_DEATH_KNIGHT ? 1000 : 0);
         case POWER_SOUL_SHARDS: return (GetTypeId() == TYPEID_PLAYER && ((Player const*)this)->getClass() == CLASS_WARLOCK ? 3 : 0);

@@ -719,6 +719,13 @@ struct ChrRacesEntry
     //uint32                                                // 23 4.0.0
 };
 
+struct ChrPowerTypesEntry
+{
+   uint32 entry;                                               // 0
+   uint32 classId;                                             // 1
+   uint32 power;                                               // 2
+};
+
 /* not used
 struct CinematicCameraEntry
 {
