@@ -175,7 +175,8 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
         return;
     }
 
-    recv_data >> lang;
+    if (type != CHAT_MSG_EMOTE)
+        recv_data >> lang;
 
     if (type >= MAX_CHAT_MSG_TYPE)
     {
@@ -186,31 +187,35 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket & recv_data)
     //sLog->outDebug("CHAT: packet received. type %u, lang %u", type, lang);
 
     // prevent talking at unknown language (cheating)
-    LanguageDesc const* langDesc = GetLanguageDescByID(lang);
-    if (!langDesc)
+    if( type != CHAT_MSG_EMOTE )
     {
-        SendNotification(LANG_UNKNOWN_LANGUAGE);
-        return;
-    }
-    if (langDesc->skill_id != 0 && !_player->HasSkill(langDesc->skill_id))
-    {
-        // also check SPELL_AURA_COMPREHEND_LANGUAGE (client offers option to speak in that language)
-        Unit::AuraEffectList const& langAuras = _player->GetAuraEffectsByType(SPELL_AURA_COMPREHEND_LANGUAGE);
-        bool foundAura = false;
-        for (Unit::AuraEffectList::const_iterator i = langAuras.begin(); i != langAuras.end(); ++i)
+        LanguageDesc const* langDesc = GetLanguageDescByID(lang);
+        if (!langDesc)
         {
-            if ((*i)->GetMiscValue() == int32(lang))
-            {
-                foundAura = true;
-                break;
-            }
-        }
-        if (!foundAura)
-        {
-            SendNotification(LANG_NOT_LEARNED_LANGUAGE);
+            SendNotification(LANG_UNKNOWN_LANGUAGE);
             return;
         }
+        if (langDesc->skill_id != 0 && !_player->HasSkill(langDesc->skill_id))
+        {
+            // also check SPELL_AURA_COMPREHEND_LANGUAGE (client offers option to speak in that language)
+            Unit::AuraEffectList const& langAuras = _player->GetAuraEffectsByType(SPELL_AURA_COMPREHEND_LANGUAGE);
+            bool foundAura = false;
+            for (Unit::AuraEffectList::const_iterator i = langAuras.begin(); i != langAuras.end(); ++i)
+            {
+                if ((*i)->GetMiscValue() == int32(lang))
+                {
+                    foundAura = true;
+                    break;
+                }
+            }
+            if (!foundAura)
+            {
+                SendNotification(LANG_NOT_LEARNED_LANGUAGE);
+                return;
+            }
+        }
     }
+
 
     if (lang == LANG_ADDON)
     {
