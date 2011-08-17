@@ -953,14 +953,14 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                     }
                     return;
                 }
-                case 14185: // Glyph of Preparation
-		{
-		    if (m_caster->HasAura(56819))
-  		    {
-    		        m_caster->ToPlayer()->RemoveSpellCooldown(76577, true); // Smoke Bomb
-    		        m_caster->ToPlayer()->RemoveSpellCooldown(1766, true); // Kick
+                case 14185: // Glyph of Preparation 
+                {
+                    if (m_caster->HasAura(56819))
+                    {
+                        m_caster->ToPlayer()->RemoveSpellCooldown(76577, true); // Smoke Bomb
+                        m_caster->ToPlayer()->RemoveSpellCooldown(1766, true); // Kick
                         m_caster->ToPlayer()->RemoveSpellCooldown(51722, true); // Dismantle
-  		    }
+                    }
                     return;
                 }
                 case 17251:                                 // Spirit Healer Res
