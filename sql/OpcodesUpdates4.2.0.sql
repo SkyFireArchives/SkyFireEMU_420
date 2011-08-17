@@ -425,6 +425,10 @@ UPDATE emuopcodes SET number = 15038 WHERE name = "SMSG_TALENTS_INVOLUNTARILY_RE
 UPDATE emuopcodes SET number = 20257 WHERE name = "SMSG_TIME_SYNC_REQ" and version = @ver;
 UPDATE emuopcodes SET number = 49927 WHERE name = "SMSG_UPDATE_CURRENCY_WEEK_LIMIT" and version = @ver;
 UPDATE emuopcodes SET number = 10815 WHERE name = "SMSG_UPDATE_WORLD_STATE" and version = @ver;
-
-
 UPDATE emuopcodes SET number = 58986 WHERE name = "CMSG_SWAP_INV_ITEM" and version = @ver;
+
+UPDATE emuopcodes SET number = 14539 WHERE name = "MSG_MOVE_SET_RUN_MODE" and version = @ver;
+UPDATE emuopcodes SET number = 35049 WHERE name = "MSG_MOVE_SET_WALK_MODE" and version = @ver;
+UPDATE emuopcodes SET number = 29438 WHERE name = "CMSG_PET_ABANDON" and version = @ver;
+UPDATE emuopcodes SET number = 4176 WHERE name = "CMSG_ARENA_TEAM_CREATE" and version = @ver;
+UPDATE emuopcodes SET number = 20913 WHERE name = "CMSG_CHANNEL_DISPLAY_LIST" and version = @ver;
