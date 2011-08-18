@@ -72,10 +72,22 @@ typedef ACE_INT64 int64;
 typedef ACE_INT32 int32;
 typedef ACE_INT16 int16;
 typedef ACE_INT8 int8;
+#ifndef _UINT64 //Fix for Mac OS X 10.7
 typedef ACE_UINT64 uint64;
+#define _UINT64
+#endif
+#ifndef _UINT32 //Fix for Mac OS X 10.7
 typedef ACE_UINT32 uint32;
+#define _UINT32
+#endif
+#ifndef _UINT16 //Fix for Mac OS X 10.7
 typedef ACE_UINT16 uint16;
+#define _UINT16
+#endif
+#ifndef _UINT8 //Fix for Mac OS X 10.7
 typedef ACE_UINT8 uint8;
+#define _UINT8
+#endif
 
 enum
 {
