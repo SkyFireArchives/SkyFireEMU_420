@@ -2,6 +2,7 @@ bin/
 CMakeFiles/
 build/
 .directory
+.DS_Store
 .mailmap
 *.orig
 *.rej
