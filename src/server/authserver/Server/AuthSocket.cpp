@@ -640,7 +640,7 @@ bool AuthSocket::_HandleLogonProof()
         char data[4] = { AUTH_LOGON_PROOF, WOW_FAIL_UNKNOWN_ACCOUNT, 3, 0 };
         socket().send(data, sizeof(data));
 
-        sLog->outBasic("[AuthChallenge] account %s tried to login with wrong password!",_login.c_str ());
+        sLog->outBasic("[AuthChallenge] account %s tried to login with wrong password!", _login.c_str ());
 
         uint32 MaxWrongPassCount = sConfig->GetIntDefault("WrongPass.MaxCount", 0);
         if (MaxWrongPassCount > 0)
@@ -919,7 +919,7 @@ bool AuthSocket::_HandleXferResume()
     // Launch a PatcherRunnable thread starting at given patch file offset
     uint64 start;
     socket().recv_skip(1);
-    socket().recv((char*)&start,sizeof(start));
+    socket().recv((char*)&start, sizeof(start));
     fseek(pPatch, long(start), 0);
 
     ACE_Based::Thread u(new PatcherRunnable(this));
@@ -988,7 +988,7 @@ void Patcher::LoadPatchesInfo()
             int l = strlen(dp->d_name);
             if (l < 8)
                 continue;
-            if (!memcmp(&dp->d_name[l-4],".mpq",4))
+            if (!memcmp(&dp->d_name[l-4], ".mpq", 4))
                 LoadPatchMD5(dp->d_name);
         }
         else

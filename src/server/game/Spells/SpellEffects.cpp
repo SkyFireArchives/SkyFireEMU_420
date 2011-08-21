@@ -234,7 +234,7 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
     &Spell::EffectActivateSpec,                             //162 SPELL_EFFECT_TALENT_SPEC_SELECT       activate primary/secondary spec
     &Spell::EffectNULL,                                     //163 unused
     &Spell::EffectRemoveAura,                               //164 SPELL_EFFECT_REMOVE_AURA
-    &Spell::EffectNULL,                                     //165
+    &Spell::EffectDamageSelfPct,                            //165
     &Spell::EffectNULL,                                     //166
     &Spell::EffectNULL,                                     //167
     &Spell::EffectNULL,                                     //168
@@ -449,15 +449,15 @@ void Spell::SpellDamageSchoolDmg(SpellEffIndex effIndex)
                         damage = unitTarget->CountPctFromMaxHealth(damage);
                         break;
                     }
-					// Crystalspawn Giant - Quake
-					case 81008:
-					case 92631:
-					{
-						//avoid damage when players jumps
-						if (unitTarget->GetUnitMovementFlags() == MOVEMENTFLAG_JUMPING || unitTarget->GetTypeId() != TYPEID_PLAYER)
-							return;
-						break;
-					}
+                    // Crystalspawn Giant - Quake
+                    case 81008:
+                    case 92631:
+                    {
+                        //avoid damage when players jumps
+                        if (unitTarget->GetUnitMovementFlags() == MOVEMENTFLAG_JUMPING || unitTarget->GetTypeId() != TYPEID_PLAYER)
+                            return;
+                        break;
+                    }
                     // Gargoyle Strike
                     case 51963:
                     {
@@ -651,7 +651,7 @@ void Spell::SpellDamageSchoolDmg(SpellEffIndex effIndex)
                         m_caster->CastCustomSpell(m_caster, 32409, &back_damage, 0, 0, true);
                 }
                 // Mind Blast - applies Mind Trauma if:
-                else if (m_spellInfo->SpellFamilyFlags[2] & 0x00002000)
+                else if (m_spellInfo->Id == 8092)
                 {
                     // We are in Shadow Form
                     if (m_caster->GetShapeshiftForm() == FORM_SHADOW)
@@ -660,6 +660,10 @@ void Spell::SpellDamageSchoolDmg(SpellEffIndex effIndex)
                             // Chance has been successfully rolled
                             if (roll_chance_i(aurEff->GetAmount()))
                                 m_caster->CastSpell(unitTarget, 48301, true);
+
+                    //Mind Melt Aura remove
+                    m_caster->RemoveAurasDueToSpell(87160);
+                    m_caster->RemoveAurasDueToSpell(81292);
                 }
                 // Improved Mind Blast (Mind Blast in shadow form bonus)
                 else if (m_caster->GetShapeshiftForm() == FORM_SHADOW && (m_spellInfo->SpellFamilyFlags[0] & 0x00002000))
@@ -695,29 +699,41 @@ void Spell::SpellDamageSchoolDmg(SpellEffIndex effIndex)
                 // Starfire
                 else if (m_spellInfo->SpellFamilyFlags[0] & 0x00000004)
                 {
-                    if (m_caster->ToPlayer()->HasAura(16913))   // Tallent from Balance spec, there is no other way how to check spec :S
+                    if (m_caster->GetTypeId() == TYPEID_PLAYER)
                     {
-                        if (m_caster->HasAura(48517))
+                        if (m_caster->ToPlayer()->GetTalentBranchSpec(m_caster->ToPlayer()->GetActiveSpec()) == BS_DRUID_BALANCE)
                         {
-                            m_caster->RemoveAurasDueToSpell(48517);
-                            m_caster->SetEclipsePower(0);
-                        }
+                            if (m_caster->HasAura(48517))
+                            {
+                                m_caster->RemoveAurasDueToSpell(48517);
+                                m_caster->SetEclipsePower(0);
+                            }
+                            if (m_caster->GetEclipsePower() >= -20)
+                                if (m_caster->HasAura(48518))
+                                        m_caster->RemoveAurasDueToSpell(48518);
 
-                        m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 20));
+                            m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() + 20));
+                        }
                     }
                 }
                 // Wrath
                 else if (m_spellInfo->SpellFamilyFlags[0] & 0x00000001)
                 {
-                    if (m_caster->ToPlayer()->HasAura(16913))   // Tallent from Balance spec, there is no other way how to check spec :S
+                    if (m_caster->GetTypeId() == TYPEID_PLAYER)
                     {
-                        if (m_caster->HasAura(48518))
+                        if (m_caster->ToPlayer()->GetTalentBranchSpec(m_caster->ToPlayer()->GetActiveSpec()) == BS_DRUID_BALANCE)
                         {
-                            m_caster->RemoveAurasDueToSpell(48518);
-                            m_caster->SetEclipsePower(0);
-                        }
+                            if (m_caster->HasAura(48518))
+                            {
+                                m_caster->RemoveAurasDueToSpell(48518);
+                                m_caster->SetEclipsePower(0);
+                            }
+                            if (m_caster->GetEclipsePower() <= 13)
+                                if (m_caster->HasAura(48517))
+                                        m_caster->RemoveAurasDueToSpell(48517);
 
-                        m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 13));
+                            m_caster->SetEclipsePower(int32(m_caster->GetEclipsePower() - 13));
+                        }
                     }
                     // Improved Insect Swarm
                     if (AuraEffect const * aurEff = m_caster->GetDummyAuraEffect(SPELLFAMILY_DRUID, 1771, 0))
@@ -1527,7 +1543,7 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                 if (m_caster->HasAura(64976))
                 {
                     m_caster->CastSpell(m_caster, 65156, true);
-                    m_caster->CastSpell(m_caster, 96216, true);
+                    m_caster->ToPlayer()->AddSpellCooldown(20252, 0, time(NULL) + 30);
                 }
                 return;
             }
@@ -1584,7 +1600,7 @@ void Spell::EffectDummy(SpellEffIndex effIndex)
                 {
                     //Juggernaut CD part
                     if (m_caster->HasAura(64976))
-                        m_caster->CastSpell(m_caster, 96215, true);
+                        m_caster->ToPlayer()->AddSpellCooldown(100, 0, time(NULL) + 13); //15 - 2 from Juggernaut
                     return;
                 }
             }
@@ -6214,7 +6230,7 @@ void Spell::EffectDuel(SpellEffIndex effIndex)
     //END
 
     // Send request
-    WorldPacket data(SMSG_DUEL_REQUESTED, 8 + 8);
+    WorldPacket data(SMSG_DUEL_REQUESTED, 8 + 8, true);
     data << uint64(pGameObj->GetGUID());
     data << uint64(caster->GetGUID());
     caster->GetSession()->SendPacket(&data);
@@ -7876,4 +7892,15 @@ void Spell::EffectBind(SpellEffIndex effIndex)
     data << uint64(player->GetGUID());
     data << uint32(area_id);
     player->SendDirectMessage(&data);
+}
+void Spell::EffectDamageSelfPct(SpellEffIndex effIndex)
+{
+    if (!unitTarget || !unitTarget->isAlive() || damage < 0)
+        return;
+
+    // Skip if m_originalCaster not available
+    if (!m_originalCaster)
+        return;
+
+    m_damage += m_originalCaster->SpellDamageBonus(unitTarget, m_spellInfo, effIndex, unitTarget->CountPctFromMaxHealth(damage), SELF_DAMAGE);
 }

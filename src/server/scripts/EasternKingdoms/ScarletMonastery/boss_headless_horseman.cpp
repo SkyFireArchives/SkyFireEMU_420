@@ -641,7 +641,7 @@ public:
                                     if (plr)
                                     {
                                         plr->Say(Text[count], 0);
-                                        plr->HandleEmoteCommand(ANIM_EMOTESHOUT);
+                                        plr->HandleEmoteCommand(ANIM_EMOTE_SHOUT);
                                     }
                                     wp_reached = true;
                                     IsFlying = true;

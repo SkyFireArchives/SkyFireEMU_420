@@ -643,7 +643,7 @@ bool Guild::Member::LoadFromDB(Field* fields)
              fields[21].GetUInt8(),
              fields[22].GetUInt16(),
              fields[23].GetUInt32());
-    m_logoutTime    = fields[24].GetUInt64();
+    m_logoutTime    = fields[24].GetUInt32();
 
     if (!CheckStats())
         return false;
@@ -2799,7 +2799,7 @@ void Guild::_MoveItems(MoveItemData* pSrc, MoveItemData* pDest, uint32 splitedAm
             player->GetName(), player->GetGUIDLow(), pItemSrc->GetEntry(), tabId, slotId, destTabId, destSlotId, pItemSrc->GetEntry());
         //return; // Commented out for now, uncomment when it's verified that this causes a crash!!
     }
-    //*/
+    // */
 
     // 3. Check destination rights
     if (!pDest->HasStoreRights(pSrc))

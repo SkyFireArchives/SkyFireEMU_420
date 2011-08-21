@@ -848,6 +848,9 @@ bool SpellMgr::_isPositiveEffect(uint32 spellId, uint32 effIndex, bool deep) con
             // Slice and Dice
             else if (spellproto->SpellFamilyFlags[0] & 0x40000)
                 return true;
+            // Ignite
+            if (spellproto->SpellIconID == 45)
+                return true;
             break;
         case SPELLFAMILY_MAGE:
             // Amplify Magic, Dampen Magic
@@ -3775,7 +3778,7 @@ void SpellMgr::LoadSpellCustomAttr()
             count++;
             break;
         case 85673: // World of Glory
-        case 89023: // Blesse life (spell, not talent)
+        case 89023: // Blessed life (spell, not talent)
             spellInfo->Effect[1] = 0;
             count++;
             break;
@@ -3791,15 +3794,15 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectRadiusIndex[2] = 14;
             count++;
             break;
-        case 44543: //Fingers of Frost rank 1
+        case 44543: // Fingers of Frost rank 1
             spellInfo->procChance = 7;
             count++;
             break;
-        case 44545: //Fingers of Frost rank 2
+        case 44545: // Fingers of Frost rank 2
             spellInfo->procChance = 14;
             count++;
             break;
-        case 83074: //Fingers of Frost rank 3
+        case 83074: // Fingers of Frost rank 3
             spellInfo->procChance = 20;
             count++;
             break;
@@ -3807,17 +3810,17 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->EffectImplicitTargetA[0] = TARGET_DST_TARGET_ENEMY;
             count++;
             break;
-        case 82661: //Aspect of the Fox
+        case 82661: // Aspect of the Fox
             spellInfo->EffectApplyAuraName[0] = SPELL_AURA_PROC_TRIGGER_SPELL;
             count++;
             break;
-        case 87934: //Serpent Spread
+        case 87934: // Serpent Spread
         case 87935:
             spellInfo->Effect[0] = SPELL_EFFECT_APPLY_AURA;
             spellInfo->EffectApplyAuraName[0] = SPELL_AURA_PROC_TRIGGER_SPELL;
             count++;
             break;
-        case 88691: //Marked for Death Tracking
+        case 88691: // Marked for Death Tracking
             spellInfo->EffectApplyAuraName[0] = SPELL_AURA_MOD_STALKED;
             count++;
             break;
@@ -3897,14 +3900,29 @@ void SpellMgr::LoadSpellCustomAttr()
         case 35181:                             // Dive Bomb
         case 40810: case 43267: case 43268:     // Saber Lash
         case 42384:                             // Brutal Swipe
-        case 45150:                             // Meteor Slash
+        case 45150: case 95172: case 88942:     // Meteor Slash
         case 64422: case 64688:                 // Sonic Screech
         case 72373:                             // Shared Suffering
         case 71904:                             // Chaos Bane
         case 70492: case 72505:                 // Ooze Eruption
         case 72624: case 72625:                 // Ooze Eruption
+        case 89348: case 95178:                 // Demon Repellent Ray
             // ONLY SPELLS WITH SPELLFAMILY_GENERIC and EFFECT_SCHOOL_DAMAGE
             mSpellCustomAttr[i] |= SPELL_ATTR0_CU_SHARE_DAMAGE;
+            count++;
+            break;
+        case 88954:                             // Consuming Darkness
+            spellInfo->EffectRadiusIndex[0] = 12; // (100)
+            spellInfo->MaxAffectedTargets = 3;
+            count++;
+            break;
+        case 95173:                             // Consuming Darkness (H)
+            spellInfo->EffectRadiusIndex[0] = 12; // (100)
+            spellInfo->MaxAffectedTargets = 8;
+            count++;
+            break;
+        case 89000: case 95177:                 // Fel Firestorm
+            spellInfo->EffectRadiusIndex[0] = 15; // (3)
             count++;
             break;
         case 59725:                             // Improved Spell Reflection - aoe aura
@@ -4158,7 +4176,11 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->InterruptFlags |= SPELL_INTERRUPT_FLAG_INTERRUPT;
             count++;
             break;
-        case 26573 : //Consecration
+		case 44203: // Tranquility
+			spellInfo->MaxAffectedTargets = 5;
+			count++;
+			break;
+        case 26573: // Consecration
             spellInfo->EffectTriggerSpell[2] = 82366;
             count++;
             break;
@@ -4222,12 +4244,12 @@ void SpellMgr::LoadSpellCustomAttr()
             count++;
             break;
         case 81782: // Power Word : Barrier
-	        spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_TARGET_ALLY;
+            spellInfo->EffectImplicitTargetA[0] = TARGET_UNIT_TARGET_ALLY;
             spellInfo->EffectImplicitTargetA[1] = TARGET_UNIT_TARGET_ALLY;
             spellInfo->EffectImplicitTargetB[0] = TARGET_NONE;
             spellInfo->EffectImplicitTargetB[1] = TARGET_NONE;
             spellInfo->DurationIndex = 39;
-	        count++;
+            count++;
             break;
         // this is here until targetAuraSpell and alike support SpellDifficulty.dbc
         case 70459: // Ooze Eruption Search Effect
@@ -4314,11 +4336,11 @@ void SpellMgr::LoadSpellCustomAttr()
             spellInfo->procCharges = 1;
             count++;
             break;
-		case 81008: //Quake - Crystalspawn Giant
-		case 92631: //Quake - Crystalspawn Giant
-			spellInfo->EffectRadiusIndex[0] = 80;
-			count++;
-			break;
+        case 81008: //Quake - Crystalspawn Giant
+        case 92631: //Quake - Crystalspawn Giant
+            spellInfo->EffectRadiusIndex[0] = 80;
+            count++;
+            break;
         case 23126: // World Enlarger
             spellInfo->AuraInterruptFlags |= AURA_INTERRUPT_FLAG_SPELL_ATTACK;
             count++;

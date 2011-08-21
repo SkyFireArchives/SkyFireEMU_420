@@ -593,6 +593,17 @@ int32 AuraEffect::CalculateAmount(Unit *caster)
                         DoneActualBenefit *= caster->GetTotalAuraMultiplier(SPELL_AURA_MOD_HEALING_DONE_PERCENT);
                         amount = int32(DoneActualBenefit);
 
+                        if (caster->ToPlayer()->HasAuraType(SPELL_AURA_MASTERY))
+                        {
+                            if (caster->ToPlayer()->getClass() == CLASS_PRIEST)
+                            {
+                                if (caster->ToPlayer()->GetTalentBranchSpec(caster->ToPlayer()->GetActiveSpec()) == BS_PRIEST_DISCIPLINE)
+                                {
+                                    int32 bp = int32(amount * (0.2f + (0.025f * caster->ToPlayer()->GetMasteryPoints())));
+                                    amount += bp;
+                                }
+                            }
+                        }
                         return amount;
                     }
                     break;
@@ -1257,9 +1268,9 @@ void AuraEffect::UpdatePeriodic(Unit *caster)
                                     }
                                     else
                                     {
-                                        //**********************************************
+                                        // **********************************************
                                         // This feature uses only in arenas
-                                        //**********************************************
+                                        // **********************************************
                                         // Here need increase mana regen per tick (6 second rule)
                                         // on 0 tick -   0  (handled in 2 second)
                                         // on 1 tick - 166% (handled in 4 second)

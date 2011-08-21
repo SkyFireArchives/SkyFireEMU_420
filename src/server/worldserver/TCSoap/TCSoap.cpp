@@ -1,16 +1,13 @@
 /*
- * Copyright (C) 2005-2011 MaNGOS <http://www.getmangos.com/>
- *
- * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
- *
  * Copyright (C) 2010-2011 Project SkyFire <http://www.projectskyfire.org/>
+ * Copyright (C) 2008-2011 Trinity <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful, 
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -24,19 +21,9 @@
 #include "soapH.h"
 #include "soapStub.h"
 
-#define POOL_SIZE   5
-
 void TCSoapRunnable::run()
 {
-    // create pool
-    SOAPWorkingThread pool;
-    pool.activate (THR_NEW_LWP | THR_JOINABLE, POOL_SIZE);
-
     struct soap soap;
-
-    bool soapBound = false;
-    for (uint16 iteration = 1; iteration <= 30 && !soapBound; ++iteration)
-    {
     soap_init(&soap);
     soap_set_imode(&soap, SOAP_C_UTFSTRING);
     soap_set_omode(&soap, SOAP_C_UTFSTRING);
@@ -47,25 +34,13 @@ void TCSoapRunnable::run()
     soap.send_timeout = 5;
     if (soap_bind(&soap, m_host.c_str(), m_port, 100) < 0)
     {
-        sLog->outError("TCSoap: couldn't bind to %s:%d (attempt %d)", m_host.c_str(), m_port, iteration);
-        //exit(-1);
-        ACE_Based::Thread::Sleep(5000);
-    }
-    else
-    {
-        soapBound = true;
-    }
-    }
-
-    if (!soapBound)
-    {
-        sLog->outError("TCSoap: exiting process");
-        exit(1);
+        sLog->outError("TCSoap: couldn't bind to %s:%d", m_host.c_str(), m_port);
+        exit(-1);
     }
 
     sLog->outString("TCSoap: bound to http://%s:%d", m_host.c_str(), m_port);
 
-    while(!World::IsStopped())
+    while (!World::IsStopped())
     {
         if (!soap_valid_socket(soap_accept(&soap)))
             continue;   // ran into an accept timeout
@@ -74,22 +49,19 @@ void TCSoapRunnable::run()
         struct soap* thread_soap = soap_copy(&soap);// make a safe copy
 
         ACE_Message_Block *mb = new ACE_Message_Block(sizeof(struct soap*));
-        ACE_OS::memcpy (mb->wr_ptr(), &thread_soap, sizeof(struct soap*));
-        pool.putq(mb);
+        ACE_OS::memcpy(mb->wr_ptr(), &thread_soap, sizeof(struct soap*));
+        process_message(mb);
     }
-
-    pool.msg_queue()->deactivate();
-    pool.wait();
 
     soap_done(&soap);
 }
 
-void SOAPWorkingThread::process_message (ACE_Message_Block *mb)
+void TCSoapRunnable::process_message(ACE_Message_Block *mb)
 {
     ACE_TRACE (ACE_TEXT ("SOAPWorkingThread::process_message"));
 
     struct soap* soap;
-    ACE_OS::memcpy (&soap, mb->rd_ptr (), sizeof(struct soap*));
+    ACE_OS::memcpy(&soap, mb->rd_ptr (), sizeof(struct soap*));
     mb->release();
 
     soap_serve(soap);
@@ -152,9 +124,6 @@ int ns1__executeCommand(soap* soap, char* command, char** result)
         sLog->outError("TCSoap: Error while acquiring lock, acc = %i, errno = %u", acc, errno);
     }
 
-    connection.pendingCommandsMutex.acquire();
-    connection.pendingCommandsMutex.release();
-
     // alright, command finished
 
     char* printBuffer = soap_strdup(soap, connection.m_printBuffer.c_str());
@@ -171,9 +140,7 @@ void SOAPCommand::commandFinished(void* soapconnection, bool success)
 {
     SOAPCommand* con = (SOAPCommand*)soapconnection;
     con->setCommandSuccess(success);
-    con->pendingCommandsMutex.acquire();
     con->pendingCommands.release();
-    con->pendingCommandsMutex.release();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
