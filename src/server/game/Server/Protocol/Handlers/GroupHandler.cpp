@@ -66,8 +66,13 @@ void WorldSession::HandleGroupInviteOpcode(WorldPacket & recv_data)
 {
     std::string membername;
     uint32 unk; //groupType?
+
+    recv_data.read_skip<uint8>();
+    recv_data.read_skip<uint32>();
+    recv_data.read_skip<uint32>();
+    recv_data.read_skip<uint8>();
     recv_data >> membername;
-    recv_data >> unk; //in CMSG_GROUP_ACCEPT too.
+    // to do: finish packet struct
 
     // attempt add selected player
 
